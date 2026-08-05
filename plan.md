@@ -2,14 +2,17 @@
 
 Short standard instructions for agents working in this repo.
 
+**Client:** บริษัท แบล็ค การก่อสร้าง จำกัด / BLACK CONSTRUCTION CO., LTD.  
+**Agency:** Chokdee Online (landing build)
+
 ## Bootstrap (once)
 
 - [x] Keep `README.md` and this `plan.md` as the entry docs
 - [x] Ensure GitHub remote exists and `main` is pushed (required for Cursor Cloud)
 - [x] Verify the remote actually exists: `git ls-remote --symref origin HEAD` resolves `refs/heads/main`
 - [x] Add `.gitignore` for `node_modules/`, `dist/`, `.env`, `functions/lib/`, `.firebase/`
-- [ ] Finish Cloud environment setup via onboard URL (agent cannot create environments via API)
-- [ ] Create Cloud environment: New environment → select this repo → skip agent-led setup → Save (no build verify)
+- [x] Finish Cloud environment setup via onboard URL (agent cannot create environments via API)
+- [x] Create Cloud environment: New environment → select this repo → skip agent-led setup → Save (no build verify)
 
 After bootstrap, **stop**. The only tracked files should be `README.md` and `plan.md`
 (plus `.gitignore`). Do **not** scaffold, install, build, run, or test anything yet —
@@ -18,87 +21,116 @@ wait for the plan phase and for the plan to be written and approved.
 ## Plan phase (before any build)
 
 - [x] Write the site plan: sections, Thai-first copy outline, media list, contact flow
-- [ ] Confirm brief details (contact info, packages, brand direction)
+- [x] Confirm brief details (partial — see gaps below)
 - [ ] Get the plan reviewed and approved before starting the build phase
 
-### Site concept (draft — needs brief confirmation)
+### Brief (from client questionnaire + branding assets)
 
-Single-page bilingual landing for a Thai **construction / contractor** business (Chokdee client). Goal: conversion — Call, LINE, and form inquiry. Design: Apple Minimal / Chokdee Online (clean, professional, trustworthy). Not luxury-property glamourage.
+| Item | Decision |
+|------|----------|
+| Legal name (TH) | บริษัท แบล็ค การก่อสร้าง จำกัด |
+| Legal name (EN) | BLACK CONSTRUCTION CO., LTD. |
+| Display brand | แบล็ค การก่อสร้าง / Black Construction |
+| Phone | `086-886-9282` → `tel:+66868869282` |
+| Address | 3/6 ซอยคู้บอน 44 แขวงบางชัน เขตคลองสามวา กรุงเทพมหานคร 10510 |
+| Service area | กรุงเทพฯ และต่างจังหวัด |
+| Target clients | บ้านพักอาศัย · โรงงาน · อาคารสำนักงาน · โรงพยาบาล |
+| Services to promote | **Chokdee recommendation** — segment by those 4 project types (see below) |
+| Brand color | สีน้ำเงิน (official stamp + uniform); not the red logo variant |
+| Logo | Circular/oval seal: diamond–plumb-bob mark + TH/EN company name (blue ink) |
+| Photos | Client will send later — plan placeholders for v1 |
+| Inspiration sites | None |
 
-**Assumptions until brief confirms:** general residential + commercial build/renovate contractor in Thailand; primary CTAs are phone + LINE; form is consultation-style (name, email required, phone optional, message).
+### Site concept
+
+Single-page bilingual landing for **Black Construction**. Goal: conversion — Call, LINE, form. Design: Apple Minimal / Chokdee Online — clean, professional, trustworthy — with **navy / medium blue** accents from the company seal (avoid purple gradients, cream+terracotta cliché, or red brand variant).
+
+Hero composition (first viewport only): brand, one headline, one support line, one CTA group (Call + LINE + scroll-to-form), one full-bleed site photo. No cards, stats, or overlays in the hero.
+
+### Services (Chokdee picks — aligned to target clients)
+
+Promote **four project types** as the primary offer (not generic renovate packages):
+
+1. **บ้านพักอาศัย** — ก่อสร้าง / ต่อเติม / รีโนเวทบ้าน  
+2. **โรงงาน** — อาคารโรงงานและพื้นที่อุตสาหกรรม  
+3. **อาคารสำนักงาน** — สำนักงานและอาคารพาณิชย์  
+4. **โรงพยาบาล** — อาคารสถานพยาบาลและงานสถาบัน
+
+Supporting trust section: short **process** (สำรวจหน้างาน → เสนอแผน/ราคา → ก่อสร้างควบคุมคุณภาพ → ส่งมอบ) + service-area line (กทม. และต่างจังหวัด).
 
 ### Sections (v1)
 
 | # | Section | Purpose | Notes |
 |---|---------|---------|--------|
-| 1 | Sticky header | Brand + anchor nav (md+) + lang switcher + Call/LINE | Contact reachable without scrolling past hero |
-| 2 | Hero | Brand-first full-bleed: brand, one headline, one support line, one CTA group | No cards, no stats, no overlays |
-| 3 | Services | What we build/renovate (3–4 items) | One job: pick a service |
-| 4 | Why us / process | Trust + how engagement works | Short steps, not a feature dump |
-| 5 | Projects / gallery | Real work photos | Lazy-load; alt in copy files |
-| 6 | Contact | Form + phone + LINE fallbacks | `MobileContactBar` on `md:hidden` |
-| 7 | Footer | Legal/contact/address landmarks | Semantic `footer` / `address` |
+| 1 | Sticky header | Brand + logo mark + anchor nav (md+) + lang + Call/LINE | Contact before scroll past hero |
+| 2 | Hero | Brand-first full-bleed | Brand must survive “nav removed” test |
+| 3 | Services | Four project types above | One job: choose audience / project type |
+| 4 | Process / why us | Trust + how work starts | Bangkok + provinces callout here or footer |
+| 5 | Projects / gallery | Real site photos when provided | Placeholders OK until client sends |
+| 6 | Contact | Form + phone + LINE | `MobileContactBar` `md:hidden` |
+| 7 | Footer | Legal name, address, phone, reg. note optional | Semantic `footer` / `address` |
 
 ### Thai-first copy outline (`copy.th.json` → mirror `copy.en.json`)
 
-Stable keys (draft):
+Stable keys:
 
 - `seo.title` / `seo.description` / `seo.ogTitle` / `seo.ogDescription`
-- `nav.*` (home, services, projects, contact, lang)
-- `hero.brand` / `hero.headline` / `hero.sub` / `hero.ctaCall` / `hero.ctaLine` / `hero.ctaForm`
-- `services.title` / `services.sub` / `services.items.{id}.title` / `.body`
-- `process.title` / `process.sub` / `process.steps.{n}.title` / `.body`
-- `projects.title` / `projects.sub` / `projects.items.{id}.caption` + media alts
-- `contact.title` / `contact.sub` / `contact.form.*` (labels, placeholders, errors th+en) / success / error
-- `mobileBar.call` / `mobileBar.line`
-- `footer.*`
+- `nav.*` · `hero.brand` / `headline` / `sub` / `ctaCall` / `ctaLine` / `ctaForm`
+- `services.title` / `sub` / `items.residential|factory|office|hospital.title|body`
+- `process.title` / `sub` / `steps.{1-4}.title|body`
+- `projects.*` + media alts · `contact.*` (labels, placeholders, errors th+en) · `mobileBar.*` · `footer.*`
 
-Placeholder Thai direction (replace with client voice):
+Draft Thai direction:
 
-- Hero brand: ชื่อธุรกิจ (TBD)
-- Headline: สร้างและรีโนเวทอย่างมืออาชีพ — คุยแผนงานได้วันนี้
-- Sub: รับเหมาก่อสร้าง / ต่อเติม / รีโนเวท บ้านและอาคาร — ประเมินฟรีทางโทรหรือ LINE
+- Brand: แบล็ค การก่อสร้าง  
+- Headline: ก่อสร้างครบวงจร — บ้าน โรงงาน สำนักงาน และสถานพยาบาล  
+- Sub: รับงานกรุงเทพฯ และต่างจังหวัด · คุยแผนงานได้ทางโทรหรือ LINE  
 
 ### Media list (`media.json`)
 
 | Key | Asset | Notes |
 |-----|--------|--------|
-| `media.global.favicon` | `/assets/favicon.ico` | TBD |
+| `media.global.logo` | `/assets/logo-blue.svg` (or png) | Blue seal / plumb-bob mark |
+| `media.global.favicon` | `/assets/favicon.ico` | From logo |
 | `media.global.og` | `/assets/og.jpg` | 1200×630 |
-| `media.hero.image` | `/assets/hero.jpg` | Full-bleed site/project photo |
-| `media.projects.01` … `0n` | `/assets/projects/…` | Real project shots |
-| `media.services.*` (optional) | only if needed | Prefer photos over icons |
+| `media.hero.image` | `/assets/hero.jpg` | Full-bleed site photo — **awaiting client** |
+| `media.projects.01` … | `/assets/projects/…` | Worksite photos — **awaiting client** |
+| `media.brand.uniform` (optional) | shirt/back photo | Trust / about — only if client approves use |
 
-Alts/captions live in copy files, not `media.json`.
+Alts/captions in copy files only. Until photos arrive: compressed placeholder site imagery (clearly temporary), never fake logos.
 
 ### Contact flow
 
-- Client: `react-hook-form` + `zod`; Thai + English errors from copy
-- Callable: `httpsCallable(functions, "submitContact")` (name TBD at scaffold) → region `asia-southeast1`
-- Fields (consultation): name, email (required), phone (optional), message
+- Client: `react-hook-form` + `zod`; errors from copy (th + en)
+- Callable → `asia-southeast1`; Firestore first; Resend from `info@chokdee.online`; `escapeHtml`
+- Fields (business consultation): name, email (required), phone (optional but encouraged), message / project type
 - States: idle → submitting → success | error
-- Fallbacks beside form: `tel:+66…`, LINE deep link
-- Server: validate, Firestore first, Resend from `info@chokdee.online`, `escapeHtml`
-- Config (not copy): phone, email, LINE URL, site URL, Firebase `VITE_*` in `config.ts` / `.env.example`
+- Always show `tel:+66868869282` + LINE deep link near form and in `MobileContactBar`
+- Config in `config.ts`: phone, LINE URL, public email, address, site URL, Firebase `VITE_*`
+
+### Design tokens (draft)
+
+- Primary blue from seal/uniform (navy–medium blue, not purple)
+- Neutrals: cool gray / off-white (not pure black/white blocks)
+- Expressive sans for UI; avoid Inter/Roboto/Arial defaults
+- Motion: fade-in on scroll (2–3 intentional), no heavy parallax
 
 ### SEO / AEO baseline
 
-- `<html lang="th">` + `/th` `/en` routes or locale switcher
-- Title, description, OG; `robots.txt`, `sitemap.xml`
-- JSON-LD `LocalBusiness` (or `GeneralContractor`) when address/phone confirmed
+- `<html lang="th">` + `/th` · `/en`
+- Title/description/OG; `robots.txt`; `sitemap.xml`
+- JSON-LD `GeneralContractor` / `LocalBusiness` with name, phone, address, areaServed
 - Semantic landmarks throughout
 
-### Brief gaps — confirm before build
+### Remaining gaps before build
 
-- [ ] Legal / display business name (Thai + English)
-- [ ] Phone (`+66…`), LINE URL/ID, email, address / service area
-- [ ] Service list (e.g. บ้านใหม่ / รีโนเวท / ต่อเติม / อาคารพาณิชย์) and any packages/pricing
-- [ ] Brand direction: logo, colors, fonts (default = Apple Minimal / Chokdee)
-- [ ] Hero + project photos (or stock placeholders for v1)
-- [ ] Domain / Firebase project (`landing-chokdee` unless overridden)
-- [ ] Form field rules (email vs phone required)
+- [ ] LINE Official / personal ID or deep-link URL
+- [ ] Public contact email (if different from form routing)
+- [ ] Client project/team photos (or approve placeholders)
+- [ ] Domain + Firebase project confirm (`landing-chokdee` default)
+- [ ] Explicit plan approval + build-phase request
 
-**Approve this plan (and fill brief gaps) before any scaffold/build.**
+**Do not scaffold until this plan is approved and the gaps above are filled or explicitly deferred.**
 
 ## Build (only after the plan is approved and an explicit build phase begins)
 
@@ -112,6 +144,7 @@ Alts/captions live in copy files, not `media.json`.
 - [ ] All media URLs in `media.json`; contact/config in `config.ts`
 - [ ] Mobile-first conversion: Call + LINE + contact form; sticky mobile contact bar
 - [ ] SEO baseline: title/description/OG, `robots.txt`, `sitemap.xml`, semantic landmarks
+- [ ] Apply blue brand tokens + logo seal; four service segments as above
 
 ## Working rules
 

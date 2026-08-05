@@ -1,10 +1,10 @@
-# Construction
+# Black Construction
 
-Chokdee client landing / marketing site.
+Chokdee client landing / marketing site for **บริษัท แบล็ค การก่อสร้าง จำกัด** (BLACK CONSTRUCTION CO., LTD.).
 
 ## Status
 
-Plan phase. See [plan.md](./plan.md) for the site plan and build checklist. Do not scaffold until the plan is approved.
+Plan phase. See [plan.md](./plan.md) for the site plan, brief, and build checklist. Do not scaffold until the plan is approved.
 
 ## Stack
 
