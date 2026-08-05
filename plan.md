@@ -1,154 +1,434 @@
-# Construction — Agent Plan
+# Black Construction — แผนพัฒนาเว็บไซต์
 
-Short standard instructions for agents working in this repo.
+แผนนี้พร้อมสำหรับเริ่มพัฒนาหลังอนุมัติ — **ยังไม่เริ่มเขียนโค้ด** จนกว่าจะมีการอนุมัติแผนและสั่ง build phase อย่างชัดเจน
 
-**Client:** บริษัท แบล็ค การก่อสร้าง จำกัด / BLACK CONSTRUCTION CO., LTD.  
-**Agency:** Chokdee Online (landing build)
+| | |
+|---|---|
+| **ลูกค้า** | บริษัท แบล็ค การก่อสร้าง จำกัด / BLACK CONSTRUCTION CO., LTD. |
+| **แบรนด์แสดงผล** | แบล็ค การก่อสร้าง / Black Construction |
+| **เอเจนซี** | Chokdee Online |
+| **รูปแบบ** | Single-page landing (thin bilingual routes `/th` · `/en`) |
+| **สแต็ก** | Vite 6 + React 18 + TypeScript + Tailwind CSS 4 + Firebase Hosting / Callable Functions |
+| **สถานะ** | Plan phase — รออนุมัติ + ข้อมูลที่ยังขาด |
 
-## Bootstrap (once)
+---
 
-- [x] Keep `README.md` and this `plan.md` as the entry docs
-- [x] Ensure GitHub remote exists and `main` is pushed (required for Cursor Cloud)
-- [x] Verify the remote actually exists: `git ls-remote --symref origin HEAD` resolves `refs/heads/main`
-- [x] Add `.gitignore` for `node_modules/`, `dist/`, `.env`, `functions/lib/`, `.firebase/`
-- [x] Finish Cloud environment setup via onboard URL (agent cannot create environments via API)
-- [x] Create Cloud environment: New environment → select this repo → skip agent-led setup → Save (no build verify)
+## 1. เป้าหมายของเว็บไซต์
 
-After bootstrap, **stop**. The only tracked files should be `README.md` and `plan.md`
-(plus `.gitignore`). Do **not** scaffold, install, build, run, or test anything yet —
-wait for the plan phase and for the plan to be written and approved.
+### Primary goal
+ทำให้ผู้เข้าชม **ติดต่อบริษัทได้ทันที** ผ่านโทรศัพท์ · LINE · ฟอร์มสอบถาม — โดยไม่ต้องเลื่อนผ่าน hero ก็เห็นช่องทางติดต่อ
 
-## Plan phase (before any build)
+### Secondary goals
+- สื่อสารว่าบริษัทรับงาน **บ้าน · โรงงาน · สำนักงาน · โรงพยาบาล**
+- สร้างความน่าเชื่อถือ (แบรนด์น้ำเงิน · ที่อยู่จดทะเบียน · พื้นที่บริการ กทม. + ต่างจังหวัด)
+- รองรับ SEO พื้นฐานภาษาไทยเป็นหลัก อังกฤษคู่ขนาน
 
-- [x] Write the site plan: sections, Thai-first copy outline, media list, contact flow
-- [x] Confirm brief details (partial — see gaps below)
-- [ ] Get the plan reviewed and approved before starting the build phase
+### Success metrics (v1)
+- Call / LINE / form ใช้งานได้จริงบนมือถือ
+- ฟอร์มบันทึก Firestore และส่งอีเมล (เมื่อตั้งค่า Resend แล้ว)
+- โหลดสมเหตุสมผลบนมือถือ (รูปบีบอัด · JS น้อย)
+- Layout ตรวจที่ 375px · 768px · 1280px+
 
-### Brief (from client questionnaire + branding assets)
+---
 
-| Item | Decision |
-|------|----------|
-| Legal name (TH) | บริษัท แบล็ค การก่อสร้าง จำกัด |
-| Legal name (EN) | BLACK CONSTRUCTION CO., LTD. |
-| Display brand | แบล็ค การก่อสร้าง / Black Construction |
-| Phone | `086-886-9282` → `tel:+66868869282` |
-| Address | 3/6 ซอยคู้บอน 44 แขวงบางชัน เขตคลองสามวา กรุงเทพมหานคร 10510 |
-| Service area | กรุงเทพฯ และต่างจังหวัด |
-| Target clients | บ้านพักอาศัย · โรงงาน · อาคารสำนักงาน · โรงพยาบาล |
-| Services to promote | **Chokdee recommendation** — segment by those 4 project types (see below) |
-| Brand color | สีน้ำเงิน (official stamp + uniform); not the red logo variant |
-| Logo | Circular/oval seal: diamond–plumb-bob mark + TH/EN company name (blue ink) |
-| Photos | Client will send later — plan placeholders for v1 |
-| Inspiration sites | None |
+## 2. กลุ่มลูกค้าเป้าหมาย
 
-### Site concept
+| กลุ่ม | ความต้องการหลัก | ข้อความที่เน้น |
+|------|-----------------|---------------|
+| เจ้าของบ้าน / ผู้รีโนเวท | ก่อสร้างบ้าน ต่อเติม รีโนเวท | คุยแผนงานง่าย · ประเมินทางโทร/LINE |
+| เจ้าของโรงงาน / ผู้ประกอบการ | อาคารโรงงาน พื้นที่อุตสาหกรรม | รับงาน กทม. และต่างจังหวัด |
+| ผู้บริหารออฟฟิศ / อาคารพาณิชย์ | สำนักงาน อาคารใช้งาน | มาตรฐานงาน · ขั้นตอนชัด |
+| ผู้เกี่ยวข้องสถานพยาบาล | อาคารโรงพยาบาล / สถานพยาบาล | ความน่าเชื่อถือ · ประสบการณ์งานสถาบัน |
 
-Single-page bilingual landing for **Black Construction**. Goal: conversion — Call, LINE, form. Design: Apple Minimal / Chokdee Online — clean, professional, trustworthy — with **navy / medium blue** accents from the company seal (avoid purple gradients, cream+terracotta cliché, or red brand variant).
+**พื้นที่บริการ:** กรุงเทพมหานคร และต่างจังหวัดทั่วไทย
 
-Hero composition (first viewport only): brand, one headline, one support line, one CTA group (Call + LINE + scroll-to-form), one full-bleed site photo. No cards, stats, or overlays in the hero.
+---
 
-### Services (Chokdee picks — aligned to target clients)
+## 3. จุดเด่นของบริษัท (ใช้บนเว็บ)
 
-Promote **four project types** as the primary offer (not generic renovate packages):
+สรุปจาก brief + เอกสาร/แบรนด์ที่มี — ใช้เป็น trust signals ไม่แต่งข้อเท็จจริงเกินหลักฐาน
 
-1. **บ้านพักอาศัย** — ก่อสร้าง / ต่อเติม / รีโนเวทบ้าน  
-2. **โรงงาน** — อาคารโรงงานและพื้นที่อุตสาหกรรม  
-3. **อาคารสำนักงาน** — สำนักงานและอาคารพาณิชย์  
-4. **โรงพยาบาล** — อาคารสถานพยาบาลและงานสถาบัน
+1. **รับงานหลากประเภท** — บ้านพักอาศัย · โรงงาน · อาคารสำนักงาน · โรงพยาบาล  
+2. **พื้นที่กว้าง** — กรุงเทพฯ และต่างจังหวัด  
+3. **ติดต่อง่าย** — โทร `086-886-9282` + LINE (รอ URL) + ฟอร์มออนไลน์  
+4. **แบรนด์ชัด** — โลโก้ตราประทับสีน้ำเงิน · ชุดยูนิฟอร์มบริษัท  
+5. **นิติบุคคลจดทะเบียน** — บริษัท แบล็ค การก่อสร้าง จำกัด · ที่อยู่สำนักงานใหญ่ คู้บอน 44 คลองสามวา  
 
-Supporting trust section: short **process** (สำรวจหน้างาน → เสนอแผน/ราคา → ก่อสร้างควบคุมคุณภาพ → ส่งมอบ) + service-area line (กทม. และต่างจังหวัด).
+> จุดเด่นที่ยังไม่มีหลักฐาน (เช่น ปีประสบการณ์แบบตัวเลข · จำนวนโครงการ · ใบอนุญาตเฉพาะทาง) **ไม่ใส่บนเว็บ** จนกว่าลูกค้าจะยืนยัน
 
-### Sections (v1)
+---
 
-| # | Section | Purpose | Notes |
-|---|---------|---------|--------|
-| 1 | Sticky header | Brand + logo mark + anchor nav (md+) + lang + Call/LINE | Contact before scroll past hero |
-| 2 | Hero | Brand-first full-bleed | Brand must survive “nav removed” test |
-| 3 | Services | Four project types above | One job: choose audience / project type |
-| 4 | Process / why us | Trust + how work starts | Bangkok + provinces callout here or footer |
-| 5 | Projects / gallery | Real site photos when provided | Placeholders OK until client sends |
-| 6 | Contact | Form + phone + LINE | `MobileContactBar` `md:hidden` |
-| 7 | Footer | Legal name, address, phone, reg. note optional | Semantic `footer` / `address` |
+## 4. Sitemap
 
-### Thai-first copy outline (`copy.th.json` → mirror `copy.en.json`)
+โครงสร้างบางเบา — ไม่ทำ multi-page CMS ใน v1
 
-Stable keys:
+```
+/                     → redirect หรือ default locale = th
+├── /th               → หน้าหลัก (landing ภาษาไทย)
+└── /en               → หน้าหลัก (landing ภาษาอังกฤษ — คีย์เดียวกับ th)
 
-- `seo.title` / `seo.description` / `seo.ogTitle` / `seo.ogDescription`
-- `nav.*` · `hero.brand` / `headline` / `sub` / `ctaCall` / `ctaLine` / `ctaForm`
-- `services.title` / `sub` / `items.residential|factory|office|hospital.title|body`
-- `process.title` / `sub` / `steps.{1-4}.title|body`
-- `projects.*` + media alts · `contact.*` (labels, placeholders, errors th+en) · `mobileBar.*` · `footer.*`
+Anchor IDs (ภายในหน้า):
+#top | #services | #process | #projects | #contact
 
-Draft Thai direction:
+ไฟล์สาธารณะ:
+/robots.txt
+/sitemap.xml
+/assets/...
+```
 
+**นอกขอบเขต v1:** หน้าแยกต่อโปรเจกต์ · บล็อก · CMS · ระบบจองนัด · แอดมิน
+
+---
+
+## 5. โครงสร้างแต่ละหน้า
+
+ทั้ง `/th` และ `/en` ใช้โครงเดียวกัน — สลับเฉพาะสตริงจาก `copy.th.json` / `copy.en.json`
+
+```
+┌─────────────────────────────────────┐
+│ Header (sticky)                     │
+│  Logo · Nav anchors · Lang · Call/LINE │
+├─────────────────────────────────────┤
+│ Hero (full-bleed)                   │
+│  Brand · Headline · Sub · CTA group │
+├─────────────────────────────────────┤
+│ Services (#services)                │
+│  4 project types                    │
+├─────────────────────────────────────┤
+│ Process / Why us (#process)         │
+│  4 steps + service area             │
+├─────────────────────────────────────┤
+│ Projects (#projects)                │
+│  Gallery (lazy-load)                │
+├─────────────────────────────────────┤
+│ Contact (#contact)                  │
+│  Form + phone + LINE fallbacks      │
+├─────────────────────────────────────┤
+│ Footer                              │
+│  Legal · address · phone · links    │
+└─────────────────────────────────────┘
+     MobileContactBar (fixed, md:hidden)
+```
+
+`App.tsx` = composition เท่านั้น — ไม่ฝัง copy ยาวใน JSX
+
+---
+
+## 6. รายละเอียดแต่ละ Section
+
+### 6.1 Header
+- **หน้าที่:** นำทาง + ติดต่อเร็ว + สลับภาษา  
+- **องค์ประกอบ:** โลโก้/ชื่อแบรนด์ · anchor (บริการ · ขั้นตอน · ผลงาน · ติดต่อ) บน `md+` · ปุ่ม Call · ปุ่ม LINE (#06C755) · language switcher  
+- **พฤติกรรม:** sticky · บนมือถือย่อ nav เป็นลิงก์สำคัญหรือพึ่ง anchor + mobile bar  
+
+**Acceptance**
+- [ ] Call เปิด `tel:+66868869282`
+- [ ] LINE เปิด deep link ที่ยืนยันแล้ว
+- [ ] สลับ `/th` ↔ `/en` คงตำแหน่งหน้า/แองเคอร์
+- [ ] มองเห็นช่องทางติดต่อโดยไม่ต้องเลื่อนผ่าน hero
+
+### 6.2 Hero
+- **หน้าที่:** หนึ่ง composition — แบรนด์เด่น + หนึ่งหัวข้อ + หนึ่งประโยครอง + หนึ่งกลุ่ม CTA + ภาพเต็มจอ  
+- **ห้าม:** การ์ด · สถิติ · badge ลอย · pill cluster · overlay sticker  
+- **CTA:** โทร · LINE · เลื่อนไปฟอร์ม  
+
+**ร่างข้อความ (TH — ปรับตอนเขียน copy จริง)**
 - Brand: แบล็ค การก่อสร้าง  
 - Headline: ก่อสร้างครบวงจร — บ้าน โรงงาน สำนักงาน และสถานพยาบาล  
 - Sub: รับงานกรุงเทพฯ และต่างจังหวัด · คุยแผนงานได้ทางโทรหรือ LINE  
 
-### Media list (`media.json`)
+**Acceptance**
+- [ ] ลบ nav แล้วยังรู้ว่าเป็นแบรนด์ Black Construction
+- [ ] ภาพ full-bleed ไม่ใช่การ์ด inset
+- [ ] CTA ทั้งสามทำงานบนมือถือ
 
-| Key | Asset | Notes |
-|-----|--------|--------|
-| `media.global.logo` | `/assets/logo-blue.svg` (or png) | Blue seal / plumb-bob mark |
-| `media.global.favicon` | `/assets/favicon.ico` | From logo |
-| `media.global.og` | `/assets/og.jpg` | 1200×630 |
-| `media.hero.image` | `/assets/hero.jpg` | Full-bleed site photo — **awaiting client** |
-| `media.projects.01` … | `/assets/projects/…` | Worksite photos — **awaiting client** |
-| `media.brand.uniform` (optional) | shirt/back photo | Trust / about — only if client approves use |
+### 6.3 Services (`#services`)
+- **หน้าที่หนึ่งอย่าง:** ให้เลือกว่าสนใจงานประเภทไหน  
+- **รายการ (Chokdee เลือกตามกลุ่มลูกค้า):**
+  1. บ้านพักอาศัย — ก่อสร้าง / ต่อเติม / รีโนเวท  
+  2. โรงงาน — อาคารและพื้นที่อุตสาหกรรม  
+  3. อาคารสำนักงาน — สำนักงานและอาคารพาณิชย์  
+  4. โรงพยาบาล — อาคารสถานพยาบาล / งานสถาบัน  
+- **เลย์เอาต์:** กริด mobile-first · ไม่ใช้การ์ดถ้าไม่จำเป็นต่อการเข้าใจ (อนุญาตพื้นผิวเบาเมื่อช่วยสแกน)  
+- แต่ละรายการมี CTA รอง → ไป `#contact` (optional preselect ประเภทงาน)
 
-Alts/captions in copy files only. Until photos arrive: compressed placeholder site imagery (clearly temporary), never fake logos.
+**Acceptance**
+- [ ] มีครบ 4 ประเภท · หัวข้อ + ประโยครองสั้นต่อรายการ
+- [ ] สตริงมาจาก copy files ทั้ง th/en
+- [ ] ลิงก์ไปฟอร์มใช้งานได้
 
-### Contact flow
+### 6.4 Process / Why us (`#process`)
+- **หน้าที่:** ความน่าเชื่อถือ + วิธีเริ่มงาน  
+- **ขั้นตอน:** สำรวจหน้างาน → เสนอแผน/ราคา → ก่อสร้างควบคุมคุณภาพ → ส่งมอบ  
+- **เสริม:** บรรทัดพื้นที่บริการ (กทม. + ต่างจังหวัด) · ที่อยู่สำนักงาน (สั้น)
 
-- Client: `react-hook-form` + `zod`; errors from copy (th + en)
-- Callable → `asia-southeast1`; Firestore first; Resend from `info@chokdee.online`; `escapeHtml`
-- Fields (business consultation): name, email (required), phone (optional but encouraged), message / project type
-- States: idle → submitting → success | error
-- Always show `tel:+66868869282` + LINE deep link near form and in `MobileContactBar`
-- Config in `config.ts`: phone, LINE URL, public email, address, site URL, Firebase `VITE_*`
+**Acceptance**
+- [ ] 4 ขั้นตอนชัด อ่านบนมือถือไม่แน่น
+- [ ] ไม่ใส่ตัวเลข/รางวัลที่ยังไม่ยืนยัน
 
-### Design tokens (draft)
+### 6.5 Projects (`#projects`)
+- **หน้าที่:** แสดงงานจริง  
+- **พฤติกรรม:** lazy-load · alt th+en จาก copy  
+- **จนกว่าจะได้รูป:** placeholder ที่ระบุชัดว่าชั่วคราว — ไม่ปลอมโลโก้/ผลงาน
 
-- Primary blue from seal/uniform (navy–medium blue, not purple)
-- Neutrals: cool gray / off-white (not pure black/white blocks)
-- Expressive sans for UI; avoid Inter/Roboto/Arial defaults
-- Motion: fade-in on scroll (2–3 intentional), no heavy parallax
+**Acceptance**
+- [ ] URL รูปอยู่ใน `media.json` เท่านั้น
+- [ ] alt ไม่ hardcode ในคอมโพเนนต์
+- [ ] แกลเลอรีไม่ทำให้ LCP ของ hero พัง (lazy หลัง hero)
 
-### SEO / AEO baseline
+### 6.6 Contact (`#contact`)
+- **หน้าที่:** ส่งข้อความ + สำรองโทร/LINE  
+- **ฟอร์ม (consultation):** ชื่อ · อีเมล (required) · โทร (optional แต่แนะนำ) · ข้อความ · ประเภทงาน (optional select 4 ประเภท)  
+- **สแต็ก:** `react-hook-form` + `zod` · error th+en จาก copy · `httpsCallable` → `asia-southeast1`  
+- **สถานะ:** idle · submitting (spinner) · success · error  
+- **ข้างฟอร์ม:** โทร + LINE เสมอ  
+- **เซิร์ฟเวอร์:** validate · Firestore ก่อน · Resend จาก `info@chokdee.online` · `escapeHtml`
 
-- `<html lang="th">` + `/th` · `/en`
-- Title/description/OG; `robots.txt`; `sitemap.xml`
-- JSON-LD `GeneralContractor` / `LocalBusiness` with name, phone, address, areaServed
-- Semantic landmarks throughout
+**Acceptance**
+- [ ] validation แสดงไทยและอังกฤษตาม locale
+- [ ] success/error ชัด · ไม่รีเซ็ตโดยไม่ตั้งใจหลัง error
+- [ ] ปุ่มส่ง disabled ตอน submitting
+- [ ] โทร/LINE อยู่ใกล้ฟอร์มและใน mobile bar
 
-### Remaining gaps before build
+### 6.7 Footer
+- ชื่อนิติบุคคล · ที่อยู่เต็ม · โทร · ลิงก์สำคัญ · เครดิต Chokdee (ถ้านโยบายเอเจนซีต้องการ) · lang  
 
-- [ ] LINE Official / personal ID or deep-link URL
-- [ ] Public contact email (if different from form routing)
-- [ ] Client project/team photos (or approve placeholders)
-- [ ] Domain + Firebase project confirm (`landing-chokdee` default)
-- [ ] Explicit plan approval + build-phase request
+**Acceptance**
+- [ ] ใช้ landmark `footer` / `address`
+- [ ] ข้อมูลติดต่อตรง brief
 
-**Do not scaffold until this plan is approved and the gaps above are filled or explicitly deferred.**
+### 6.8 MobileContactBar
+- Fixed ล่างจอ · `md:hidden` · Call + LINE · ไม่บังเนื้อหาสำคัญ (padding-bottom บน `main`)
 
-## Build (only after the plan is approved and an explicit build phase begins)
+**Acceptance**
+- [ ] เห็นบน ≤767px · หายบน md+
+- [ ] ความสูงแตะ ≥ ~44px
 
-> Gate: do not start this section until the plan above is done **and** a build phase
-> is explicitly requested. Nothing here should run during bootstrap or planning.
+---
 
-- [ ] Scaffold Vite + React + TypeScript + Tailwind 4 (`@tailwindcss/vite`)
-- [ ] Commit `.env.example` only — never commit secrets
-- [ ] Follow standard layout: `src/app`, `src/components`, `src/content`, `src/lib`, `src/styles`, `functions/`
-- [ ] Bilingual from day one: Thai first in `copy.th.json`, mirror keys in `copy.en.json`
-- [ ] All media URLs in `media.json`; contact/config in `config.ts`
-- [ ] Mobile-first conversion: Call + LINE + contact form; sticky mobile contact bar
-- [ ] SEO baseline: title/description/OG, `robots.txt`, `sitemap.xml`, semantic landmarks
-- [ ] Apply blue brand tokens + logo seal; four service segments as above
+## 7. ข้อมูลและรูปภาพที่ต้องใช้
+
+### 7.1 Config (`src/content/config.ts` — ไม่ใส่ใน copy)
+
+| คีย์ | ค่าปัจจุบัน | สถานะ |
+|------|------------|--------|
+| `phoneDisplay` | 086-886-9282 | ✅ |
+| `phoneTel` | +66868869282 | ✅ |
+| `address` | 3/6 ซอยคู้บอน 44 แขวงบางชัน เขตคลองสามวา กรุงเทพมหานคร 10510 | ✅ |
+| `legalNameTh` / `legalNameEn` | ตามตาราง brief | ✅ |
+| `lineUrl` | — | ❌ รอลูกค้า |
+| `publicEmail` | — | ❌ รอลูกค้า (ถ้ามี) |
+| `siteUrl` | — | ❌ รอโดเมน |
+| `firebase` | `VITE_FIREBASE_*` | ❌ ตอน scaffold / `.env.example` |
+
+### 7.2 Copy (`copy.th.json` → mirror `copy.en.json`)
+
+ทุกสตริง UI · SEO · form · alt · aria — คีย์เสถียร เช่น `hero.headline`, `services.items.hospital.body`, `contact.form.email.error`
+
+### 7.3 Media (`media.json`)
+
+| คีย์ | ไฟล์เป้าหมาย | แหล่ง | สถานะ |
+|------|-------------|------|--------|
+| `media.global.logo` | `/assets/logo-blue.svg` (หรือ png) | ตราประทับน้ำเงิน | ❌ รอไฟล์โลโก้เวกเตอร์/PNG สะอาด |
+| `media.global.favicon` | `/assets/favicon.ico` | จากโลโก้ | ❌ |
+| `media.global.og` | `/assets/og.jpg` (1200×630) | ออกแบบตอน build | ❌ |
+| `media.hero.image` | `/assets/hero.jpg` | รูปหน้างาน | ❌ รอลูกค้า |
+| `media.projects.01`…`0n` | `/assets/projects/…` | รูปงานจริง | ❌ รอลูกค้า (แนะนำ ≥4) |
+| `media.brand.uniform` (optional) | `/assets/brand/uniform.jpg` | รูปหลังเสื้อยูนิฟอร์ม | ⚪ optional |
+
+**กฎ:** ไม่ hardcode path ใน JSX · alt/caption อยู่ใน copy เท่านั้น
+
+### 7.4 Brief อ้างอิง (ล็อกแล้ว)
+
+| รายการ | ค่า |
+|--------|-----|
+| สีแบรนด์ | สีน้ำเงิน (ไม่ใช้เวอร์ชันแดง) |
+| โลโก้ | ตราวงรี/วงกลม · เพชร/ลูกดิ่ง + ชื่อ TH/EN |
+| Inspiration site | ไม่มี |
+| รูปทีม/หน้างาน | รอส่ง |
+
+---
+
+## 8. รายการ React Components ที่ต้องสร้าง
+
+หนึ่งไฟล์ต่อหนึ่งส่วน/ชิ้น — named export · path alias `@` → `./src`
+
+### App / shell
+| Component | ไฟล์ | หน้าที่ |
+|-----------|------|---------|
+| `App` | `src/app/App.tsx` | Composition + routing locale |
+| (optional) `LocaleProvider` / helpers | `src/lib/i18n.ts` หรือเทียบเท่า | `getContent` · locale |
+
+### Sections / UI
+| Component | ไฟล์ | หน้าที่ |
+|-----------|------|---------|
+| `Header` | `src/components/Header.tsx` | Sticky nav · lang · Call/LINE |
+| `Hero` | `src/components/Hero.tsx` | Full-bleed hero composition |
+| `Services` | `src/components/Services.tsx` | 4 ประเภทงาน |
+| `Process` | `src/components/Process.tsx` | ขั้นตอนทำงาน |
+| `Projects` | `src/components/Projects.tsx` | แกลเลอรี |
+| `ContactForm` | `src/components/ContactForm.tsx` | ฟอร์ม + สถานะ |
+| `ContactSection` | `src/components/ContactSection.tsx` | หัวข้อ + ฟอร์ม + fallbacks (หรือรวมใน ContactForm ตามความเหมาะสม — หนึ่งหน้าที่ต่อไฟล์) |
+| `Footer` | `src/components/Footer.tsx` | ส่วนท้าย |
+| `MobileContactBar` | `src/components/MobileContactBar.tsx` | Fixed Call + LINE |
+
+### Lib / content (ไม่ใช่ UI แต่ต้องมี)
+| Module | ไฟล์ |
+|--------|------|
+| Firebase client | `src/lib/firebase.ts` |
+| Content helpers | `src/lib/content.ts` (หรือเทียบเท่า `getContent` / `getMedia`) |
+| Config | `src/content/config.ts` |
+| Copy / media | `src/content/copy.th.json`, `copy.en.json`, `media.json` |
+| Styles | `src/styles/index.css` (`@theme` tokens สีน้ำเงิน) |
+| Cloud Function | `functions/src/index.ts` (callable contact) |
+
+**ไม่อยู่ใน v1:** Next.js pages · CMS components · booking calendar · admin UI
+
+---
+
+## 9. แนวทาง Responsive
+
+| Breakpoint | พฤติกรรม |
+|------------|----------|
+| **≤375–767 (mobile first)** | Hero เต็มจอแนวตั้ง · Services 1 คอลัมน์ · Process แนวตั้ง · Gallery 1–2 คอลัมน์ · `MobileContactBar` แสดง · nav ย่อ |
+| **768–1279 (md)** | Sticky header + anchor nav · Services 2×2 · ซ่อน mobile bar · ฟอร์มและ fallback คู่กัน |
+| **≥1280 (lg+)** | กริดกว้างขึ้น · hero คุมสัดส่วนภาพ · ระยะหายใจมากขึ้น แต่ยัง composition เดียวใน viewport แรก |
+
+### กฎมือถือ (บังคับ)
+- ปุ่ม/อินพุตสูงขั้นต่ำ ~44px · `text-base` บนช่องกรอก (กัน iOS zoom)
+- ติดต่อได้จาก header หรือ sticky bar โดยไม่เลื่อนพ้น hero
+- ทดสอบจริงที่ 375 · 768 · 1280+
+- เลย์เอาต์ flex/grid · เลี่ยง absolute นอกที่จำเป็น
+- `padding-bottom` พอสำหรับ mobile bar
+
+---
+
+## 10. SEO Checklist
+
+- [ ] `<html lang="th">` และจัดการ locale `/th` · `/en` + `hreflang`
+- [ ] Title · meta description ต่อ locale (จาก copy)
+- [ ] Open Graph: title · description · image (`media.global.og`) · url · locale
+- [ ] `public/robots.txt` · `public/sitemap.xml` (รวม `/th` และ `/en`)
+- [ ] Landmarks: `header` · `main` · `section` · `footer` · `address`
+- [ ] Alt รูปภาษาไทยและอังกฤษจาก copy
+- [ ] JSON-LD `LocalBusiness` หรือ `GeneralContractor` (name · telephone · address · areaServed)
+- [ ] URL สะอาด · ไม่มี duplicate content ระหว่าง locale โดยไม่มี canonical/hreflang
+- [ ] รูปบีบอัดก่อน deploy · lazy-load แกลเลอรี
+- [ ] ไม่ hardcode สตริง SEO ในคอมโพเนนต์
+
+---
+
+## 11. แผนการ Deploy ด้วย Firebase Hosting
+
+### โครงไฟล์ที่ต้องมีตอน build phase
+```
+firebase.json          # hosting → dist/ · functions
+.firebaserc            # default project (ยืนยัน: landing-chokdee หรือโปรเจกต์ลูกค้า)
+.env.example           # VITE_FIREBASE_* เท่านั้น — ไม่ commit .env
+functions/             # callable asia-southeast1 + Resend
+```
+
+### ขั้นตอน deploy (หลัง build ผ่าน)
+```bash
+npm install
+cd functions && npm install && cd ..
+npm run build          # tsc -b && vite build → dist/
+firebase deploy        # Hosting + Functions (ต้อง Blaze สำหรับ Functions)
+```
+
+### ลำดับงาน deploy
+1. สร้าง/ยืนยัน Firebase project · เปิด Hosting · Functions · Firestore  
+2. ใส่ secrets บนเครื่อง/CI เท่านั้น (`VITE_*` · Resend · service account ตามมาตรฐาน Chokdee)  
+3. Deploy functions ก่อนหรือพร้อม hosting  
+4. ชี้โดเมนกำหนดเอง (เมื่อมี) · ตรวจ HTTPS  
+5. Smoke test: เปิด `/th` · `/en` · โทร · LINE · ส่งฟอร์มจริง  
+
+### Pre-launch checklist
+- [ ] Mobile 375 / 768 / 1280+
+- [ ] Call · LINE · form ครบ
+- [ ] Form → Firestore + email
+- [ ] `.env` ไม่ติด git · `.env.example` อัปเดต
+- [ ] Meta · OG · sitemap · robots
+- [ ] โหลดมือถือสมเหตุสมผล
+- [ ] Copy th+en พิสูจน์อักษร · ข้อมูลติดต่อตรง brief
+- [ ] สตริงใน copy · media ใน `media.json`
+
+**Deploy เฉพาะเมื่อมีการสั่ง** — ไม่ deploy ระหว่างวางแผน
+
+---
+
+## 12. Acceptance Criteria สรุปรวมต่อส่วน
+
+| ส่วน | ผ่านเมื่อ |
+|------|-----------|
+| **Header** | Sticky · Call/LINE/lang ใช้ได้ · ติดต่อเห็นก่อนเลื่อนพ้น hero |
+| **Hero** | Brand-first · 1 headline · 1 sub · 1 CTA group · full-bleed · ไม่มี clutter |
+| **Services** | 4 ประเภทครบ · th+en · ลิงก์ไปติดต่อ |
+| **Process** | 4 ขั้น + พื้นที่บริการ · ไม่มี claim ที่ไม่ยืนยัน |
+| **Projects** | สื่อจาก `media.json` · lazy · alt จาก copy |
+| **Contact** | RHF+zod · สถานะ 4 แบบ · callable · fallback โทร/LINE |
+| **Footer** | ชื่อนิติบุคคล · ที่อยู่ · โทร ถูกต้อง |
+| **Mobile bar** | `md:hidden` · Call+LINE · แตะง่าย |
+| **i18n** | th ต้นทาง · en คีย์เดียวกัน · ไม่มีสตริง hardcode |
+| **SEO** | ติ๊กครบหมวด 10 |
+| **Deploy** | `npm run build` ผ่าน · Firebase Hosting เสิร์ฟ `dist/` · form บน production ทดสอบได้ |
+
+---
+
+## 13. Design direction (ย่อ)
+
+- สไตล์: Apple Minimal / Chokdee Online — สะอาด น่าเชื่อถือ  
+- สีหลัก: navy / medium blue จากตราและยูนิฟอร์ม · ปุ่ม LINE `#06C755`  
+- หลีกเลี่ยง: ม่วงไล่เฉด · cream+terracotta · broadsheet · glow · pill หนา · เงาหลายชั้น  
+- ฟอนต์: expressive มีจุดประสงค์ — ไม่ใช้ Inter/Roboto/Arial/system เป็นค่าเริ่ม  
+- Motion: fade-in ตอนเลื่อน 2–3 จุด · ไม่ parallax หนัก  
+
+---
+
+## 14. Content key map (ร่าง)
+
+```
+seo.* · nav.* · hero.* · services.title|sub|items.{residential,factory,office,hospital}.*
+process.title|sub|steps.{1-4}.* · projects.* · contact.* · mobileBar.* · footer.*
+media.*.alt (ใน copy เท่านั้น)
+```
+
+---
+
+## 15. ข้อมูลที่ยังต้องการจากลูกค้า
+
+- [ ] **LINE** Official/personal URL หรือ ID  
+- [ ] **อีเมลสาธารณะ** (ถ้ามี แสดงบนเว็บ)  
+- [ ] **โลโก้ไฟล์สะอาด** (SVG/PNG พื้นโปร่ง · เวอร์ชันน้ำเงิน)  
+- [ ] **รูป hero + ผลงาน** (≥1 hero, ≥4 โครงการแนะนำ) หรืออนุมัติใช้ placeholder ชั่วคราว  
+- [ ] **โดเมน** + ยืนยัน Firebase project  
+- [ ] **อนุมัติแผนนี้** + สั่งเริ่ม build phase  
+
+---
+
+## 16. เกตเฟสงาน
+
+### Bootstrap — เสร็จแล้ว
+- [x] `README.md` · `plan.md` · `.gitignore` · remote `main` · Cloud env setup
+
+### Plan — อยู่ตรงนี้
+- [x] แผนพัฒนาครบหมวดด้านบน  
+- [ ] อนุมัติแผน + เติมช่องว่างหมวด 15 (หรือเลื่อนอย่างชัดเจน)
+
+### Build — ห้ามเริ่มจนกว่าจะได้รับอนุมัติและสั่งชัดเจน
+- [ ] Scaffold ตามสแต็กมาตรฐาน Chokdee  
+- [ ] Implement ตามหมวด 5–12  
+- [ ] ไม่ commit secrets  
+
+### Deploy — เมื่อสั่งเท่านั้น
+- [ ] ตามหมวด 11  
+
+---
 
 ## Working rules
 
-- [ ] Read this plan before large changes; check off items as they land
-- [ ] Do not invent alternate stacks (no Next.js / CRA / other CSS frameworks unless the brief requires it)
-- [ ] Keep v1 scope tight: conversion landing first; CMS/booking/ads are separate quotes
-- [ ] Prefer `/push-to-github` (or equivalent) to sync work; deploy only when asked
+- อ่านแผนนี้ก่อนงานใหญ่ · ติ๊ก acceptance เมื่อผ่าน  
+- ไม่เปลี่ยนสแต็ก (ห้าม Next.js / CRA / CSS framework อื่น เว้น brief บังคับ)  
+- v1 = conversion landing · CMS/booking/ads แยกใบเสนอราคา  
+- Copy ทั้งหมดใน language files · media ทั้งหมดใน `media.json`  
+- Deploy เฉพาะเมื่อถูกขอ  
