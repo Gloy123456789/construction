@@ -4,7 +4,7 @@ Chokdee client landing / marketing site.
 
 ## Status
 
-Bootstrap only. See [plan.md](./plan.md) for the build checklist.
+Plan phase. See [plan.md](./plan.md) for the site plan and build checklist. Do not scaffold until the plan is approved.
 
 ## Stack
 
