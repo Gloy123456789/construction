@@ -385,6 +385,45 @@ Footer
 
 ---
 
+## 7.5 โครงสร้างโปรเจกต์ (ตอน build phase)
+
+```
+แบล็ค ก่อสร้าง/            # repo: construction
+├── index.html
+├── package.json
+├── vite.config.ts         # @ → ./src · @tailwindcss/vite
+├── firebase.json          # hosting → dist/ · functions · SPA rewrites
+├── .firebaserc
+├── .env.example           # VITE_FIREBASE_* เท่านั้น — ไม่ commit .env
+├── TECHNICAL_PLAN.md       # ดัชนี/ชี้ไปฉบับ th/en
+├── TECHNICAL_PLAN.th.md    # แผนเทคนิคภาษาไทย
+├── TECHNICAL_PLAN.en.md    # แผนเทคนิคภาษาอังกฤษ
+├── public/
+│   ├── robots.txt
+│   ├── sitemap.xml
+│   └── assets/            # รูป/วิดีโอ/โลโก้ (optimize ก่อน deploy)
+├── functions/src/index.ts # callable asia-southeast1 + Resend + Firestore
+└── src/
+    ├── main.tsx
+    ├── app/App.tsx         # routing (react-router-dom) — composition เท่านั้น
+    ├── content/
+    │   ├── copy.th.json    # Thai first (source of truth)
+    │   ├── copy.en.json    # mirror keys
+    │   ├── media.json      # ทุก URL รูป/วิดีโอ/poster
+    │   └── config.ts       # phone · line · email · address · siteUrl · Firebase
+    ├── components/         # หนึ่ง section/ชิ้น = หนึ่งไฟล์ (§8)
+    ├── lib/firebase.ts
+    ├── lib/content.ts      # getContent / getMedia
+    └── styles/index.css    # @theme inline tokens สีน้ำเงิน
+```
+
+**หมายเหตุ:**
+- หน้าเพจ (`HomePage`, `ServicePage`, ฯลฯ §8) และ helper เพิ่ม (`i18n.ts` · `seo.ts` · `services.ts`) อยู่ภายใต้ `src/app/` · `src/lib/` · `src/content/` ตามโครงนี้ — โครงข้างบนเป็นไฟล์แกนขั้นต่ำที่ต้องมี
+- `TECHNICAL_PLAN.*` = เอกสารแผนเทคนิคในโปรเจกต์ (สองภาษา + ดัชนี) · `plan.md` / `README.md` ปัจจุบันยังเป็นเอกสารวางแผนหลักจนกว่าจะ scaffold แล้วแตกเป็น TECHNICAL_PLAN
+- ไม่ commit: `node_modules/` · `dist/` · `.env` · `functions/lib/` · `.firebase/`
+
+---
+
 ## 8. รายการ React Components ที่ต้องสร้าง
 
 ### App / routing
@@ -585,7 +624,8 @@ media.*.alt · media.portfolio.video.*.caption
 - [ ] อนุมัติแผน + เติมช่องว่างหมวด 15
 
 ### Build — ห้ามเริ่มจนกว่าจะได้รับอนุมัติและสั่งชัดเจน
-- [ ] Scaffold ตามสแต็ก Chokdee  
+- [ ] Scaffold ตามสแตก §0 + โครงสร้างโปรเจกต์ §7.5  
+- [ ] สร้าง `TECHNICAL_PLAN.md` + `TECHNICAL_PLAN.th.md` + `TECHNICAL_PLAN.en.md`  
 - [ ] Implement ตามแผน (รวมปัญหา→วิธีช่วย · เคส · รีวิว · Portfolio สื่อคุณภาพสูง)  
 - [ ] ไม่ commit secrets  
 
