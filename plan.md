@@ -36,16 +36,49 @@
 
 ---
 
+## 1.1 โอกาสในการช่วยให้ธุรกิจเติบโต
+
+สองเป้าหมายนี้กำหนดโครงสร้างเว็บ (ทำไมต้องมีหน้าเฉพาะต่อบริการ — ดู §4)
+
+### เป้าหมายที่ 1 — ช่วยให้ลูกค้าใหม่ค้นพบธุรกิจ
+
+ลูกค้าค้นผ่าน Google · Google Maps · ChatGPT · Google AI และผู้ช่วย AI อื่น ๆ เว็บต้องตอบ **5 คำถามแกน** ด้วยข้อความตรงไปตรงมา (ไม่ใช่ภาพหรือสโลแกนอย่างเดียว) เพราะเครื่องมือ AI อ่านข้อความและ structured data
+
+| คำถาม | ตอบที่ไหน | รูปแบบที่ AI/Google อ่านได้ |
+|-------|-----------|---------------------------|
+| **คุณคือใคร** | Hero · About สั้นใน footer/process · JSON-LD | ชื่อนิติบุคคลเต็ม TH/EN · ที่อยู่ · โทร |
+| **ให้บริการอะไร** | Services (หน้าแรก) + 4 หน้าเฉพาะบริการ | หัวข้อ + ขอบเขตงานเป็นข้อความ · JSON-LD `Service` |
+| **ช่วยใคร** | บล็อก "เหมาะกับใคร" ในทุกหน้าบริการ | ระบุกลุ่มลูกค้าตรง ๆ (เจ้าของบ้าน · โรงงาน · องค์กร · สถานพยาบาล) |
+| **ทำไมควรเลือกแบล็ค การก่อสร้าง** | Why us / process · ผลงาน | เหตุผลที่พิสูจน์ได้ · ไม่ใช้ claim ลอย |
+| **ให้บริการพื้นที่ใด** | Hero · ทุกหน้าบริการ · footer | **กรุงเทพฯ · ปริมณฑล · ต่างจังหวัด** + `areaServed` ใน JSON-LD |
+
+**กลไกที่ต้องมี:** หน้าเฉพาะต่อบริการ (§4) · JSON-LD ต่อหน้า (§10) · sitemap ครบทุก URL · internal link ระหว่างบริการ · เนื้อหาข้อความจริงในแต่ละหน้า (ไม่ใช่หน้าเปล่าที่มีแต่รูป)
+
+### เป้าหมายที่ 2 — เปลี่ยนผู้เข้าชมให้เป็นลูกค้า
+
+ผู้เข้าชมต้องได้คำตอบ **ภายในไม่กี่วินาที**
+
+| คำถามของผู้เข้าชม | ตอบด้วย | ตำแหน่ง |
+|-------------------|---------|---------|
+| บริษัทนี้ช่วยฉันได้ไหม | Headline ระบุประเภทงาน + "เหมาะกับใคร" | Hero (§6.2) · Services (§6.3) |
+| ทำไมฉันควรเชื่อถือ | ผลงานภาพ/วิดีโอจริง · ขั้นตอนชัด · ข้อมูลนิติบุคคล | Process (§6.4) · Projects (§6.5) · Footer (§6.7) |
+| บริการไหนเหมาะกับฉัน | 4 กลุ่มงานแยกชัด + ลิงก์เข้าหน้าเฉพาะ | Services (§6.3) → หน้าบริการ (§4) |
+| ติดต่อได้อย่างไร | โทร · LINE · ฟอร์ม เห็นตลอด | Header · MobileContactBar · Contact (§6.6) |
+
+**เกณฑ์วัด:** ผู้ใช้มือถือใหม่ตอบได้ทั้ง 4 ข้อโดยเลื่อนไม่เกิน ~2 หน้าจอ และกดติดต่อได้จากทุกจุดของหน้า
+
+---
+
 ## 2. กลุ่มลูกค้าเป้าหมาย
 
 | กลุ่ม | ความต้องการหลัก | ข้อความที่เน้น |
 |------|-----------------|---------------|
 | เจ้าของบ้าน / ผู้รีโนเวท | ก่อสร้างบ้าน ต่อเติม รีโนเวท | คุยแผนงานง่าย · ประเมินทางโทร/LINE |
-| เจ้าของโรงงาน / ผู้ประกอบการ | อาคารโรงงาน พื้นที่อุตสาหกรรม | รับงาน กทม. และต่างจังหวัด |
+| เจ้าของโรงงาน / ผู้ประกอบการ | อาคารโรงงาน พื้นที่อุตสาหกรรม | รับงาน กทม. ปริมณฑล และต่างจังหวัด |
 | ผู้บริหารออฟฟิศ / อาคารพาณิชย์ | สำนักงาน อาคารใช้งาน | มาตรฐานงาน · ขั้นตอนชัด |
 | ผู้เกี่ยวข้องสถานพยาบาล | อาคารโรงพยาบาล / สถานพยาบาล | ความน่าเชื่อถือ · ประสบการณ์งานสถาบัน |
 
-**พื้นที่บริการ:** กรุงเทพมหานคร และต่างจังหวัดทั่วไทย
+**พื้นที่บริการ:** กรุงเทพมหานคร · ปริมณฑล · ต่างจังหวัดทั่วไทย
 
 ---
 
@@ -54,7 +87,7 @@
 สรุปจาก brief + เอกสาร/แบรนด์ที่มี — ใช้เป็น trust signals ไม่แต่งข้อเท็จจริงเกินหลักฐาน
 
 1. **ความเชี่ยวชาญหลายด้าน** — รับงานบ้านพักอาศัย · โรงงาน · อาคารสำนักงาน · โรงพยาบาล (สื่อว่ามีประสบการณ์หลากประเภทงาน)  
-2. **พื้นที่กว้าง** — กรุงเทพฯ และต่างจังหวัด  
+2. **พื้นที่กว้าง** — กรุงเทพฯ · ปริมณฑล · ต่างจังหวัด  
 3. **ผลงานจริง** — ภาพถ่ายและวิดีโอคุณภาพสูงจากหน้างาน  
 4. **ติดต่อง่าย** — โทร `086-886-9282` + LINE (รอ URL) + ฟอร์มออนไลน์  
 5. **แบรนด์ชัด** — โลโก้ตราประทับสีน้ำเงิน · ชุดยูนิฟอร์มบริษัท  
@@ -81,7 +114,7 @@
 สิ่งที่ **เพิ่มจากของเดิม** เพื่อสื่อว่าบริษัทโตและรับงานกว้างขึ้น
 
 1. **จากงานเดียว → สี่กลุ่มงาน** — บ้าน · โรงงาน · สำนักงาน · โรงพยาบาล เป็นโครงหลักของ section บริการ (§6.3)
-2. **จากพื้นที่จำกัด → กทม. + ต่างจังหวัด** — ประกาศพื้นที่บริการชัดใน hero/process/footer
+2. **จากพื้นที่จำกัด → กทม. + ปริมณฑล + ต่างจังหวัด** — ประกาศพื้นที่บริการชัดใน hero · ทุกหน้าบริการ · footer
 3. **จากรูปนิ่ง → ภาพถ่าย + วิดีโอคุณภาพสูง** — แกลเลอรีรองรับวิดีโอพร้อม poster (§6.5)
 4. **จากไทยอย่างเดียว → ไทย + อังกฤษ** — รองรับลูกค้าองค์กร/ต่างชาติ (`/th` · `/en`)
 5. **จากติดต่อพื้นฐาน → ฟอร์มมีประเภทงาน** — คัดกรอง lead ตามกลุ่มงานตั้งแต่ต้น (§6.6)
@@ -92,23 +125,42 @@
 
 ## 4. Sitemap
 
-โครงสร้างบางเบา — ไม่ทำ multi-page CMS ใน v1
+โครงสร้าง: หน้าแรก (conversion) + **หน้าเฉพาะต่อบริการ** (discovery) — ยังไม่ใช้ CMS ใน v1
 
 ```
-/                     → redirect หรือ default locale = th
-├── /th               → หน้าหลัก (landing ภาษาไทย)
-└── /en               → หน้าหลัก (landing ภาษาอังกฤษ — คีย์เดียวกับ th)
+/                                  → redirect → /th
+├── /th                            → หน้าแรก (landing ภาษาไทย)
+│   └── /th/services/
+│       ├── residential            → บ้านพักอาศัย
+│       ├── factory                → โรงงาน
+│       ├── office                 → อาคารสำนักงาน
+│       └── hospital               → โรงพยาบาล / สถานพยาบาล
+└── /en                            → หน้าแรก (ภาษาอังกฤษ · คีย์เดียวกับ th)
+    └── /en/services/{same 4 slugs}
 
-Anchor IDs (ภายในหน้า):
+Anchor IDs (ในหน้าแรก):
 #top | #services | #process | #projects | #contact
 
 ไฟล์สาธารณะ:
-/robots.txt
-/sitemap.xml
-/assets/...
+/robots.txt   /sitemap.xml   /assets/...
 ```
 
-**นอกขอบเขต v1:** หน้าแยกต่อโปรเจกต์ · บล็อก · CMS · ระบบจองนัด · แอดมิน
+**ทำไมต้องมีหน้าเฉพาะต่อบริการ:** ผู้ค้นหาพิมพ์เจาะจง (เช่น "รับสร้างโรงงาน ปทุมธานี") และผู้ช่วย AI ต้องการหน้าที่ตอบเรื่องเดียวชัด ๆ — หน้าแยกทำให้ index ได้ตรงคำค้น และใส่ JSON-LD `Service` + พื้นที่บริการต่อบริการได้
+
+**นอกขอบเขต v1:** หน้าแยกต่อโปรเจกต์รายชิ้น · บล็อก · CMS · ระบบจองนัด · แอดมิน
+
+### หน้าเฉพาะบริการ — โครงมาตรฐาน (ใช้ template เดียว 4 หน้า)
+
+| ลำดับ | บล็อก | ตอบคำถาม |
+|-------|-------|----------|
+| 1 | Hero ย่อยของบริการ (หัวข้อ + ประโยครอง + CTA โทร/LINE) | บริการนี้ใช่สิ่งที่ฉันต้องการไหม |
+| 2 | ขอบเขตงาน (bullet ที่ทำจริง) | ครอบคลุมอะไรบ้าง |
+| 3 | เหมาะกับใคร | ช่วยฉันได้ไหม |
+| 4 | ขั้นตอนทำงาน (ย่อจากหน้าแรก) | เริ่มยังไง |
+| 5 | ผลงานที่เกี่ยวข้อง (กรองตามประเภท) | ทำได้จริงไหม |
+| 6 | พื้นที่ให้บริการ (กทม. · ปริมณฑล · ต่างจังหวัด) | รับงานที่ฉันอยู่ไหม |
+| 7 | CTA + ฟอร์ม (preselect ประเภทงาน) | ติดต่อยังไง |
+| 8 | ลิงก์ไปบริการอื่น + กลับหน้าแรก | (internal linking สำหรับ SEO) |
 
 ---
 
@@ -167,7 +219,7 @@ Anchor IDs (ภายในหน้า):
 **ร่างข้อความ (TH — ปรับตอนเขียน copy จริง)**
 - Brand: แบล็ค การก่อสร้าง  
 - Headline: ก่อสร้างครบวงจร — บ้าน โรงงาน สำนักงาน และสถานพยาบาล  
-- Sub: รับงานกรุงเทพฯ และต่างจังหวัด · คุยแผนงานได้ทางโทรหรือ LINE  
+- Sub: รับงานกรุงเทพฯ ปริมณฑล และต่างจังหวัด · คุยแผนงานได้ทางโทรหรือ LINE  
 
 **Acceptance**
 - [ ] ลบ nav แล้วยังรู้ว่าเป็นแบรนด์ Black Construction
@@ -192,7 +244,7 @@ Anchor IDs (ภายในหน้า):
 ### 6.4 Process / Why us (`#process`)
 - **หน้าที่:** ความน่าเชื่อถือ + วิธีเริ่มงาน  
 - **ขั้นตอน:** สำรวจหน้างาน → เสนอแผน/ราคา → ก่อสร้างควบคุมคุณภาพ → ส่งมอบ  
-- **เสริม:** บรรทัดพื้นที่บริการ (กทม. + ต่างจังหวัด) · ที่อยู่สำนักงาน (สั้น)
+- **เสริม:** บรรทัดพื้นที่บริการ (กทม. · ปริมณฑล · ต่างจังหวัด) · ที่อยู่สำนักงาน (สั้น)
 
 **Acceptance**
 - [ ] 4 ขั้นตอนชัด อ่านบนมือถือไม่แน่น
@@ -289,30 +341,46 @@ Anchor IDs (ภายในหน้า):
 
 หนึ่งไฟล์ต่อหนึ่งส่วน/ชิ้น — named export · path alias `@` → `./src`
 
-### App / shell
+### App / routing / shell
 | Component | ไฟล์ | หน้าที่ |
 |-----------|------|---------|
-| `App` | `src/app/App.tsx` | Composition + routing locale |
-| (optional) `LocaleProvider` / helpers | `src/lib/i18n.ts` หรือเทียบเท่า | `getContent` · locale |
+| `App` | `src/app/App.tsx` | Composition + routing (`/th`, `/en`, `/{locale}/services/{slug}`) |
+| `HomePage` | `src/app/HomePage.tsx` | ประกอบ section หน้าแรก |
+| `ServicePage` | `src/app/ServicePage.tsx` | Template หน้าเฉพาะบริการ (ใช้ซ้ำ 4 slug) |
+| `NotFound` | `src/app/NotFound.tsx` | 404 พร้อมลิงก์กลับ + ติดต่อ |
+| `SiteLayout` | `src/components/SiteLayout.tsx` | Header + main + Footer + MobileContactBar |
+| `Seo` | `src/components/Seo.tsx` | title · meta · OG · canonical · hreflang · JSON-LD ต่อหน้า |
+| Locale helpers | `src/lib/i18n.ts` | `getContent` · locale · สร้างลิงก์ข้ามภาษา |
 
-### Sections / UI
+### Sections / UI (หน้าแรก)
 | Component | ไฟล์ | หน้าที่ |
 |-----------|------|---------|
-| `Header` | `src/components/Header.tsx` | Sticky nav · lang · Call/LINE |
+| `Header` | `src/components/Header.tsx` | Sticky nav · lang · Call/LINE · เมนูบริการ |
 | `Hero` | `src/components/Hero.tsx` | Full-bleed hero composition |
-| `Services` | `src/components/Services.tsx` | 4 ประเภทงาน |
+| `Services` | `src/components/Services.tsx` | 4 ประเภทงาน + ลิงก์เข้าหน้าเฉพาะ |
 | `Process` | `src/components/Process.tsx` | ขั้นตอนทำงาน |
-| `Projects` | `src/components/Projects.tsx` | แกลเลอรี |
-| `ContactForm` | `src/components/ContactForm.tsx` | ฟอร์ม + สถานะ |
-| `ContactSection` | `src/components/ContactSection.tsx` | หัวข้อ + ฟอร์ม + fallbacks (หรือรวมใน ContactForm ตามความเหมาะสม — หนึ่งหน้าที่ต่อไฟล์) |
-| `Footer` | `src/components/Footer.tsx` | ส่วนท้าย |
+| `Projects` | `src/components/Projects.tsx` | แกลเลอรีรูป + วิดีโอ (รับ prop กรองประเภท) |
+| `ContactForm` | `src/components/ContactForm.tsx` | ฟอร์ม + สถานะ (รับ `defaultServiceType`) |
+| `ContactSection` | `src/components/ContactSection.tsx` | หัวข้อ + ฟอร์ม + fallbacks |
+| `Footer` | `src/components/Footer.tsx` | ส่วนท้าย + ลิงก์ทุกบริการ |
 | `MobileContactBar` | `src/components/MobileContactBar.tsx` | Fixed Call + LINE |
+
+### ชิ้นส่วนของหน้าบริการ
+| Component | ไฟล์ | หน้าที่ |
+|-----------|------|---------|
+| `ServiceHero` | `src/components/service/ServiceHero.tsx` | หัวข้อบริการ + CTA |
+| `ServiceScope` | `src/components/service/ServiceScope.tsx` | ขอบเขตงานที่ทำจริง |
+| `ServiceAudience` | `src/components/service/ServiceAudience.tsx` | "เหมาะกับใคร" |
+| `ServiceAreas` | `src/components/service/ServiceAreas.tsx` | กทม. · ปริมณฑล · ต่างจังหวัด |
+| `RelatedServices` | `src/components/service/RelatedServices.tsx` | ลิงก์ไปบริการอื่น (internal linking) |
 
 ### Lib / content (ไม่ใช่ UI แต่ต้องมี)
 | Module | ไฟล์ |
 |--------|------|
 | Firebase client | `src/lib/firebase.ts` |
-| Content helpers | `src/lib/content.ts` (หรือเทียบเท่า `getContent` / `getMedia`) |
+| Content helpers | `src/lib/content.ts` (`getContent` / `getMedia`) |
+| SEO/JSON-LD helpers | `src/lib/seo.ts` (สร้าง schema ต่อหน้า) |
+| Service registry | `src/content/services.ts` (slug ↔ คีย์ copy ↔ media ↔ ประเภทฟอร์ม) |
 | Config | `src/content/config.ts` |
 | Copy / media | `src/content/copy.th.json`, `copy.en.json`, `media.json` |
 | Styles | `src/styles/index.css` (`@theme` tokens สีน้ำเงิน) |
@@ -339,18 +407,34 @@ Anchor IDs (ภายในหน้า):
 
 ---
 
-## 10. SEO Checklist
+## 10. SEO / AEO Checklist
 
-- [ ] `<html lang="th">` และจัดการ locale `/th` · `/en` + `hreflang`
-- [ ] Title · meta description ต่อ locale (จาก copy)
-- [ ] Open Graph: title · description · image (`media.global.og`) · url · locale
-- [ ] `public/robots.txt` · `public/sitemap.xml` (รวม `/th` และ `/en`)
-- [ ] Landmarks: `header` · `main` · `section` · `footer` · `address`
-- [ ] Alt รูปภาษาไทยและอังกฤษจาก copy
-- [ ] JSON-LD `LocalBusiness` หรือ `GeneralContractor` (name · telephone · address · areaServed)
-- [ ] URL สะอาด · ไม่มี duplicate content ระหว่าง locale โดยไม่มี canonical/hreflang
-- [ ] รูปบีบอัดก่อน deploy · lazy-load แกลเลอรี
+### พื้นฐานทุกหน้า
+- [ ] `<html lang="th">` และจัดการ locale `/th` · `/en` + `hreflang` (รวม `x-default`)
+- [ ] Title · meta description **ไม่ซ้ำกันทุกหน้า** (หน้าแรก + 4 บริการ × 2 ภาษา = 10 ชุด) จาก copy
+- [ ] Canonical ต่อหน้า
+- [ ] Open Graph: title · description · image · url · locale
+- [ ] Landmarks: `header` · `main` · `section` · `footer` · `address` · breadcrumb บนหน้าบริการ
+- [ ] Alt/caption ภาษาไทยและอังกฤษจาก copy
 - [ ] ไม่ hardcode สตริง SEO ในคอมโพเนนต์
+
+### หน้าเฉพาะบริการ (discovery)
+- [ ] 1 หน้า = 1 บริการ = 1 คำค้นหลัก · slug อ่านออก (`/th/services/factory`)
+- [ ] เนื้อหาข้อความจริงพอให้ index ได้ (ไม่ใช่หน้าที่มีแต่รูป)
+- [ ] มีบล็อกตอบ 5 คำถามแกน (§1.1) ครบในทุกหน้า
+- [ ] Internal link: หน้าแรก → บริการ · บริการ → บริการอื่น · บริการ → ติดต่อ
+- [ ] `sitemap.xml` ครบทุก URL ทั้งสองภาษา · `robots.txt` ไม่บล็อก
+
+### Structured data (สำคัญกับผู้ช่วย AI)
+- [ ] JSON-LD `GeneralContractor` / `LocalBusiness` — `name` · `telephone` · `address` · `areaServed` (กทม. · ปริมณฑล · ต่างจังหวัด) · `url` · `image`
+- [ ] JSON-LD `Service` ต่อหน้าบริการ — `serviceType` · `provider` · `areaServed` · `audience`
+- [ ] `BreadcrumbList` บนหน้าบริการ
+- [ ] (ถ้าลูกค้าให้ข้อมูล) `openingHours` · Google Business Profile · `sameAs` โซเชียล
+- [ ] คำตอบสั้น ๆ แบบอ่านรู้เรื่องทันที (ใครคือเรา · ทำอะไร · ที่ไหน) อยู่ใน HTML ไม่ใช่รูปภาพ
+
+### ประสิทธิภาพ
+- [ ] รูป/วิดีโอบีบอัดก่อน deploy · lazy-load แกลเลอรี · hero ไม่ lazy
+- [ ] หน้าโหลดสมเหตุสมผลบนมือถือ 4G
 
 ---
 
@@ -358,11 +442,13 @@ Anchor IDs (ภายในหน้า):
 
 ### โครงไฟล์ที่ต้องมีตอน build phase
 ```
-firebase.json          # hosting → dist/ · functions
+firebase.json          # hosting → dist/ · functions · SPA rewrite → /index.html
 .firebaserc            # default project (ยืนยัน: landing-chokdee หรือโปรเจกต์ลูกค้า)
 .env.example           # VITE_FIREBASE_* เท่านั้น — ไม่ commit .env
 functions/             # callable asia-southeast1 + Resend
 ```
+
+**สำคัญกับหน้าเฉพาะบริการ:** ตั้ง rewrite ให้ทุก route (`/th/services/*`, `/en/services/*`) เสิร์ฟ `index.html` มิฉะนั้นเปิด URL ตรงจะ 404 · ตรวจว่า Google เข้าถึงแต่ละ URL ได้จริงหลัง deploy
 
 ### ขั้นตอน deploy (หลัง build ผ่าน)
 ```bash
@@ -377,14 +463,16 @@ firebase deploy        # Hosting + Functions (ต้อง Blaze สำหรั
 2. ใส่ secrets บนเครื่อง/CI เท่านั้น (`VITE_*` · Resend · service account ตามมาตรฐาน Chokdee)  
 3. Deploy functions ก่อนหรือพร้อม hosting  
 4. ชี้โดเมนกำหนดเอง (เมื่อมี) · ตรวจ HTTPS  
-5. Smoke test: เปิด `/th` · `/en` · โทร · LINE · ส่งฟอร์มจริง  
+5. Smoke test: เปิด `/th` · `/en` · **ทั้ง 4 หน้าบริการทั้งสองภาษาแบบพิมพ์ URL ตรง** · โทร · LINE · ส่งฟอร์มจริง  
+6. ส่ง `sitemap.xml` เข้า Google Search Console · ตรวจ Rich Results ของ JSON-LD  
 
 ### Pre-launch checklist
 - [ ] Mobile 375 / 768 / 1280+
 - [ ] Call · LINE · form ครบ
 - [ ] Form → Firestore + email
 - [ ] `.env` ไม่ติด git · `.env.example` อัปเดต
-- [ ] Meta · OG · sitemap · robots
+- [ ] Meta · OG · sitemap · robots · JSON-LD ผ่าน Rich Results Test
+- [ ] ทุก URL หน้าบริการเปิดตรงได้ (ไม่ 404) · title/description ไม่ซ้ำ
 - [ ] โหลดมือถือสมเหตุสมผล
 - [ ] Copy th+en พิสูจน์อักษร · ข้อมูลติดต่อตรง brief
 - [ ] สตริงใน copy · media ใน `media.json`
@@ -405,6 +493,9 @@ firebase deploy        # Hosting + Functions (ต้อง Blaze สำหรั
 | **Contact** | RHF+zod · สถานะ 4 แบบ · callable · fallback โทร/LINE |
 | **Footer** | ชื่อนิติบุคคล · ที่อยู่ · โทร ถูกต้อง |
 | **Mobile bar** | `md:hidden` · Call+LINE · แตะง่าย |
+| **หน้าบริการ** | 4 slug × 2 ภาษา เข้าถึงได้ · ตอบ 5 คำถามแกน · ฟอร์ม preselect ประเภทงาน · internal link ครบ |
+| **Discovery (เป้า 1)** | title/description ไม่ซ้ำทุกหน้า · JSON-LD `LocalBusiness` + `Service` · sitemap ครบ · พื้นที่บริการระบุชัด |
+| **Conversion (เป้า 2)** | ผู้ใช้มือถือใหม่ตอบได้ 4 คำถาม (§1.1) ในราว 2 หน้าจอ · กดติดต่อได้ทุกจุด |
 | **i18n** | th ต้นทาง · en คีย์เดียวกัน · ไม่มีสตริง hardcode |
 | **SEO** | ติ๊กครบหมวด 10 |
 | **Baseline เดิม** | ทันสมัย · ใช้ง่าย · มือถือ · มืออาชีพ · ติดต่อชัด — ครบตาม §3.1 ไม่ถอยหลังจากเว็บเดิม |
@@ -443,6 +534,9 @@ media.*.alt · media.projects.video.*.caption (ใน copy เท่านั้
 - [ ] **วิดีโอผลงาน** (ถ้ามี — .mp4 + poster) หรือยืนยันว่า v1 ใช้ภาพนิ่งอย่างเดียว  
 - [ ] ยืนยันโทนสีน้ำเงินฐานจากรูปเสื้อ (อนุมัติค่าที่ sample) และอนุมัติใช้รูปเสื้อยูนิฟอร์มบนเว็บหรือไม่  
 - [ ] **URL เว็บไซต์ปัจจุบัน** (ถ้ามี) — เพื่อตรวจสิ่งที่ต้องคงไว้ · ผลงานเดิม · ลิงก์/SEO ที่ควร redirect  
+- [ ] **ขอบเขตงานจริงของแต่ละบริการ** (บ้าน · โรงงาน · สำนักงาน · โรงพยาบาล) — 4–6 bullet ต่อบริการ เพื่อให้แต่ละหน้ามีเนื้อหาพอ index ได้  
+- [ ] **จังหวัด/พื้นที่ที่รับงานบ่อย** — ใช้เขียน `areaServed` และหัวข้อค้นหาเชิงพื้นที่  
+- [ ] **Google Business Profile** (ถ้ามี) — เชื่อมกับ Google Maps · เวลาทำการ · โซเชียลสำหรับ `sameAs`  
 - [ ] **โดเมน** + ยืนยัน Firebase project  
 - [ ] **อนุมัติแผนนี้** + สั่งเริ่ม build phase  
 
