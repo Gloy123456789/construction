@@ -25,9 +25,18 @@
 
 **ถ้อยคำ Construction (ล็อก):** นำเสนอบริการออกแบบและก่อสร้างโดยอาศัยความร่วมมือกับพันธมิตรที่มีความเชี่ยวชาญ
 
-## สแต็ก (ล็อกแล้ว)
+## สแตกเทคนิค (ห้ามเปลี่ยน)
 
-Vite 6 + React 18 + TypeScript + Tailwind CSS 4 + Firebase Hosting / Callable Functions
+| ชั้น | ใช้สิ่งนี้ |
+|------|-----------|
+| Frontend | Vite 6 + React 18 + TypeScript |
+| Styling | Tailwind CSS 4 (`@tailwindcss/vite`) |
+| Routing | `react-router-dom` (locale + หลายหน้า) |
+| Icons | `lucide-react` |
+| Forms | `react-hook-form` + `zod` + `@hookform/resolvers/zod` |
+| Hosting | Firebase Hosting → `dist/` |
+| Backend | Callable Functions `asia-southeast1` + Resend + Firestore |
+| Maps | Google Maps iframe embed (เมื่อมีที่อยู่) |
 
 ## ติดต่อด่วน (จาก brief)
 

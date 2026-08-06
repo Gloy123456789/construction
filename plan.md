@@ -8,8 +8,27 @@
 | **แบรนด์แสดงผล** | แบล็ค การก่อสร้าง / Black Construction |
 | **เอเจนซี** | Chokdee Online |
 | **รูปแบบ** | Multi-page bilingual (`/th` · `/en`) — หน้าแรก + 4 เสาบริการ + Portfolio + About + Contact |
-| **สแต็ก** | Vite 6 + React 18 + TypeScript + Tailwind CSS 4 + Firebase Hosting / Callable Functions |
+| **สแต็ก** | **ห้ามเปลี่ยน** — ดู §0 ด้านล่าง |
 | **สถานะ** | Plan phase — รออนุมัติ + ข้อมูลที่ยังขาด |
+
+---
+
+## 0. สแตกเทคนิค (ห้ามเปลี่ยน)
+
+| ชั้น | ใช้สิ่งนี้ |
+|------|-----------|
+| **Frontend** | Vite 6 + React 18 + TypeScript |
+| **Styling** | Tailwind CSS 4 (`@tailwindcss/vite`) |
+| **Routing** | `react-router-dom` (locale + หลายหน้า) |
+| **Icons** | `lucide-react` |
+| **Forms** | `react-hook-form` + `zod` + `@hookform/resolvers/zod` |
+| **Hosting** | Firebase Hosting → `dist/` |
+| **Backend** | Callable Functions `asia-southeast1` + Resend + Firestore |
+| **Maps** | Google Maps iframe embed (เมื่อมีที่อยู่) |
+
+**ห้าม:** Next.js · CRA · CSS framework อื่น · router อื่น · form lib อื่น · hosting อื่น — เว้น brief สั่งเปลี่ยนชัดเจน
+
+Path alias: `@` → `./src` · build: `tsc -b && vite build` · ภูมิภาค Functions: `asia-southeast1`
 
 ---
 
@@ -583,7 +602,8 @@ media.*.alt · media.portfolio.video.*.caption
 ## Working rules
 
 - อ่านแผนนี้ก่อนงานใหญ่ · ติ๊ก acceptance เมื่อผ่าน  
-- ไม่เปลี่ยนสแต็ก (ห้าม Next.js / CRA / CSS framework อื่น เว้น brief บังคับ)  
+- ไม่เปลี่ยนสแตก (§0) — ห้าม Next.js / CRA / CSS framework อื่น / router อื่น / form lib อื่น  
 - v1 = conversion + discovery multi-page · บล็อก/CMS/booking/ads เป็นเฟสถัดไป  
 - Copy ใน language files · media ใน `media.json`  
+- Routing ด้วย `react-router-dom` ตามตาราง §0 เท่านั้น  
 - Deploy เฉพาะเมื่อถูกขอ  
