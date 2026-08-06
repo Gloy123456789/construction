@@ -573,7 +573,7 @@ firebase deploy   # ต้อง Blaze สำหรับ Functions
 | **Contact** | หลายช่องทาง + ฟอร์ม (ชื่อ · **อีเมลจำเป็น** · **โทรไม่บังคับ** · ข้อความ) · โทร/LINE ใกล้ฟอร์ม · RHF+zod · 4 สถานะ · callable |
 | **i18n routes** | default `th` · สวิตช์ภาษาคง path คู่ทุกหน้า · `/` → `/th` |
 | **Header / Mobile bar** | ติดต่อชัดทุกหน้า · sticky / `md:hidden` |
-| **Discovery** | 16 ชุด meta ไม่ซ้ำ · JSON-LD · sitemap · SPA rewrite |
+| **Discovery / SEO·AEO (§10)** | `<html lang>` ตาม locale · hreflang th/en · title/description/OG ต่อหน้าไม่ซ้ำ · robots+sitemap ครบทุก route สองภาษา · JSON-LD Organization/LocalBusiness + Service · alt th+en ใน copy · AEO who/what/who-for/why/where บนฮับและทุกบริการ |
 | **Conversion** | ตอบ 4 คำถามผู้เข้าชมได้เร็ว · กดติดต่อได้ทุกหน้า |
 | **Baseline** | ทันสมัย · ใช้ง่าย · มือถือ · มืออาชีพ · ติดต่อชัด (§3.1) |
 | **แนวทาง (§3.2)** | อ่านเป็นแบรนด์เดียว · ฮับแล้วเจาะบริการ · SEO/AI แยกหัวข้อได้ · ขยายผลงาน/เคสได้โดยไม่รื้อโครง |
