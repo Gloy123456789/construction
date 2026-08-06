@@ -496,30 +496,38 @@ Footer
 
 ---
 
-## 10. SEO / AEO Checklist
+## 10. SEO / AEO พื้นฐาน
 
-### พื้นฐานทุกหน้า
-- [ ] `lang` + `/th`·`/en` + `hreflang` (+ `x-default`)
-- [ ] Title · description **ไม่ซ้ำ** ทุกหน้า (8 หน้า × 2 ภาษา = 16 ชุด)
-- [ ] Canonical · Open Graph ต่อหน้า
-- [ ] Landmarks + breadcrumb บนหน้าบริการ/Portfolio/About/Contact
-- [ ] Alt/caption จาก copy · ไม่ hardcode สตริง SEO
+### Checklist (บังคับ v1)
 
-### Discovery
-- [ ] 1 เสาบริการ = 1 URL · slug อ่านออก (`/th/real-estate` ฯลฯ)
-- [ ] เนื้อหาข้อความจริงพอ index ได้
-- [ ] Internal link: หน้าแรก ↔ บริการ ↔ Portfolio ↔ Contact
-- [ ] `sitemap.xml` ครบ · `robots.txt` ไม่บล็อก
-- [ ] Firebase SPA rewrite ครอบทุก path (กัน 404 ตอนเปิด URL ตรง)
+| รายการ | ข้อกำหนด |
+|--------|----------|
+| **`<html lang>`** | ตาม locale — `th` บน `/th…` · `en` บน `/en…` |
+| **hreflang** | คู่ `th` / `en` ทุกหน้า + `x-default` (ชี้ชุดไทยหรือฮับตามมาตรฐานที่เลือก) |
+| **Title · description · Open Graph** | **ต่อหน้า** ไม่ซ้ำ (8 หน้า × 2 ภาษา = 16 ชุด) จาก copy — รวม `og:title` · `og:description` · `og:image` · `og:url` · `og:locale` |
+| **robots.txt · sitemap.xml** | `public/robots.txt` · `public/sitemap.xml` **ครบทุก route ทั้งสองภาษา** (ฮับ + 4 บริการ + Portfolio + About + Contact × th/en) |
+| **JSON-LD** | `Organization` และ/หรือ `LocalBusiness` บนไซต์ · **บริการที่เกี่ยวข้อง** (`Service`) บนแต่ละหน้าเสาบริการ · ผูก `provider` / `areaServed` |
+| **Alt ไทย+อังกฤษ** | อยู่ในไฟล์ copy เท่านั้น (`media.*.alt` ใน `copy.th.json` / `copy.en.json`) — ไม่ hardcode ใน JSX |
+| **AEO** | ตอบชัด **who / what / who-for / why / where** บน**หน้าแรก**และ**แต่ละบริการ** ด้วยข้อความใน HTML (ไม่ฝังเฉพาะในรูป) |
 
-### Structured data
-- [ ] `LocalBusiness` / `GeneralContractor` — name · telephone · address · areaServed · url · image
-- [ ] `Service` ต่อหน้าเสาบริการ
-- [ ] `BreadcrumbList` · (ถ้ามี) `sameAs` · Google Business Profile
-- [ ] คำตอบแกนอยู่ใน HTML ไม่ใช่รูปอย่างเดียว
+### AEO — แมปคำถามแกน (หน้าแรก + ทุกหน้าบริการ)
 
-### ประสิทธิภาพ
-- [ ] บีบอัดสื่อ · lazy แกลเลอรี · hero ไม่ lazy
+| คำถาม | หมายถึง | ตำแหน่งเนื้อหา |
+|-------|---------|----------------|
+| **who** | คุณคือใคร | Hero / About สั้น · JSON-LD name |
+| **what** | ให้บริการอะไร | ภาพรวม 4 เสา (ฮับ) · รายการบริการ (หน้าบริการ) |
+| **who-for** | ช่วยใคร | บล็อกเหมาะกับใคร / กลุ่มลูกค้า |
+| **why** | ทำไมควรเลือก | ความน่าเชื่อถือ · ปัญหา→คุณค่า · ถ้อยคำพันธมิตร (Construction) |
+| **where** | ให้บริการที่ไหน | กทม. · ปริมณฑล · ต่างจังหวัด · `areaServed` |
+
+### รายละเอียดเพิ่ม (รองรับ checklist)
+
+- [ ] Canonical ต่อหน้า · landmarks (`header` · `main` · `section` · `footer` · `address`) · breadcrumb บนหน้าบริการ/Portfolio/About/Contact  
+- [ ] Internal link: ฮับ ↔ บริการ ↔ Portfolio ↔ Contact  
+- [ ] Firebase SPA rewrite ครอบทุก path (กัน 404 ตอนเปิด URL ตรง / ให้ crawler เข้าถึงได้ผ่าน sitemap)  
+- [ ] (ถ้ามี) `sameAs` · Google Business Profile · `BreadcrumbList`  
+- [ ] บีบอัดสื่อ · lazy แกลเลอรี · hero ไม่ lazy  
+- [ ] ไม่ hardcode สตริง SEO ในคอมโพเนนต์  
 
 ---
 
