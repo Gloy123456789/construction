@@ -637,13 +637,26 @@ media.*.alt · media.portfolio.video.*.caption
 - [ ] อนุมัติแผน + เติมช่องว่างหมวด 15
 
 ### Build — ห้ามเริ่มจนกว่าจะได้รับอนุมัติและสั่งชัดเจน
-- [ ] Scaffold ตามสแตก §0 + โครงสร้างโปรเจกต์ §7.5  
-- [ ] สร้าง `TECHNICAL_PLAN.md` + `TECHNICAL_PLAN.th.md` + `TECHNICAL_PLAN.en.md`  
-- [ ] Implement ตามแผน (รวมปัญหา→วิธีช่วย · เคส · รีวิว · Portfolio สื่อคุณภาพสูง)  
-- [ ] ไม่ commit secrets  
+
+ทำตาม **ลำดับการพัฒนา** ด้านล่างทีละขั้น (อย่าข้ามขั้นใหญ่) · ไม่ commit secrets · สร้าง `TECHNICAL_PLAN.md` + `.th.md` + `.en.md` ในขั้น Scaffold หรือทันทีหลัง scaffold
+
+#### ลำดับการพัฒนา (ล็อก)
+
+| # | ขั้น | งาน |
+|---|------|-----|
+| 1 | **Scaffold** | Vite / React / TS / Tailwind 4 · Firebase (`firebase.json` · `.firebaserc` · `.env.example`) · `react-router-dom` · locale `/th`·`/en` · content helpers (`getContent` / `getMedia`) · theme tokens สีน้ำเงินใน `styles/index.css` · โครง §7.5 |
+| 2 | **Chrome** | Header · Footer · language switcher (คง path คู่) · `MobileContactBar` · CTA ร่วม (`CtaBand` / ปุ่มโทร·LINE) |
+| 3 | **หน้าแรก** | Hero (นำด้วยแบรนด์) + ฮับบริการ 4 เสา + ความน่าเชื่อถือ + ตัวอย่างผลงาน + CTA ติดต่อ |
+| 4 | **หน้าระบบบริการ** | Real Estate · Marketing · Construction · Consulting ตาม template §5 (Hero → ปัญหา/คุณค่า → รายการ → หลักฐาน → CTA+ฟอร์ม) |
+| 5 | **Portfolio + About** | แกลเลอรี lazy → วิดีโอ → รีวิว (filter ตามบริการ) · About: เรื่องราว → ทีม → ปรัชญา → CTA |
+| 6 | **Contact** | หลายช่องทาง + ฟอร์ม (RHF+zod) + Callable + Firestore + อีเมล (Resend) · โทร/LINE ใกล้ฟอร์ม |
+| 7 | **SEO** | meta ต่อหน้า · sitemap · robots · JSON-LD · OG · hreflang · AEO who/what/who-for/why/where (§10) |
+| 8 | **Polish + launch** | ตรวจ 375 / 768 / 1280 · บีบอัดสื่อ · pre-launch checklist §11 · `firebase deploy` (**เมื่อสั่งเท่านั้น**) |
+
+**กฎลำดับ:** ขั้น 1–2 ต้องผ่านก่อนเนื้อหาหน้า · ขั้น 6 (ฟอร์มจริง) ก่อนถือว่า conversion ครบ · ขั้น 7 ทำหลังหน้าหลักมีเนื้อหาพอ · ขั้น 8 หลัง acceptance §12 ผ่าน
 
 ### Deploy — เมื่อสั่งเท่านั้น
-- [ ] ตามหมวด 11  
+- [ ] ตามหมวด 11 + ขั้น Polish + launch ด้านบน  
 
 ### เฟสถัดไป (นอก v1 — quote แยก)
 - [ ] **บทความ / บล็อก** ที่เป็นประโยชน์ (SEO + ความน่าเชื่อถือระยะยาว)  
@@ -656,6 +669,7 @@ media.*.alt · media.portfolio.video.*.caption
 ## Working rules
 
 - อ่านแผนนี้ก่อนงานใหญ่ · ติ๊ก acceptance เมื่อผ่าน  
+- ทำตาม **ลำดับการพัฒนา §16** — ห้ามข้าม Scaffold/Chrome ไปทำหน้าเนื้อหาก่อน  
 - ไม่เปลี่ยนสแตก (§0) — ห้าม Next.js / CRA / CSS framework อื่น / router อื่น / form lib อื่น  
 - v1 = conversion + discovery multi-page · บล็อก/CMS/booking/ads เป็นเฟสถัดไป  
 - Copy ใน language files · media ใน `media.json`  
