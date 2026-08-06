@@ -504,6 +504,7 @@ firebase deploy   # ต้อง Blaze สำหรับ Functions
 | **Header / Mobile bar** | ติดต่อชัดทุกหน้า · sticky / `md:hidden` |
 | **Discovery** | 16 ชุด meta ไม่ซ้ำ · JSON-LD · sitemap · SPA rewrite |
 | **Conversion** | ตอบ 4 คำถามผู้เข้าชมได้เร็ว · กดติดต่อได้ทุกหน้า |
+| **Baseline** | ทันสมัย · ใช้ง่าย · มือถือ · มืออาชีพ · ติดต่อชัด (§3.1) |
 | **แนวทาง (§3.2)** | อ่านเป็นแบรนด์เดียว · ฮับแล้วเจาะบริการ · SEO/AI แยกหัวข้อได้ · ขยายผลงาน/เคสได้โดยไม่รื้อโครง |
 | **i18n** | th ต้นทาง · en คีย์เดียวกัน |
 | **Deploy** | build ผ่าน · Hosting เสิร์ฟได้ · form บน production ทดสอบได้ |
