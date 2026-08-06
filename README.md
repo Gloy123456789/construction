@@ -10,9 +10,18 @@
 
 ## สิ่งที่แผนครอบคลุม
 
-- เป้าหมาย · กลุ่มลูกค้า · จุดเด่น
+- เป้าหมาย · โอกาสเติบโต (ถูกค้นพบ + แปลงลูกค้า) · กลุ่มลูกค้า · จุดเด่น
 - Sitemap · โครงหน้า · รายละเอียดแต่ละ section + Acceptance Criteria
-- ข้อมูล/รูปที่ต้องใช้ · React components · Responsive · SEO · Deploy Firebase Hosting
+- ข้อมูล/รูปที่ต้องใช้ · React components · Responsive · SEO/AEO · Deploy Firebase Hosting
+
+## โครงเว็บ
+
+หน้าแรก + **หน้าเฉพาะต่อบริการ** สองภาษา
+
+```
+/th · /en
+/{locale}/services/{residential | factory | office | hospital}
+```
 
 ## สแต็ก (ล็อกแล้ว)
 
@@ -22,4 +31,4 @@ Vite 6 + React 18 + TypeScript + Tailwind CSS 4 + Firebase Hosting / Callable Fu
 
 - โทร: 086-886-9282 (`+66868869282`)
 - ที่อยู่: 3/6 ซอยคู้บอน 44 แขวงบางชัน เขตคลองสามวา กรุงเทพมหานคร 10510
-- พื้นที่บริการ: กรุงเทพฯ และต่างจังหวัด
+- พื้นที่บริการ: กรุงเทพฯ · ปริมณฑล · ต่างจังหวัด
