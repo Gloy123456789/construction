@@ -590,7 +590,7 @@ firebase deploy   # ต้อง Blaze สำหรับ Functions
 | **แนวทาง (§3.2)** | อ่านเป็นแบรนด์เดียว · ฮับแล้วเจาะบริการ · SEO/AI แยกหัวข้อได้ · ขยายผลงาน/เคสได้โดยไม่รื้อโครง |
 | **สแตก (§0)** | ใช้เฉพาะชุดที่ล็อก — Vite/React/TS · Tailwind 4 · react-router-dom · lucide · RHF+zod · Firebase Hosting/Functions/Resend/Firestore · Maps iframe เมื่อมีที่อยู่ |
 | **i18n** | th ต้นทาง · en คีย์เดียวกัน |
-| **Deploy** | build ผ่าน · Hosting เสิร์ฟได้ · form บน production ทดสอบได้ |
+| **Deploy / ก่อนเปิดตัว (§11)** | ติ๊ก checklist ก่อนเปิดตัวครบ · build ผ่าน · Hosting เสิร์ฟได้ · form บน production ทดสอบได้ |
 
 ---
 
@@ -696,7 +696,7 @@ media.*.alt · media.portfolio.video.*.caption
 | 5 | **Portfolio + About** | แกลเลอรี lazy → วิดีโอ → รีวิว (filter ตามบริการ) · About: เรื่องราว → ทีม → ปรัชญา → CTA |
 | 6 | **Contact** | หลายช่องทาง + ฟอร์ม (RHF+zod) + Callable + Firestore + อีเมล (Resend) · โทร/LINE ใกล้ฟอร์ม |
 | 7 | **SEO** | meta ต่อหน้า · sitemap · robots · JSON-LD · OG · hreflang · AEO who/what/who-for/why/where (§10) |
-| 8 | **Polish + launch** | ตรวจ 375 / 768 / 1280 · บีบอัดสื่อ · pre-launch checklist §11 · `firebase deploy` (**เมื่อสั่งเท่านั้น**) |
+| 8 | **Polish + launch** | Checklist ก่อนเปิดตัว §11 (375/768/1280 · โทร/LINE/ฟอร์ม · Firestore+อีเมล · .env · meta/OG/sitemap/robots · โหลดมือถือ · copy th+en · media.json) · `firebase deploy` (**เมื่อสั่งเท่านั้น**) |
 
 **กฎลำดับ:** ขั้น 1–2 ต้องผ่านก่อนเนื้อหาหน้า · ขั้น 6 (ฟอร์มจริง) ก่อนถือว่า conversion ครบ · ขั้น 7 ทำหลังหน้าหลักมีเนื้อหาพอ · ขั้น 8 หลัง acceptance §12 ผ่าน
 
