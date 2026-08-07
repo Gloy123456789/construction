@@ -144,7 +144,12 @@
         "work": "Built a sales-planning framework and marketing direction the teams could use together.",
         "result": "Sales and marketing shared one direction and spoke with customers more precisely."
       }
-    }
+    },
+    "reviewsTitle": "Client voices",
+    "videoTitle": "Project videos",
+    "challengeLabel": "Challenge",
+    "workLabel": "What we did",
+    "resultLabel": "Result"
   },
   "ctaBand": {
     "title": "Ready to talk about your project",

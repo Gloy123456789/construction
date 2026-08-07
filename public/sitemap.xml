@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://black-construction.web.app/th</loc>
+    <xhtml:link rel="alternate" hreflang="th" href="https://black-construction.web.app/th"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://black-construction.web.app/en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://black-construction.web.app/th"/>
+  </url>
+  <url>
+    <loc>https://black-construction.web.app/en</loc>
+    <xhtml:link rel="alternate" hreflang="th" href="https://black-construction.web.app/th"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://black-construction.web.app/en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://black-construction.web.app/th"/>
+  </url>
+  <url>
+    <loc>https://black-construction.web.app/th/construction</loc>
+    <xhtml:link rel="alternate" hreflang="th" href="https://black-construction.web.app/th/construction"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://black-construction.web.app/en/construction"/>
+  </url>
+  <url>
+    <loc>https://black-construction.web.app/en/construction</loc>
+    <xhtml:link rel="alternate" hreflang="th" href="https://black-construction.web.app/th/construction"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://black-construction.web.app/en/construction"/>
+  </url>
+  <url>
+    <loc>https://black-construction.web.app/th/marketing</loc>
+    <xhtml:link rel="alternate" hreflang="th" href="https://black-construction.web.app/th/marketing"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://black-construction.web.app/en/marketing"/>
+  </url>
+  <url>
+    <loc>https://black-construction.web.app/en/marketing</loc>
+    <xhtml:link rel="alternate" hreflang="th" href="https://black-construction.web.app/th/marketing"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://black-construction.web.app/en/marketing"/>
+  </url>
+  <url>
+    <loc>https://black-construction.web.app/th/consulting</loc>
+    <xhtml:link rel="alternate" hreflang="th" href="https://black-construction.web.app/th/consulting"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://black-construction.web.app/en/consulting"/>
+  </url>
+  <url>
+    <loc>https://black-construction.web.app/en/consulting</loc>
+    <xhtml:link rel="alternate" hreflang="th" href="https://black-construction.web.app/th/consulting"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://black-construction.web.app/en/consulting"/>
+  </url>
+  <url>
+    <loc>https://black-construction.web.app/th/portfolio</loc>
+    <xhtml:link rel="alternate" hreflang="th" href="https://black-construction.web.app/th/portfolio"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://black-construction.web.app/en/portfolio"/>
+  </url>
+  <url>
+    <loc>https://black-construction.web.app/en/portfolio</loc>
+    <xhtml:link rel="alternate" hreflang="th" href="https://black-construction.web.app/th/portfolio"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://black-construction.web.app/en/portfolio"/>
+  </url>
+  <url>
+    <loc>https://black-construction.web.app/th/about</loc>
+    <xhtml:link rel="alternate" hreflang="th" href="https://black-construction.web.app/th/about"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://black-construction.web.app/en/about"/>
+  </url>
+  <url>
+    <loc>https://black-construction.web.app/en/about</loc>
+    <xhtml:link rel="alternate" hreflang="th" href="https://black-construction.web.app/th/about"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://black-construction.web.app/en/about"/>
+  </url>
+  <url>
+    <loc>https://black-construction.web.app/th/contact</loc>
+    <xhtml:link rel="alternate" hreflang="th" href="https://black-construction.web.app/th/contact"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://black-construction.web.app/en/contact"/>
+  </url>
+  <url>
+    <loc>https://black-construction.web.app/en/contact</loc>
+    <xhtml:link rel="alternate" hreflang="th" href="https://black-construction.web.app/th/contact"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://black-construction.web.app/en/contact"/>
+  </url>
+</urlset>

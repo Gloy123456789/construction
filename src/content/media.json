@@ -1,0 +1,13 @@
+{
+  "media.global.logo": "/assets/logo.svg",
+  "media.global.favicon": "/assets/favicon.svg",
+  "media.global.og": "/assets/og.svg",
+  "media.home.hero": "/assets/hero.svg",
+  "media.portfolio.01": "/assets/portfolio-01.svg",
+  "media.portfolio.02": "/assets/portfolio-02.svg",
+  "media.portfolio.03": "/assets/portfolio-03.svg",
+  "media.portfolio.04": "/assets/portfolio-04.svg",
+  "media.portfolio.05": "/assets/portfolio-05.svg",
+  "media.portfolio.06": "/assets/portfolio-06.svg",
+  "media.about.team": "/assets/about-team.svg"
+}

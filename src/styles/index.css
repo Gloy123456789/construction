@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-brand-50: #eef0f8;
+  --color-brand-100: #d9dcf0;
+  --color-brand-200: #b4bae0;
+  --color-brand-500: #39397a;
+  --color-brand-600: #2e2e6b;
+  --color-brand-700: #25255a;
+  --color-brand-800: #1c1c45;
+  --color-brand-900: #141433;
+  --color-ink: #1e1f2b;
+  --color-muted: #5c6070;
+  --color-surface: #f5f6fa;
+  --color-line: #06c755;
+  --font-sans: "Source Sans 3", "IBM Plex Sans Thai", ui-sans-serif, system-ui,
+    sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    @apply bg-white text-ink font-sans antialiased;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-600;
+  }
+
+  a {
+    @apply underline-offset-4;
+  }
+}
+
+@layer utilities {
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-y {
+    @apply py-14 sm:py-16 lg:py-20;
+  }
+
+  .fade-up {
+    animation: fade-up 0.7s ease both;
+  }
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fade-up {
+      animation: none;
+    }
+  }
+}

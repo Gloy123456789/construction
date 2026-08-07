@@ -4,17 +4,27 @@
 
 ## สถานะ
 
-อยู่ขั้นวางแผน — ดูแผนพัฒนาฉบับเต็มใน [plan.md](./plan.md)
+**Build phase** — scaffold + หน้าหลัก + ฟอร์ม + SEO พร้อมแล้ว  
+แผน IA: [plan.md](./plan.md) · แผนเทคนิค: [TECHNICAL_PLAN.md](./TECHNICAL_PLAN.md)
 
-**ยังไม่เริ่ม scaffold หรือเขียนโค้ดแอป** จนกว่าแผนจะได้รับการอนุมัติและมีการสั่ง build phase
+## พัฒนาท้องถิ่น
 
-## เส้นทาง URL (prefix ภาษา)
+```bash
+npm install
+cd functions && npm install && cd ..
+cp .env.example .env   # ใส่ค่า Firebase เมื่อพร้อม
+npm run dev
+```
 
-ภาษาเริ่มต้น: `th` · สวิตช์ภาษาต้องคง path ให้คู่กัน
+Build: `npm run build` · Deploy (เมื่อสั่ง): `firebase deploy`
+
+## เส้นทาง URL
+
+ภาษาเริ่มต้น: `th` · สวิตช์ภาษาคง path คู่กัน
 
 | Route | หน้าที่ |
 |-------|---------|
-| `/th` · `/en` | ฮับ — แบรนด์ + ภาพรวม 3 บริการ + CTA |
+| `/th` · `/en` | ฮับ |
 | `/th/construction` · `/en/construction` | ก่อสร้าง (ถ้อยคำพันธมิตร) |
 | `/th/marketing` · `/en/marketing` | การตลาด |
 | `/th/consulting` · `/en/consulting` | ที่ปรึกษา |
@@ -22,25 +32,21 @@
 | `/th/about` · `/en/about` | เกี่ยวกับเรา |
 | `/th/contact` · `/en/contact` | ติดต่อ |
 
-**Construction (ล็อก):** ขอบเขต — ออกแบบและก่อสร้าง · ต่อเติม · รีโนเวท · บิ้วอิน · พัฒนาอสังหา · ถ้อยคำแกน — *นำเสนอบริการออกแบบและก่อสร้างโดยอาศัยความร่วมมือกับพันธมิตรที่มีความเชี่ยวชาญ*
+**Construction (ล็อก):** *นำเสนอบริการออกแบบและก่อสร้างโดยอาศัยความร่วมมือกับพันธมิตรที่มีความเชี่ยวชาญ*
 
-> ยุบ Real Estate เข้ากับ Construction แล้ว (เดิมทับซ้อนเรื่องงานก่อสร้าง)
+## สแตก (ห้ามเปลี่ยน)
 
-## สแตกเทคนิค (ห้ามเปลี่ยน)
+Vite 6 · React 18 · TypeScript · Tailwind 4 · react-router-dom · lucide-react · RHF+zod · Firebase Hosting + Callable (`asia-southeast1`) + Resend
 
-| ชั้น | ใช้สิ่งนี้ |
-|------|-----------|
-| Frontend | Vite 6 + React 18 + TypeScript |
-| Styling | Tailwind CSS 4 (`@tailwindcss/vite`) |
-| Routing | `react-router-dom` (locale + หลายหน้า) |
-| Icons | `lucide-react` |
-| Forms | `react-hook-form` + `zod` + `@hookform/resolvers/zod` |
-| Hosting | Firebase Hosting → `dist/` |
-| Backend | Callable Functions `asia-southeast1` + Resend + Firestore |
-| Maps | Google Maps iframe embed (เมื่อมีที่อยู่) |
+## เนื้อหา
 
-## ติดต่อด่วน (จาก brief)
+- Copy: `src/content/copy.th.json` / `copy.en.json`
+- Media URLs: `src/content/media.json`
+- Config: `src/content/config.ts`
+
+## ติดต่อด่วน
 
 - โทร: 086-886-9282 (`+66868869282`)
 - ที่อยู่: 3/6 ซอยคู้บอน 44 แขวงบางชัน เขตคลองสามวา กรุงเทพมหานคร 10510
 - พื้นที่บริการ: กรุงเทพฯ · ปริมณฑล · ต่างจังหวัด
+- LINE URL / อีเมลสาธารณะ — รอจากลูกค้า (ซ่อน CTA จนกว่าจะใส่ใน `config.ts`)
