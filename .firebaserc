@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "landing-chokdee"
-  }
+    "default": "chokdee-online-project"
+  },
+  "targets": {},
+  "etags": {}
 }

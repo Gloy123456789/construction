@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "firebase deploy"
+    "deploy": "firebase deploy",
+    "deploy:hosting": "npm run build && npx -y firebase-tools@latest deploy --only hosting:black-construction --project chokdee-online-project"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
