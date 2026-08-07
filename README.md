@@ -23,7 +23,7 @@ npm run dev
 
 ## Production
 
-- Live: https://black-construction.web.app
+- Live: https://blackconstruction.com
 - GitHub `main` → GitHub Actions → Firebase Hosting (เมื่อตั้ง secret แล้ว — ดู `DEPLOYMENT.md`)
 
 ## เส้นทาง URL

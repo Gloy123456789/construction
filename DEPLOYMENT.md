@@ -15,7 +15,24 @@ Do **not** migrate to Next.js unless explicitly requested. Keep GitHub remote an
 
 - GitHub: `https://github.com/Gloy123456789/construction` (`main`)
 - Firebase project: `chokdee-online-project`
-- Hosting site: `black-construction` → https://black-construction.web.app
+- Hosting site: `black-construction`
+- Custom domain (canonical): https://blackconstruction.com
+- Fallback URL: https://black-construction.web.app
+
+## Custom domain setup (`blackconstruction.com`)
+
+Firebase Console → Hosting → site **black-construction** → **Add custom domain**:
+
+https://console.firebase.google.com/project/chokdee-online-project/hosting/sites/black-construction
+
+1. Add `blackconstruction.com` (and optionally `www.blackconstruction.com`)
+2. Verify ownership with the TXT record Firebase shows
+3. Point DNS to Firebase:
+   - **Apex** `blackconstruction.com` → A records Firebase provides
+   - **www** (optional) → CNAME to Firebase host
+4. Wait for SSL status **Connected**
+
+App canonical URL is already set to `https://blackconstruction.com` (`VITE_SITE_URL`, sitemap, robots).
 
 ## Automatic deploy (GitHub → Firebase Hosting)
 

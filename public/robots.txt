@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://black-construction.web.app/sitemap.xml
+Sitemap: https://blackconstruction.com/sitemap.xml

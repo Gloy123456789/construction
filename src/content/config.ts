@@ -16,7 +16,7 @@ export const siteConfig = {
   serviceAreaEn: "Bangkok · Greater Bangkok · Provinces across Thailand",
   mapsEmbedUrl:
     "https://maps.google.com/maps?q=3/6+Soi+Kubon+44,+Khlong+Sam+Wa,+Bangkok&output=embed",
-  siteUrl: import.meta.env.VITE_SITE_URL || "https://black-construction.web.app",
+  siteUrl: import.meta.env.VITE_SITE_URL || "https://blackconstruction.com",
   firebaseRegion: "asia-southeast1" as const,
   contactCallable: "submitContact" as const,
   /**
