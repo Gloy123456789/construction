@@ -1,42 +1,774 @@
-# Construction — Agent Plan
+# Black Construction — แผนพัฒนาเว็บไซต์
 
-Short standard instructions for agents working in this repo.
+แผนนี้พร้อมสำหรับเริ่มพัฒนาหลังอนุมัติ — **ยังไม่เริ่มเขียนโค้ด** จนกว่าจะมีการอนุมัติแผนและสั่ง build phase อย่างชัดเจน
 
-## Bootstrap (once)
+| | |
+|---|---|
+| **ลูกค้า** | บริษัท แบล็ค การก่อสร้าง จำกัด / BLACK CONSTRUCTION CO., LTD. |
+| **แบรนด์แสดงผล** | **แบล็ค การก่อสร้าง / Black Construction** (ยืนยันแล้ว — ไม่ใช้ Tida Agency) |
+| **เอเจนซี** | Chokdee Online |
+| **รูปแบบ** | Multi-page bilingual (`/th` · `/en`) — หน้าแรก + 3 เสาบริการ + Portfolio + About + Contact |
+| **สแต็ก** | **ห้ามเปลี่ยน** — ดู §0 ด้านล่าง |
+| **สถานะ** | Plan phase — รออนุมัติ + ข้อมูลที่ยังขาด |
 
-- [ ] Keep `README.md` and this `plan.md` as the entry docs
-- [ ] Ensure GitHub remote exists and `main` is pushed (required for Cursor Cloud)
-- [ ] Verify the remote actually exists: `git ls-remote --symref origin HEAD` resolves `refs/heads/main`
-- [ ] Add `.gitignore` for `node_modules/`, `dist/`, `.env`, `functions/lib/`, `.firebase/`
-- [ ] Finish Cloud environment setup via onboard URL (agent cannot create environments via API)
-- [ ] Create Cloud environment: New environment → select this repo → skip agent-led setup → Save (no build verify)
+---
 
-After bootstrap, **stop**. The only tracked files should be `README.md` and `plan.md`
-(plus `.gitignore`). Do **not** scaffold, install, build, run, or test anything yet —
-wait for the plan phase and for the plan to be written and approved.
+## 0. สแตกเทคนิค (ห้ามเปลี่ยน)
 
-## Plan phase (before any build)
+| ชั้น | ใช้สิ่งนี้ |
+|------|-----------|
+| **Frontend** | Vite 6 + React 18 + TypeScript |
+| **Styling** | Tailwind CSS 4 (`@tailwindcss/vite`) |
+| **Routing** | `react-router-dom` (locale + หลายหน้า) |
+| **Icons** | `lucide-react` |
+| **Forms** | `react-hook-form` + `zod` + `@hookform/resolvers/zod` |
+| **Hosting** | Firebase Hosting → `dist/` |
+| **Backend** | Callable Functions `asia-southeast1` + Resend + Firestore |
+| **Maps** | Google Maps iframe embed (เมื่อมีที่อยู่) |
 
-- [ ] Write the site plan: sections, Thai-first copy outline, media list, contact flow
-- [ ] Confirm brief details (contact info, packages, brand direction)
-- [ ] Get the plan reviewed and approved before starting the build phase
+**ห้าม:** Next.js · CRA · CSS framework อื่น · router อื่น · form lib อื่น · hosting อื่น — เว้น brief สั่งเปลี่ยนชัดเจน
 
-## Build (only after the plan is approved and an explicit build phase begins)
+Path alias: `@` → `./src` · build: `tsc -b && vite build` · ภูมิภาค Functions: `asia-southeast1`
 
-> Gate: do not start this section until the plan above is done **and** a build phase
-> is explicitly requested. Nothing here should run during bootstrap or planning.
+---
 
-- [ ] Scaffold Vite + React + TypeScript + Tailwind 4 (`@tailwindcss/vite`)
-- [ ] Commit `.env.example` only — never commit secrets
-- [ ] Follow standard layout: `src/app`, `src/components`, `src/content`, `src/lib`, `src/styles`, `functions/`
-- [ ] Bilingual from day one: Thai first in `copy.th.json`, mirror keys in `copy.en.json`
-- [ ] All media URLs in `media.json`; contact/config in `config.ts`
-- [ ] Mobile-first conversion: Call + LINE + contact form; sticky mobile contact bar
-- [ ] SEO baseline: title/description/OG, `robots.txt`, `sitemap.xml`, semantic landmarks
+## 1. เป้าหมายของเว็บไซต์
+
+### เป้าหมายหลัก (ตามที่ลูกค้าระบุ)
+1. **สร้างภาพลักษณ์ที่ดูน่าเชื่อถือ** — professional และไว้วางใจได้
+2. **ดีไซน์สะอาดและทันสมัย** — โทนสีน้ำเงินตามสีเสื้อยูนิฟอร์มที่แนบมา (กรมท่า/indigo)
+3. **ใช้งานง่ายทั้งคอมพิวเตอร์และมือถือ** — responsive · mobile-first
+4. **เมนูเรียบง่าย แต่แสดงบริการได้ชัดเจน** — nav สั้น · 3 เสาบริการเห็นชัด
+5. **กระตุ้นให้ติดต่อผ่านโทรศัพท์หรือ LINE** — CTA เด่น เข้าถึงได้ทันที
+6. **แสดงผลงานด้วยภาพถ่ายและวิดีโอคุณภาพสูง** — Portfolio รองรับทั้งรูป วิดีโอ และความคิดเห็นลูกค้า
+7. **สร้างความเชื่อมั่นด้วยประสบการณ์และความเชี่ยวชาญหลายด้าน** — Construction · Marketing · Consulting
+
+### Conversion goal (แปลงเป็นการติดต่อ)
+ทำให้ผู้เข้าชม **ติดต่อบริษัทได้ทันที** ผ่านโทรศัพท์ · LINE · อีเมล · ฟอร์ม — โดยไม่ต้องเลื่อนผ่าน hero ก็เห็นช่องทางติดต่อ
+
+### Success metrics (v1)
+- Call / LINE / form ใช้งานได้จริงบนมือถือ
+- ฟอร์มบันทึก Firestore และส่งอีเมล (เมื่อตั้งค่า Resend แล้ว)
+- โหลดสมเหตุสมผลบนมือถือ (รูป/วิดีโอบีบอัด · JS น้อย)
+- Layout ตรวจที่ 375px · 768px · 1280px+
+- ภาพลักษณ์สื่อความน่าเชื่อถือทันทีในหน้าจอแรก (แบรนด์ + โทนน้ำเงิน + ภาพรวมบริการ)
+
+---
+
+## 1.1 โอกาสในการช่วยให้ธุรกิจเติบโต
+
+### เป้าหมายที่ 1 — ช่วยให้ลูกค้าใหม่ค้นพบธุรกิจ
+
+ลูกค้าค้นผ่าน Google · Google Maps · ChatGPT · Google AI และผู้ช่วย AI อื่น ๆ เว็บต้องตอบ **5 คำถามแกน** ด้วยข้อความตรงไปตรงมา
+
+| คำถาม | ตอบที่ไหน | รูปแบบที่ AI/Google อ่านได้ |
+|-------|-----------|---------------------------|
+| **คุณคือใคร** | หน้าแรก · About · JSON-LD | ชื่อนิติบุคคลเต็ม TH/EN · ที่อยู่ · โทร |
+| **ให้บริการอะไร** | หน้าแรก (ภาพรวม) + 3 หน้าเสาบริการ | หัวข้อ + ขอบเขตงานเป็นข้อความ · JSON-LD `Service` |
+| **ช่วยใคร** | บล็อก "เหมาะกับใคร" ในทุกหน้าบริการ + About | ระบุกลุ่มลูกค้าตรง ๆ |
+| **ทำไมควรเลือกแบล็ค การก่อสร้าง** | About · Portfolio · Why-us บนหน้าแรก | เหตุผลที่พิสูจน์ได้ · ไม่ใช้ claim ลอย |
+| **ให้บริการพื้นที่ใด** | หน้าแรก · ทุกหน้าบริการ · Contact · footer | **กรุงเทพฯ · ปริมณฑล · ต่างจังหวัด** + `areaServed` |
+
+**กลไกที่ต้องมี:** หน้าเฉพาะต่อบริการ (§4) · JSON-LD ต่อหน้า (§10) · sitemap ครบทุก URL · internal link · เนื้อหาข้อความจริง
+
+### เป้าหมายที่ 2 — เปลี่ยนผู้เข้าชมให้เป็นลูกค้า
+
+| คำถามของผู้เข้าชม | ตอบด้วย | ตำแหน่ง |
+|-------------------|---------|---------|
+| บริษัทนี้ช่วยฉันได้ไหม | Headline + ภาพรวม 3 เสา + ลิงก์เข้าหน้าบริการ | หน้าแรก Hero · Services hub |
+| ทำไมฉันควรเชื่อถือ | About · Portfolio (รูป/วิดีโอ/รีวิว) · ข้อมูลนิติบุคคล | About · Portfolio · Footer |
+| บริการไหนเหมาะกับฉัน | 3 เสาแยกชัด + หน้าเฉพาะ | Construction · Marketing · Consulting |
+| ติดต่อได้อย่างไร | โทร · LINE · อีเมล · ฟอร์ม | Header · MobileContactBar · Contact |
+
+**เกณฑ์วัด:** ผู้ใช้มือถือใหม่ตอบได้ทั้ง 4 ข้อโดยเลื่อนไม่เกิน ~2 หน้าจอ (บนหน้าแรก) และกดติดต่อได้จากทุกหน้า
+
+---
+
+## 2. กลุ่มลูกค้าเป้าหมาย
+
+| กลุ่ม | เสาบริการที่เกี่ยว | ความต้องการหลัก |
+|------|-------------------|-----------------|
+| เจ้าของบ้าน / ผู้รีโนเวท / ผู้ต้องการบิ้วอิน | Construction | ต่อเติม · รีโนเวท · ก่อสร้าง · บิ้วอิน |
+| ผู้พัฒนา/เจ้าของอสังหา | Construction · Consulting | พัฒนาอสังหา · พัฒนาโครงการ · วางแผนขาย |
+| เจ้าของธุรกิจที่ต้องการการตลาด | Marketing · Consulting | Digital · Branding · Social · Photo/Video · Ads |
+| โรงงาน · สำนักงาน · สถานพยาบาล (จาก brief เดิม) | Construction · Consulting | อาคารใช้งาน / โครงการสถาบัน |
+| ผู้ต้องการที่ปรึกษาโครงการ | Consulting | กลยุทธ์ · การตลาด · พัฒนาโครงการ · วางแผนขาย |
+
+**พื้นที่บริการ:** กรุงเทพมหานคร · ปริมณฑล · ต่างจังหวัดทั่วไทย
+
+> Brief เดิม (บ้าน · โรงงาน · สำนักงาน · โรงพยาบาล) ยังใช้เป็น **ประเภทงานภายในหน้า Construction** ไม่ทิ้ง — โครงนำทางระดับบนเป็น 3 เสา
+
+---
+
+## 3. จุดเด่นของบริษัท (ใช้บนเว็บ)
+
+1. **ความเชี่ยวชาญหลายด้าน** — Construction · Marketing · Consulting ในแบรนด์เดียว  
+2. **ฐานงานก่อสร้าง / ต่อเติม / รีโนเวท / บิ้วอิน / พัฒนาอสังหา** — จุดเริ่มและความแข็งของแบรนด์  
+3. **พื้นที่กว้าง** — กรุงเทพฯ · ปริมณฑล · ต่างจังหวัด  
+4. **ผลงานจริง** — ภาพ วิดีโอ ความคิดเห็นลูกค้า ครอบคลุมทั้งสามด้าน  
+5. **ติดต่อง่าย** — โทร `086-886-9282` + LINE (รอ URL) + อีเมล + ฟอร์ม  
+6. **แบรนด์ชัด** — โลโก้ตราประทับสีน้ำเงิน · ชุดยูนิฟอร์ม  
+7. **นิติบุคคลจดทะเบียน** — บริษัท แบล็ค การก่อสร้าง จำกัด · คู้บอน 44 คลองสามวา  
+
+**โทนพิเศษ — หน้า Construction (ล็อกแล้ว):**  
+ใช้ถ้อยคำตรงนี้เท่านั้น — *นำเสนอบริการออกแบบและก่อสร้างโดยอาศัยความร่วมมือกับพันธมิตรที่มีความเชี่ยวชาญ* — ไม่โอเวอร์เคลมว่าทำทุกอย่างเองทั้งหมด
+
+> จุดเด่นที่ยังไม่มีหลักฐาน (ปีประสบการณ์ตัวเลข · จำนวนโครงการ · ใบอนุญาต) **ไม่ใส่** จนกว่าลูกค้าจะยืนยัน
+
+---
+
+## 3.1 จุดเด่นเว็บไซต์ปัจจุบันที่ต้องคงไว้ (baseline)
+
+| จุดเด่นที่คงไว้ | แปลงเป็นข้อกำหนดในงานนี้ | ตรวจที่ |
+|-----------------|--------------------------|---------|
+| **ดีไซน์ทันสมัย** | Apple Minimal · โทนน้ำเงินยูนิฟอร์ม · ฟอนต์ expressive | §13 |
+| **ใช้งานง่าย** | เมนูสั้น 8 รายการ · หนึ่งหน้าหนึ่งหน้าที่ · ไม่ clutter | §4–§6 |
+| **รองรับมือถือ** | mobile-first · แตะ ≥44px · ทดสอบ 375/768/1280+ | §9 |
+| **ดูเป็นมืออาชีพ** | แบรนด์เด่นจอแรก · ผลงานจริง · ไม่มี claim เกินจริง | §6 |
+| **ช่องทางติดต่อชัดเจน** | โทร + LINE ใน header · `MobileContactBar` · หน้า Contact | §6 |
+
+### ต่อยอด: สะท้อนธุรกิจที่ขยายขึ้น
+
+1. **จากงานก่อสร้างอย่างเดียว → สามเสาบริการ** — Construction · Marketing · Consulting  
+2. **จาก single-page → multi-page discovery** — หน้าเฉพาะต่อบริการ + Portfolio + About + Contact  
+3. **จากพื้นที่จำกัด → กทม. + ปริมณฑล + ต่างจังหวัด**  
+4. **จากรูปนิ่ง → ภาพ + วิดีโอ + รีวิวลูกค้า**  
+5. **จากไทยอย่างเดียว → ไทย + อังกฤษ**  
+6. **จากติดต่อพื้นฐาน → Contact ครบช่องทาง + ฟอร์มเลือกประเภทบริการ**
+
+---
+
+## 3.2 เหตุผลที่แนวทางนี้เหมาะสม
+
+แนวทาง **ฮับเดียว + หน้าเฉพาะต่อบริการ + Portfolio / About / Contact** เหมาะกับแบรนด์ที่รวมหลายความเชี่ยวชาญ เพราะ:
+
+| เหตุผล | สิ่งที่ได้จากโครงนี้ |
+|--------|---------------------|
+| **ถูกมองเป็นแบรนด์เดียวที่เป็นมืออาชีพ ไม่ใช่หลายธุรกิจแยกกัน** | ฮับ (`/th`·`/en`) แนะนำแบรนด์และภาพรวม 3 เสาก่อน · ดีไซน์ / โทนสี / CTA / เลย์เอาต์เดียวกันทั้งไซต์ · ไม่แยกเป็นเว็บย่อยหรือแบรนด์ย่อย |
+| **ผู้เข้าชมเข้าใจภาพรวมแล้วเลือกดูรายละเอียดที่ตรงความต้องการ** | ฮับตอบ “ช่วยฉันได้ไหม / มีอะไรบ้าง” · หน้าบริการตอบลึกทีละเรื่อง · Portfolio รวมหลักฐาน |
+| **Google และ AI เข้าใจความเชี่ยวชาญแต่ละบริการได้ดีขึ้น** | แต่ละหัวข้อมี URL + เนื้อหาเฉพาะ + meta / JSON-LD ของตัวเอง (§1.1 · §4 · §10) |
+| **รองรับการเติบโตเมื่อมีผลงาน บริการ หรือกรณีศึกษาเพิ่ม** | โครง `media.json` / copy / ชนิดรายการ Portfolio (`project` · `case-study` · `testimonial`) เพิ่มได้โดยไม่รื้อหน้า · บทความ / CMS = เฟสถัดไป (§4.1) |
+
+**หลักออกแบบที่ตามมา:** หนึ่งระบบภาพลักษณ์ · สี่เสาเนื้อหา · หนึ่งช่องทางติดต่อ — ไม่แตกแบรนด์ ไม่แตกสไตล์
+
+> **ยืนยันแล้ว:** ชื่อแสดงผลบนเว็บคือ **แบล็ค การก่อสร้าง / Black Construction** ทุกหน้า (header · hero · footer · SEO · JSON-LD `name`) — **ไม่ใช้** ชื่อ Tida Agency บนเว็บ
+
+---
+
+## 4. Sitemap — เส้นทาง URL (มี prefix ภาษา)
+
+**ภาษาเริ่มต้น:** `th`  
+**กฎสวิตช์ภาษา:** สลับ `/th/...` ↔ `/en/...` ต้อง **คง path ให้คู่กัน** (เช่น `/th/portfolio` ↔ `/en/portfolio`) · ไม่เด้งกลับหน้าแรก · `hreflang` + `x-default` ชี้ชุดเดียวกัน
+
+| Route | หน้าที่ |
+|-------|---------|
+| `/th` · `/en` | **ฮับ** — แบรนด์ + ภาพรวม 3 บริการ + CTA |
+| `/th/marketing` · `/en/marketing` | การตลาด |
+| `/th/construction` · `/en/construction` | ก่อสร้าง (**ถ้อยคำพันธมิตร — ล็อกไว้ด้านล่าง**) |
+| `/th/consulting` · `/en/consulting` | ที่ปรึกษา |
+| `/th/portfolio` · `/en/portfolio` | ผลงาน |
+| `/th/about` · `/en/about` | เกี่ยวกับเรา |
+| `/th/contact` · `/en/contact` | ติดต่อ |
+
+```
+/                    → redirect → /th
+├── /th              → ฮับ
+├── /th/marketing
+├── /th/construction
+├── /th/consulting
+├── /th/portfolio
+├── /th/about
+├── /th/contact
+└── /en/<same-paths> → คู่ภาษาเดียวกัน
+
+สาธารณะ: /robots.txt · /sitemap.xml · /assets/...
+```
+
+### บทบาทหน้า (สรุป)
+
+| หน้า | บทบาทเนื้อหา |
+|------|----------------|
+| ฮับ | แนะนำแบล็ค การก่อสร้าง — ออกแบบและก่อสร้าง ต่อเติม รีโนเวท บิ้วอิน พัฒนาอสังหา · ความเชี่ยวชาญหลายด้าน · ลิงก์ 3 บริการ · CTA |
+| Marketing | Digital Marketing · Branding · Social Media · Photography · Video · Advertising |
+| Construction | ออกแบบและก่อสร้าง · ต่อเติม · รีโนเวท · บิ้วอิน · พัฒนาอสังหา — ผ่านพันธมิตรผู้เชี่ยวชาญ (ใช้ถ้อยคำล็อกด้านล่าง) |
+| Consulting | กลยุทธ์ธุรกิจ · การตลาด · การพัฒนาโครงการ · การวางแผนขาย · ที่ปรึกษาโครงการ |
+| Portfolio | ผลงานทั้งสามด้าน — ภาพ · วิดีโอ · ความคิดเห็นลูกค้า |
+| About | ที่มา · ทีมงาน · แนวคิดการทำงาน · จุดที่ทำให้แตกต่าง |
+| Contact | โทรศัพท์ · LINE · อีเมล · แบบฟอร์มติดต่อ |
+
+### ขอบเขต + ถ้อยคำ Construction (ล็อกไว้ — ใช้ตรงนี้)
+
+**ขอบเขต (ยืนยันแล้ว):** ออกแบบและก่อสร้าง · ต่อเติม · รีโนเวท · บิ้วอิน · พัฒนาอสังหา — **ผ่านพันธมิตรผู้เชี่ยวชาญ**
+
+**ถ้อยคำแกน:**
+
+> **TH:** นำเสนอบริการออกแบบและก่อสร้างโดยอาศัยความร่วมมือกับพันธมิตรที่มีความเชี่ยวชาญ  
+> **EN (ร่างคู่):** We present design-and-build services through collaboration with specialized partners.
+
+คีย์ copy: `construction.partnerStatement` (ถ้อยคำแกน) · `construction.scope.*` (ขอบเขตงาน) — **ห้ามเปลี่ยนถ้อยคำไทยโดยไม่ผ่านลูกค้า** · หน้า Construction และบล็อกพันธมิตรต้องใช้ประโยคนี้เป็นแกน · ไม่โอเวอร์เคลมว่าทำทุกอย่างเอง
+
+### เหตุผลที่แยกแต่ละบริการเป็นหน้าเฉพาะ
+
+| เหตุผล | สิ่งที่ทำในงานนี้ |
+|--------|------------------|
+| ผู้เข้าชมหาข้อมูลง่ายขึ้น | เมนู/ฮับ/ผลการค้นหา → หน้าเดียวของบริการนั้น |
+| อธิบายคุณค่าได้เต็มที่ | Template บริการมาตรฐาน · ไม่แย่งพื้นที่กับเสาอื่น |
+| Google เข้าใจความเชี่ยวชาญดีขึ้น | 1 URL = 1 เสา · meta ไม่ซ้ำ · JSON-LD `Service` |
+| AI แนะนำแม่นขึ้น | หน้าตอบคำถามเดียวชัด เป็นข้อความจริง |
+| ยังสะอาดใช้ง่าย | Template + layout เดียวกัน · เมนูสั้น · `/th`·`/en` เป็นฮับ |
+
+**เกณฑ์คุมความสะอาด:** หนึ่งบล็อกหนึ่งหน้าที่ · ไม่ filler · CTA โทร/LINE แบบเดียวทั้งไซต์
+
+**นอกขอบเขต v1:** หน้าโปรเจกต์รายชิ้นแบบ CMS · บล็อก/บทความ · ระบบจองนัด · แอดมินอัปโหลด
+
+### 4.1 ข้อเสนอแนะเพิ่มเติม — แปลงเป็นข้อกำหนดเนื้อหา
+
+| ข้อเสนอแนะ | เฟส | สิ่งที่ทำในแผนนี้ |
+|------------|------|------------------|
+| **อธิบายว่าแต่ละบริการช่วยแก้ปัญหาลูกค้าอย่างไร** | **v1** | ทุกหน้าบริการมีบล็อก **ปัญหา → วิธีช่วย** (problem / solution) เป็นข้อความสั้น อ่านรู้เรื่องทันที — คีย์ `*.problems.{n}.pain` · `*.problems.{n}.help` |
+| **แสดงกรณีศึกษาที่ประสบความสำเร็จ** | **v1** | Portfolio + teaser บนหน้าบริการรองรับชนิด `case-study` (โจทย์ · สิ่งที่ทำ · ผลลัพธ์สั้น ๆ) — ไม่ต้องมีหน้าเคสแยกใน v1 |
+| **เพิ่มรีวิวจากลูกค้า** | **v1** | บล็อกรีวิวบน Portfolio และ teaser บนฮับ/หน้าบริการ — `testimonials.*.quote|name|role` · ใช้เฉพาะที่ได้รับอนุญาต |
+| **นำเสนอผลงานที่ผ่านมา** | **v1** | หน้า `/portfolio` เป็นศูนย์รวมผลงานทั้ง 3 เสา · ฮับมี teaser · หน้าบริการลิงก์/กรองผลงานที่เกี่ยวข้อง |
+| **ใช้ภาพถ่ายและวิดีโอคุณภาพสูง** | **v1** | บังคับคุณภาพสื่อ: ความละเอียดเพียงพอ · บีบอัดก่อน deploy · วิดีโอมี poster · ไม่ auto-play เสียง · alt th+en — ไม่ใช้สต็อกปลอมเป็นผลงานบริษัท |
+| **เพิ่มบทความที่เป็นประโยชน์** | **เฟสถัดไป** | Blog / tips — quote แยก · ไม่สร้างใน v1 (กัน scope พอง) |
+| **อัปเดตผลงานใหม่อย่างต่อเนื่อง** | **v1 โครง + เฟส 2 กระบวนการ** | v1: โครง `media.json` + copy เป็นรายการเพิ่มได้โดยไม่ต้องรื้อหน้า · เฟส 2: CMS/โฟลว์อัปเดตง่าย (ถ้าลูกค้าต้องการหลังเปิดไซต์) |
+
+**Acceptance เนื้อหา (v1):** ทุกเสาบริการมีอย่างน้อย 1 ชุดปัญหา→วิธีช่วย · Portfolio มีผลงานจริง ≥4 (หรือ placeholder ที่ระบุชั่วคราวชัดเจน) · มีรีวิว ≥2 เมื่อลูกค้าส่งมาได้ · สื่อเป็นภาพ/วิดีโอคุณภาพสูงตามมาตรฐานด้านบน
+
+### Template หน้าบริการ (ใช้ซ้ำกับ 3 เสา)
+
+ลำดับหลัก: **Hero → ปัญหา/คุณค่า → รายการบริการ → หลักฐาน → CTA + ฟอร์ม/ทางเลือกติดต่อ**
+
+| ลำดับ | บล็อก | ตอบคำถาม |
+|-------|-------|----------|
+| 1 | **Hero** ของบริการ + CTA โทร/LINE | บริการนี้ใช่ไหม |
+| 2 | **ปัญหา / คุณค่า** — pain → วิธีช่วย | แก้ปัญหาฉันอย่างไร |
+| 3 | **รายการบริการ** — ขอบเขตงาน · เหมาะกับใคร · วิธีทำงาน (Construction: ถ้อยคำพันธมิตรที่ล็อก) | ครอบคลุมอะไร · ทำไมเลือกเรา |
+| 4 | **หลักฐาน** — กรณีศึกษา / ผลงานที่เกี่ยวข้อง / รีวิว + ลิงก์ Portfolio | ทำได้จริงไหม |
+| 5 | **CTA + ฟอร์ม / ทางเลือกติดต่อ** — ฟอร์ม (preselect เสาบริการ) + โทร/LINE + พื้นที่บริการ | ติดต่อยังไง · รับงานที่ฉันอยู่ไหม |
+| 6 | Related services + กลับฮับ | internal linking |
+
+---
+
+## 5. โครงสร้างแต่ละหน้า (องค์ประกอบตามลำดับ)
+
+ทุกหน้าหุ้มด้วย `SiteLayout` (Header + Footer + MobileContactBar) · สตริงจาก copy files
+
+### 5.1 ฮับ / หน้าแรก (`/th` · `/en`)
+
+**ลำดับ:** Hero (นำด้วยแบรนด์) → ภาพรวม 3 บริการ → ความน่าเชื่อถือ → ตัวอย่างผลงาน → CTA ติดต่อ
+
+```
+Header
+Hero            — นำด้วยแบรนด์ · 1 headline · 1 sub · CTA · full-bleed
+Services overview — ภาพรวม 3 บริการ: Construction · Marketing · Consulting
+Trust           — ความน่าเชื่อถือ (หลายด้าน · พื้นที่บริการ · นิติบุคคล · รีวิวสั้นเมื่อมี)
+Portfolio teaser — ตัวอย่างผลงาน 3–6 ชิ้น + ลิงก์ Portfolio
+CTA             — ติดต่อ (โทร / LINE / ไปหน้า Contact)
+Footer
+```
+
+**บทบาท:** แบรนด์ + ภาพรวม + ส่งต่อไปหน้ารายละเอียด — ไม่อธิบายทุกเสาจนเต็มหน้า
+
+### 5.2–5.4 หน้าระบบบริการ (3 เสา)
+
+**ลำดับร่วม:** Hero → ปัญหา/คุณค่า → รายการบริการ → หลักฐาน → CTA + ฟอร์ม/ทางเลือกติดต่อ
+
+| หน้า | เนื้อหาเฉพาะ |
+|------|---------------|
+| **Construction** (`/th/construction`) | **ออกแบบและก่อสร้าง · ต่อเติม · รีโนเวท · บิ้วอิน · พัฒนาอสังหา — ผ่านพันธมิตรผู้เชี่ยวชาญ** · ใช้ถ้อยคำล็อก (§4) เป็นแกน · ประเภทงาน: บ้าน · โรงงาน · สำนักงาน · สถานพยาบาล · ปัญหา/คุณค่าต้องสอดคล้องโมเดลพันธมิตร · ไม่โอเวอร์เคลม |
+| **Marketing** (`/th/marketing`) | Digital Marketing · Branding · Social Media · Photography · Video · Advertising (รายการย่อยที่สแกนง่าย ไม่แยกหน้าใน v1) |
+| **Consulting** (`/th/consulting`) | กลยุทธ์ธุรกิจ · การตลาด · การพัฒนาโครงการ · การวางแผนขาย · ที่ปรึกษาโครงการ — เน้นปัญหาธุรกิจที่แก้ได้ |
+
+ทุกหน้าบริการมี: ฟอร์มหรือทางเลือกติดต่อ (โทร/LINE) ในบล็อก CTA เสมอ
+
+> **ยุบ Real Estate เข้ากับ Construction** (ยืนยันแล้ว) — เดิมทับซ้อนเรื่องงานก่อสร้าง · ไม่มี route `/real-estate` ในไซต์ · งานอสังหา/ต่อเติม/รีโนเวท/บิ้วอิน อยู่ในหน้า Construction ทั้งหมด
+
+### 5.5 Portfolio (`/th/portfolio` · `/en/portfolio`)
+
+**ลำดับ:** แกลเลอรี (lazy) → วิดีโอ → รีวิว
+
+- **ตัวกรองตามบริการ — อยู่ใน v1** (ทั้งหมด / Construction / Marketing / Consulting)  
+- แกลเลอรี: ภาพคุณภาพสูง · lazy-load  
+- วิดีโอ: poster · `preload="none"` · ไม่ auto-play เสียง  
+- รีวิว: `testimonials.*` เฉพาะที่ได้รับอนุญาต  
+- ชนิดรายการ: `project` · `case-study` (โจทย์/สิ่งที่ทำ/ผลลัพธ์) · `testimonial`  
+- เพิ่มผลงานใหม่ได้โดยแก้ `media.json` + copy ไม่ต้องรื้อหน้า  
+
+### 5.6 About (`/th/about` · `/en/about`)
+
+**ลำดับ:** เรื่องราว → ทีม → ปรัชญา → CTA
+
+- เรื่องราว/ที่มา · ทีมงาน · แนวคิดการทำงานและจุดที่ทำให้แตกต่าง · CTA ติดต่อ  
+- ใส่เฉพาะข้อเท็จจริงที่ยืนยันแล้ว  
+
+### 5.7 Contact (`/th/contact` · `/en/contact`)
+
+**ลำดับ:** หลายช่องทาง + ฟอร์ม + โทร/LINE ใกล้ฟอร์ม
+
+- ช่องทาง: โทร · LINE · อีเมล · ที่อยู่ (+ Google Maps iframe เมื่อแสดงที่อยู่)  
+- ฟอร์ม: **ชื่อ · อีเมล (จำเป็น) · โทรศัพท์ (ไม่บังคับ) · ข้อความ** + ประเภทบริการ (เลือกได้ · preselect จากหน้าบริการ)  
+- โทร/LINE ต้องอยู่ **ใกล้ฟอร์ม** เสมอ (ไม่ใช่แค่ใน header)  
+- `react-hook-form` + `zod` · callable `asia-southeast1` · Firestore · Resend  
+
+`App.tsx` / page files = composition เท่านั้น
+
+---
+
+## 5.8 ความปลอดภัยฟอร์ม (บังคับ)
+
+ฟอร์มรับข้อมูลส่วนบุคคล (ชื่อ · อีเมล · โทรศัพท์) จึงต้องมีมาตรการทั้งฝั่ง client และ server — ไม่พึ่ง client validation อย่างเดียว
+
+### Client
+- [ ] Validate ด้วย `zod` (รูปแบบอีเมล · ความยาวชื่อ/ข้อความ · โทรศัพท์ถ้ากรอก)
+- [ ] จำกัดความยาว input (`maxLength`) กันข้อความยาวผิดปกติ
+- [ ] **Honeypot field** ที่ซ่อนจากผู้ใช้จริง (ซ่อนแบบ accessible — ไม่ให้ screen reader โฟกัส)
+- [ ] กันกดส่งซ้ำ: ปุ่ม disabled ตอน submitting + กันดับเบิลคลิก
+- [ ] ไม่ใส่ค่า secret/API key ใด ๆ ในฝั่ง client นอกจาก `VITE_FIREBASE_*` ที่เป็น public config
+
+### Server (Callable Function `asia-southeast1`)
+- [ ] **Validate ซ้ำทั้งหมดบน server** (schema เดียวกัน) — ปฏิเสธถ้าไม่ผ่าน พร้อม error ภาษาไทย/อังกฤษ
+- [ ] `escapeHtml` ทุกค่าที่นำไปประกอบอีเมล (กัน HTML/script injection ในเมล)
+- [ ] ตรวจ honeypot: ถ้ามีค่า → ตอบสำเร็จหลอมแต่ **ไม่บันทึก/ไม่ส่งเมล**
+- [ ] **Rate limit** ต่อ IP/ช่วงเวลา (เช่น ไม่เกิน N ครั้ง/นาที) · บันทึก counter ใน Firestore หรือใช้กลไกเทียบเท่า
+- [ ] จำกัดขนาด payload · ตัดฟิลด์ที่ไม่รู้จัก (ไม่ spread ข้อมูลดิบลง Firestore)
+- [ ] **Firebase App Check** เปิดใช้กับ callable (แนะนำ) เพื่อกันเรียกจากนอกเว็บ
+- [ ] เก็บ **Firestore ก่อน** แล้วส่งอีเมล — ถ้าอีเมลล้ม lead ไม่หาย · log error ไม่ log ข้อมูลส่วนบุคคลเต็ม
+
+### Firestore rules & ข้อมูล
+- [ ] คอลเลกชัน lead **ปิดอ่าน/เขียนจาก client ทั้งหมด** (`allow read, write: if false`) — เขียนผ่าน Function ด้วย Admin SDK เท่านั้น
+- [ ] ไม่เปิด public read ใด ๆ กับข้อมูลติดต่อ
+- [ ] เก็บ timestamp · locale · หน้าที่ส่งมา (เพื่อดูว่าเสาบริการไหนได้ lead) — ไม่เก็บข้อมูลเกินจำเป็น
+- [ ] Secrets (Resend API key ฯลฯ) อยู่ใน Functions config/secret manager — **ไม่อยู่ใน repo และไม่อยู่ฝั่ง client**
+
+**Acceptance:** ส่งฟอร์มด้วยข้อมูลไม่ถูกต้องจาก client ที่ถูกแก้ไข → server ปฏิเสธ · honeypot ทำงาน · rate limit ทำงาน · Firestore ไม่สามารถอ่านจาก client · ไม่มี secret ใน bundle
+
+---
+
+## 5.9 Accessibility checklist (บังคับ)
+
+- [ ] **ใช้งานด้วยคีย์บอร์ดได้ทั้งไซต์** — nav · language switcher · เมนูมือถือ · ฟอร์ม · แกลเลอรี/วิดีโอ · ลำดับ tab เป็นธรรมชาติ · ไม่มี keyboard trap · มี skip-to-content
+- [ ] **Focus state ชัดเจน** — ไม่ลบ outline โดยไม่ใส่ของแทน · ใช้ `:focus-visible` เห็นชัดบนพื้นน้ำเงินและพื้นอ่อน
+- [ ] **Contrast ผ่าน** — ข้อความปกติ ≥ 4.5:1 · ข้อความใหญ่ ≥ 3:1 · ตรวจตัวอักษรบนภาพ hero และปุ่ม (รวมปุ่ม LINE เขียว/ขาว) · ใส่ overlay/scrim ถ้าจำเป็น
+- [ ] **Form label / error เชื่อมกับ input** — `<label for>` จริง (ไม่ใช้ placeholder แทน label) · error ผูกด้วย `aria-describedby` · `aria-invalid` เมื่อผิด · ประกาศสถานะ success/error ด้วย live region · โฟกัสไปช่องแรกที่ผิดเมื่อ submit ไม่ผ่าน
+- [ ] **รองรับ `prefers-reduced-motion`** — ปิด/ลด fade-in และ transition ทั้งหมดเมื่อผู้ใช้ตั้งค่าไว้ · ไม่มี auto-play ที่เคลื่อนไหวตลอด
+- [ ] **Alt ไทย/อังกฤษ** — ทุกภาพมี alt จาก copy files ทั้งสองภาษา · ภาพตกแต่งใช้ `alt=""` · วิดีโอมีคำบรรยาย/บริบทเป็นข้อความ · `aria-label` ของปุ่มไอคอน (โทร/LINE/เมนู) มาจาก copy
+- [ ] Heading เรียงลำดับถูก (h1 เดียวต่อหน้า) · landmarks ครบ · `lang` ถูกต้องตาม locale
+- [ ] แตะได้สะดวก ≥44px (สอดคล้อง §9)
+
+**Acceptance:** เดินทั้งไซต์ด้วย Tab/Enter/Esc ได้ · ตรวจ contrast ผ่านทุกคู่สีหลัก · ฟอร์มอ่านรู้เรื่องด้วย screen reader · เปิด reduced-motion แล้วไม่มีอนิเมชันรบกวน
+
+---
+
+## 6. รายละเอียด Section ร่วม + Acceptance
+
+### 6.1 Header
+- Logo · nav: หน้าแรก · Construction · Marketing · Consulting · Portfolio · About · Contact  
+- Call · LINE (#06C755) · language switcher (**คง path คู่กัน**)  
+- Sticky · มือถือ: เมนูย่อ (drawer/แผงเรียบง่าย ไม่ clutter)
+
+**Acceptance:** โทร/LINE ใช้ได้ · สลับภาษาคง path คู่ · ติดต่อเห็นก่อนเลื่อนพ้น hero · เมนูไม่เกินความจำเป็น · default locale = `th`
+
+### 6.2 Hero (ฮับ)
+- Brand-first · 1 headline · 1 sub · 1 CTA group · full-bleed · ไม่มี cards/stats/overlays  
+
+**ร่าง TH:**  
+- Brand: แบล็ค การก่อสร้าง  
+- Headline: ต่อเติม ก่อสร้าง บิ้วอิน — ความเชี่ยวชาญหลายด้านในที่เดียว  
+- Sub: กรุงเทพฯ ปริมณฑล และต่างจังหวัด · คุยแผนงานได้ทางโทรหรือ LINE  
+
+### 6.3 Services hub (ฮับ)
+- 4 ลิงก์ไปเสาบริการ · หัวข้อ + ประโยครองสั้นต่อเสา  
+
+### 6.4–6.5 Portfolio / teaser
+- สื่อจาก `media.json` · alt จาก copy · วิดีโอมี poster · `preload="none"`  
+
+### 6.6 Contact (+ หน้า Contact)
+- สถานะ idle / submitting / success / error  
+- Fallback โทร + LINE (+ อีเมลเมื่อมี) ใกล้ฟอร์มเสมอ  
+
+### 6.7 Footer
+- ชื่อนิติบุคคล · ที่อยู่ · โทร · ลิงก์ทุกหน้า · lang (คง path คู่)  
+
+### 6.8 MobileContactBar
+- `md:hidden` · Call + LINE · แตะ ≥44px · padding-bottom บน main  
+
+### 6.9 หน้าบริการ (3 เสา)
+- Template §4 · Construction ใช้ถ้อยคำพันธมิตรที่ล็อก  
+- Preselect ประเภทบริการตอนไป Contact  
+
+---
+
+## 7. ข้อมูลและรูปภาพที่ต้องใช้
+
+### 7.1 Config (`src/content/config.ts`)
+
+| คีย์ | ค่า | สถานะ |
+|------|-----|--------|
+| `phoneDisplay` / `phoneTel` | 086-886-9282 / +66868869282 | ✅ |
+| `address` | 3/6 ซอยคู้บอน 44 แขวงบางชัน เขตคลองสามวา กทม. 10510 | ✅ |
+| `legalNameTh` / `legalNameEn` | ตาม brief | ✅ |
+| `lineUrl` | — | ❌ |
+| `publicEmail` | — | ❌ |
+| `siteUrl` · Firebase `VITE_*` | — | ❌ |
+
+### 7.2 Copy
+ทุกสตริง UI/SEO/form/alt/aria ใน `copy.th.json` → mirror `copy.en.json`  
+รวมคีย์ต่อหน้า: `home.*` · `construction.*` · `marketing.*` · `consulting.*` · `portfolio.*` · `about.*` · `contact.*`
+
+### 7.3 Media (`media.json`)
+
+| คีย์ | หมายเหตุ | สถานะ |
+|------|----------|--------|
+| `media.global.logo` / `favicon` / `og` | โลโก้น้ำเงิน (มีสแกนตราประทับอ้างอิงแล้ว) | ⚠️ รอไฟล์เวกเตอร์/PNG พื้นโปร่งคมชัด |
+| `media.home.hero` | ภาพหน้าแรก | ❌ |
+| `media.portfolio.*` (รูป+วิดีโอ+poster) | ครอบคลุม 3 เสา | ❌ |
+| `media.about.team.*` | ทีมงาน | ❌ |
+| `media.brand.uniform` | รูปเสื้อยูนิฟอร์ม | ⚪ รอยืนยันใช้ |
+
+### 7.4 Brief อ้างอิง
+
+| รายการ | ค่า |
+|--------|-----|
+| สีแบรนด์ | น้ำเงินยูนิฟอร์ม / หมึกตราประทับ (ไม่ใช้แดง) |
+| โลโก้ (มีตัวอย่างจากลูกค้าแล้ว) | ตราประทับวงรี หมึกน้ำเงิน · กลางเป็น**เพชร + ลูกดิ่ง** · ขอบบนโค้ง "บริษัท แบล็ค การก่อสร้าง จำกัด" · ขอบล่างโค้ง "BLACK CONSTRUCTION CO.,LTD." · มีดอกจันคั่นสองข้าง |
+| เสาบริการ | Construction · Marketing · Consulting |
+| Construction tone | **ล็อก:** นำเสนอบริการออกแบบและก่อสร้างโดยอาศัยความร่วมมือกับพันธมิตรที่มีความเชี่ยวชาญ |
+
+**หมายเหตุโลโก้:** ตัวอย่างที่ได้เป็น**สแกนตราประทับ** (พื้นหลังกระดาษ · หมึกไม่คม) — ใช้เป็น**อ้างอิงรูปทรง/สัญลักษณ์/สี** ได้ แต่ **ยังต้องขอไฟล์เวกเตอร์/PNG พื้นโปร่งที่คมชัด** สำหรับใช้จริงบนเว็บ (header · favicon · OG) · แนวเลือกตอน build: ใช้ mark เพชร+ลูกดิ่ง + wordmark "Black Construction" ให้สะอาดแบบ Apple Minimal ไม่ก็อปเส้นขอบตราประทับที่เบลอ
+
+---
+
+## 7.5 โครงสร้างโปรเจกต์ (ตอน build phase)
+
+```
+แบล็ค ก่อสร้าง/            # repo: construction
+├── index.html
+├── package.json
+├── vite.config.ts         # @ → ./src · @tailwindcss/vite
+├── firebase.json          # hosting → dist/ · functions · SPA rewrites
+├── .firebaserc
+├── .env.example           # VITE_FIREBASE_* เท่านั้น — ไม่ commit .env
+├── TECHNICAL_PLAN.md       # ดัชนี/ชี้ไปฉบับ th/en
+├── TECHNICAL_PLAN.th.md    # แผนเทคนิคภาษาไทย
+├── TECHNICAL_PLAN.en.md    # แผนเทคนิคภาษาอังกฤษ
+├── public/
+│   ├── robots.txt
+│   ├── sitemap.xml
+│   └── assets/            # รูป/วิดีโอ/โลโก้ (optimize ก่อน deploy)
+├── functions/src/index.ts # callable asia-southeast1 + Resend + Firestore
+└── src/
+    ├── main.tsx
+    ├── app/App.tsx         # routing (react-router-dom) — composition เท่านั้น
+    ├── content/
+    │   ├── copy.th.json    # Thai first (source of truth)
+    │   ├── copy.en.json    # mirror keys
+    │   ├── media.json      # ทุก URL รูป/วิดีโอ/poster
+    │   └── config.ts       # phone · line · email · address · siteUrl · Firebase
+    ├── components/         # หนึ่ง section/ชิ้น = หนึ่งไฟล์ (§8)
+    ├── lib/firebase.ts
+    ├── lib/content.ts      # getContent / getMedia
+    └── styles/index.css    # @theme inline tokens สีน้ำเงิน
+```
+
+**หมายเหตุ:**
+- หน้าเพจ (`HomePage`, `ServicePage`, ฯลฯ §8) และ helper เพิ่ม (`i18n.ts` · `seo.ts` · `services.ts`) อยู่ภายใต้ `src/app/` · `src/lib/` · `src/content/` ตามโครงนี้ — โครงข้างบนเป็นไฟล์แกนขั้นต่ำที่ต้องมี
+- `TECHNICAL_PLAN.*` = เอกสารแผนเทคนิคในโปรเจกต์ (สองภาษา + ดัชนี) · `plan.md` / `README.md` ปัจจุบันยังเป็นเอกสารวางแผนหลักจนกว่าจะ scaffold แล้วแตกเป็น TECHNICAL_PLAN
+- ไม่ commit: `node_modules/` · `dist/` · `.env` · `functions/lib/` · `.firebase/`
+
+---
+
+## 8. รายการ React Components ที่ต้องสร้าง
+
+### App / routing
+| Component | ไฟล์ | หน้าที่ |
+|-----------|------|---------|
+| `App` | `src/app/App.tsx` | Routes ทุกหน้า × locale ผ่าน **`react-router-dom`** (§0) |
+| `HomePage` | `src/app/HomePage.tsx` | หน้าแรก |
+| `ServicePage` | `src/app/ServicePage.tsx` | Template 3 เสา (รับ slug) |
+| `PortfolioPage` | `src/app/PortfolioPage.tsx` | ผลงาน + ตัวกรอง |
+| `AboutPage` | `src/app/AboutPage.tsx` | เกี่ยวกับเรา |
+| `ContactPage` | `src/app/ContactPage.tsx` | ติดต่อ |
+| `NotFound` | `src/app/NotFound.tsx` | 404 |
+| `SiteLayout` | `src/components/SiteLayout.tsx` | Header + Footer + MobileContactBar |
+| `Seo` | `src/components/Seo.tsx` | meta · OG · canonical · hreflang · JSON-LD |
+
+### UI ร่วม
+| Component | ไฟล์ |
+|-----------|------|
+| `Header` | `src/components/Header.tsx` |
+| `Hero` | `src/components/Hero.tsx` |
+| `ServicesHub` | `src/components/ServicesHub.tsx` |
+| `WhyUs` | `src/components/WhyUs.tsx` |
+| `PortfolioGrid` | `src/components/PortfolioGrid.tsx` |
+| `TestimonialList` | `src/components/TestimonialList.tsx` |
+| `ContactForm` | `src/components/ContactForm.tsx` |
+| `ContactSection` | `src/components/ContactSection.tsx` |
+| `Footer` | `src/components/Footer.tsx` |
+| `MobileContactBar` | `src/components/MobileContactBar.tsx` |
+| `CtaBand` | `src/components/CtaBand.tsx` |
+
+### ชิ้นส่วนหน้าบริการ
+| Component | ไฟล์ |
+|-----------|------|
+| `ServiceHero` | `src/components/service/ServiceHero.tsx` |
+| `ServiceScope` | `src/components/service/ServiceScope.tsx` |
+| `ServiceAudience` | `src/components/service/ServiceAudience.tsx` |
+| `ServicePartnerNote` | `src/components/service/ServicePartnerNote.tsx` | *ใช้หนักใน Construction* |
+| `ServiceAreas` | `src/components/service/ServiceAreas.tsx` |
+| `RelatedServices` | `src/components/service/RelatedServices.tsx` |
+
+### Lib / content
+| Module | ไฟล์ |
+|--------|------|
+| Firebase | `src/lib/firebase.ts` |
+| i18n / content / media helpers | `src/lib/i18n.ts` · `content.ts` |
+| SEO helpers | `src/lib/seo.ts` |
+| Service registry | `src/content/services.ts` (`construction` · `marketing` · `consulting`) |
+| Config / copy / media | `src/content/config.ts` · `copy.th.json` · `copy.en.json` · `media.json` |
+| Styles | `src/styles/index.css` |
+| Cloud Function | `functions/src/index.ts` |
+
+**ไม่อยู่ใน v1:** Next.js · CMS · booking · admin
+
+---
+
+## 9. แนวทาง Responsive
+
+| Breakpoint | พฤติกรรม |
+|------------|----------|
+| **≤767** | Hero เต็มจอ · Services hub 1 คอลัมน์ · Portfolio 1–2 คอลัมน์ · เมนูย่อ · `MobileContactBar` |
+| **768–1279** | Sticky header + nav · hub 2×2 · ซ่อน mobile bar |
+| **≥1280** | กริดกว้างขึ้น · ระยะหายใจมากขึ้น · hero ยัง composition เดียว |
+
+กฎมือถือบังคับ: แตะ ≥44px · `text-base` ในช่องกรอก · ติดต่อก่อนเลื่อนพ้น hero · flex/grid · padding-bottom สำหรับ bar
+
+---
+
+## 10. SEO / AEO พื้นฐาน
+
+### Checklist (บังคับ v1)
+
+| รายการ | ข้อกำหนด |
+|--------|----------|
+| **`<html lang>`** | ตาม locale — `th` บน `/th…` · `en` บน `/en…` |
+| **hreflang** | คู่ `th` / `en` ทุกหน้า + `x-default` (ชี้ชุดไทยหรือฮับตามมาตรฐานที่เลือก) |
+| **Title · description · Open Graph** | **ต่อหน้า** ไม่ซ้ำ (7 หน้า × 2 ภาษา = 14 ชุด) จาก copy — รวม `og:title` · `og:description` · `og:image` · `og:url` · `og:locale` |
+| **robots.txt · sitemap.xml** | `public/robots.txt` · `public/sitemap.xml` **ครบทุก route ทั้งสองภาษา** (ฮับ + 3 บริการ + Portfolio + About + Contact × th/en) |
+| **JSON-LD** | `Organization` และ/หรือ `LocalBusiness` บนไซต์ · **บริการที่เกี่ยวข้อง** (`Service`) บนแต่ละหน้าเสาบริการ · ผูก `provider` / `areaServed` |
+| **Alt ไทย+อังกฤษ** | อยู่ในไฟล์ copy เท่านั้น (`media.*.alt` ใน `copy.th.json` / `copy.en.json`) — ไม่ hardcode ใน JSX |
+| **AEO** | ตอบชัด **who / what / who-for / why / where** บน**หน้าแรก**และ**แต่ละบริการ** ด้วยข้อความใน HTML (ไม่ฝังเฉพาะในรูป) |
+
+### AEO — แมปคำถามแกน (หน้าแรก + ทุกหน้าบริการ)
+
+| คำถาม | หมายถึง | ตำแหน่งเนื้อหา |
+|-------|---------|----------------|
+| **who** | คุณคือใคร | Hero / About สั้น · JSON-LD name |
+| **what** | ให้บริการอะไร | ภาพรวม 3 เสา (ฮับ) · รายการบริการ (หน้าบริการ) |
+| **who-for** | ช่วยใคร | บล็อกเหมาะกับใคร / กลุ่มลูกค้า |
+| **why** | ทำไมควรเลือก | ความน่าเชื่อถือ · ปัญหา→คุณค่า · ถ้อยคำพันธมิตร (Construction) |
+| **where** | ให้บริการที่ไหน | กทม. · ปริมณฑล · ต่างจังหวัด · `areaServed` |
+
+### รายละเอียดเพิ่ม (รองรับ checklist)
+
+- [ ] Canonical ต่อหน้า · landmarks (`header` · `main` · `section` · `footer` · `address`) · breadcrumb บนหน้าบริการ/Portfolio/About/Contact  
+- [ ] Internal link: ฮับ ↔ บริการ ↔ Portfolio ↔ Contact  
+- [ ] Firebase SPA rewrite ครอบทุก path (กัน 404 ตอนเปิด URL ตรง / ให้ crawler เข้าถึงได้ผ่าน sitemap)  
+- [ ] (ถ้ามี) `sameAs` · Google Business Profile · `BreadcrumbList`  
+- [ ] บีบอัดสื่อ · lazy แกลเลอรี · hero ไม่ lazy  
+- [ ] ไม่ hardcode สตริง SEO ในคอมโพเนนต์  
+
+---
+
+## 11. แผนการ Deploy ด้วย Firebase Hosting
+
+```
+firebase.json   # hosting → dist/ · functions · SPA rewrite → /index.html
+.firebaserc     # ยืนยัน project
+.env.example    # VITE_FIREBASE_* — ไม่ commit .env
+functions/      # callable asia-southeast1 + Resend
+```
+
+```bash
+npm install
+cd functions && npm install && cd ..
+npm run build
+firebase deploy   # ต้อง Blaze สำหรับ Functions
+```
+
+1. Hosting · Functions · Firestore  
+2. Secrets เฉพาะเครื่อง/CI  
+3. Deploy  
+4. โดเมนกำหนดเองเมื่อมี  
+5. Smoke: ทั้ง 7 หน้า × 2 ภาษาแบบพิมพ์ URL ตรง · โทร · LINE · ฟอร์ม  
+6. Search Console + Rich Results  
+
+### Checklist ก่อนเปิดตัว (บังคับก่อน `firebase deploy` ส่งมอบ)
+
+- [ ] เลย์เอาต์มือถือ **375px**, **768px**, **1280px+**
+- [ ] **โทร**, **LINE** และ**ฟอร์ม**ใช้งานได้
+- [ ] ฟอร์มบันทึก **Firestore** และส่ง**อีเมล** (เมื่อตั้งค่าแล้ว)
+- [ ] **`.env` ไม่ถูก commit**; **`.env.example` อัปเดต**
+- [ ] **Meta**, **OG**, **sitemap**, **robots.txt** ครบ
+- [ ] โหลดบนมือถือได้ดี (**ภาพบีบอัด**, **JS น้อย**)
+- [ ] ตรวจคำ**ไทย+อังกฤษ**; ข้อมูลติดต่อตรงกับ brief
+- [ ] สตริงทั้งหมดในไฟล์ **copy**; URL สื่อทั้งหมดใน **media.json**
+- [ ] **ความปลอดภัยฟอร์ม §5.8 ผ่าน** (server validate · honeypot · rate limit · Firestore rules · ไม่มี secret ใน bundle)
+- [ ] **Accessibility §5.9 ผ่าน** (คีย์บอร์ด · focus · contrast · label/error · reduced-motion · alt th/en)
+
+**Deploy เฉพาะเมื่อสั่ง** — และหลังติ๊ก checklist นี้ครบ (หรือรายการที่เลื่อนอย่างชัดเจน)
+
+---
+
+## 12. Acceptance Criteria สรุปรวม
+
+| ส่วน | ผ่านเมื่อ |
+|------|-----------|
+| **ฮับ `/th`·`/en`** | ลำดับ Hero → ภาพรวม 3 บริการ → ความน่าเชื่อถือ → ตัวอย่างผลงาน → CTA ติดต่อ · hero ไม่ clutter |
+| **Construction** | ลำดับ Hero → ปัญหา/คุณค่า → รายการบริการ → หลักฐาน → CTA + ฟอร์ม/ทางเลือกติดต่อ · ถ้อยคำพันธมิตรล็อกตรงตัว · ครอบคลุมต่อเติม/รีโนเวท/บิ้วอิน/พัฒนาอสังหา · ไม่โอเวอร์เคลม |
+| **Marketing** | ลำดับเดียวกัน · ครบ 6 หัวข้อย่อย · สแกนง่าย |
+| **Consulting** | ลำดับเดียวกัน · ครบหัวข้อกลยุทธ์/การตลาด/พัฒนาโครงการ/วางแผนขาย/ที่ปรึกษา |
+| **Portfolio** | แกลเลอรี (lazy) → วิดีโอ → รีวิว · **ตัวกรองตามบริการอยู่ใน v1** · สื่อคุณภาพสูง · เพิ่มรายการได้โดยไม่รื้อหน้า |
+| **เนื้อหา trust (§4.1)** | ทุกเสามีปัญหา→วิธีช่วย · มีผลงานนำเสนอ · รีวิวเมื่อมีข้อมูล · ไม่ใช้สื่อปลอมเป็นผลงาน |
+| **About** | เรื่องราว → ทีม → ปรัชญา → CTA — ข้อเท็จจริงเท่านั้น |
+| **Contact** | หลายช่องทาง + ฟอร์ม (ชื่อ · **อีเมลจำเป็น** · **โทรไม่บังคับ** · ข้อความ) · โทร/LINE ใกล้ฟอร์ม · RHF+zod · 4 สถานะ · callable |
+| **ความปลอดภัยฟอร์ม (§5.8)** | validate ทั้ง client+server · honeypot · rate limit · escapeHtml · Firestore ปิดอ่าน/เขียนจาก client · ไม่มี secret ใน bundle |
+| **Accessibility (§5.9)** | คีย์บอร์ดครบ · focus ชัด · contrast ผ่าน · label/error ผูก input · reduced-motion · alt th/en |
+| **i18n routes** | default `th` · สวิตช์ภาษาคง path คู่ทุกหน้า · `/` → `/th` |
+| **Header / Mobile bar** | ติดต่อชัดทุกหน้า · sticky / `md:hidden` |
+| **Discovery / SEO·AEO (§10)** | `<html lang>` ตาม locale · hreflang th/en · title/description/OG ต่อหน้าไม่ซ้ำ · robots+sitemap ครบทุก route สองภาษา · JSON-LD Organization/LocalBusiness + Service · alt th+en ใน copy · AEO who/what/who-for/why/where บนฮับและทุกบริการ |
+| **Conversion** | ตอบ 4 คำถามผู้เข้าชมได้เร็ว · กดติดต่อได้ทุกหน้า |
+| **Baseline** | ทันสมัย · ใช้ง่าย · มือถือ · มืออาชีพ · ติดต่อชัด (§3.1) |
+| **แนวทาง (§3.2)** | อ่านเป็นแบรนด์เดียว · ฮับแล้วเจาะบริการ · SEO/AI แยกหัวข้อได้ · ขยายผลงาน/เคสได้โดยไม่รื้อโครง |
+| **สแตก (§0)** | ใช้เฉพาะชุดที่ล็อก — Vite/React/TS · Tailwind 4 · react-router-dom · lucide · RHF+zod · Firebase Hosting/Functions/Resend/Firestore · Maps iframe เมื่อมีที่อยู่ |
+| **i18n** | th ต้นทาง · en คีย์เดียวกัน |
+| **Deploy / ก่อนเปิดตัว (§11)** | ติ๊ก checklist ก่อนเปิดตัวครบ · build ผ่าน · Hosting เสิร์ฟได้ · form บน production ทดสอบได้ |
+
+---
+
+## 13. Design direction (ย่อ)
+
+- Apple Minimal / Chokdee Online — สะอาด ทันสมัย น่าเชื่อถือ  
+- **สีหลัก = สีเสื้อยูนิฟอร์ม** (~`#2E2E6B`–`#39397A` · sample จริงตอน build) · LINE `#06C755`  
+- Tokens ใน `@theme inline`  
+- หลีกเลี่ยง: ม่วงไล่เฉด · cream+terracotta · broadsheet · glow · pill หนา · เงาหลายชั้น · แดง  
+- ฟอนต์ expressive — ไม่ใช้ Inter/Roboto/Arial/system เป็นค่าเริ่ม  
+- Motion: fade-in 2–3 จุด · ไม่ parallax หนัก  
+
+---
+
+## 14. Content key map (ร่าง)
+
+```
+nav.* · home.* · construction.* · marketing.* · consulting.*
+portfolio.* · about.* · contact.* · mobileBar.* · footer.*
+seo.{home|construction|marketing|consulting|portfolio|about|contact}.*
+*.problems.{n}.pain|help
+portfolio.items.{id}.type|title|summary|challenge|work|result|pillar
+testimonials.{id}.quote|name|role|pillar
+media.*.alt · media.portfolio.video.*.caption
+```
+
+---
+
+## 15. ข้อมูลที่ต้องรับจากลูกค้า (**ไม่บล็อก scaffold**)
+
+รายการด้านล่างต้องได้ก่อน **Polish + launch** (หรือก่อนใส่เนื้อหาจริงในขั้นที่เกี่ยวข้อง) แต่ **ไม่ต้องครบก่อนเริ่มขั้น Scaffold / Chrome** — ใช้ค่า placeholder / ถ้อยคำล็อก / สื่อชั่วคราวที่ระบุชัดว่าชั่วคราวได้ระหว่างพัฒนา
+
+### กลุ่ม A — ติดต่อและพื้นที่ (ใส่ใน `config.ts`)
+
+| รายการ | สถานะปัจจุบัน | ตอน scaffold |
+|--------|----------------|--------------|
+| โทรศัพท์ | ✅ `086-886-9282` / `+66868869282` | ใช้ค่าที่มี |
+| LINE URL | ❌ รอ | placeholder `#` หรือซ่อนปุ่มจนกว่าได้ URL |
+| อีเมล | ❌ รอ | placeholder / ซ่อนจนกว่าได้ |
+| ที่อยู่ | ✅ คู้บอน 44 คลองสามวา | ใช้ค่าที่มี |
+| พื้นที่บริการ | ✅ กทม. · ปริมณฑล · ต่างจังหวัด | ใช้ค่าที่มี · รายละเอียดจังหวัดเพิ่มได้ทีหลัง |
+
+### กลุ่ม B — โลโก้ แบรนด์ และสื่อ
+
+| รายการ | หมายเหตุ | ตอน scaffold |
+|--------|----------|--------------|
+| โลโก้และแบรนด์ | มีสแกนตราประทับอ้างอิงแล้ว (เพชร+ลูกดิ่ง · TH/EN · น้ำเงิน) · **ยังรอไฟล์เวกเตอร์/PNG พื้นโปร่งคมชัด** · โทนสีจากเสื้อ/หมึก (ชื่อแสดงผล = Black Construction ยืนยันแล้ว) | text-logo "Black Construction" / token สีร่าง · แทนที่ด้วยไฟล์คมชัดทีหลัง |
+| สื่อ hero | ภาพคุณภาพสูงหน้าแรก | placeholder ที่ระบุชั่วคราว |
+| สื่อ portfolio | รูป/วิดีโอแยกตาม 3 เสา | placeholder · โครง `media.json` พร้อมรับของจริง |
+
+### กลุ่ม C — ความสัมพันธ์ด้านก่อสร้าง
+
+| รายการ | สถานะ |
+|--------|--------|
+| ถ้อยคำระมัดระวัง (ล็อกแล้ว) | ✅ *นำเสนอบริการออกแบบและก่อสร้างโดยอาศัยความร่วมมือกับพันธมิตรที่มีความเชี่ยวชาญ* — ใช้ตรงนี้ใน scaffold ได้เลย |
+| รายละเอียดพันธมิตร / ขอบเขตงานย่อยเพิ่มเติม | ⚪ ไม่บล็อก · เติมเมื่อมี |
+
+### กลุ่ม D — Testimonials / case studies
+
+| รายการ | เฟส | ตอน scaffold |
+|--------|------|--------------|
+| Testimonials | **v1** ถ้าส่งทัน · ไม่เช่นนั้นโครง UI พร้อม + ซ่อนหรือ empty state | ไม่บล็อก |
+| Case studies | **v1** ถ้าส่งทัน · หรือเลื่อน **เฟสถัดไป** | ไม่บล็อก |
+
+### ของเสริม (ไม่บล็อก · ช่วยคุณภาพ)
+
+- [ ] ปัญหา → วิธีช่วย ต่อเสาบริการ  
+- [ ] ขอบเขตงานจริง 4–6 ข้อต่อเสา  
+- [ ] รูปทีม / ที่มาสำหรับ About  
+- [ ] Google Business Profile / โซเชียล · โดเมน · Firebase project  
+- [ ] URL เว็บเดิม (ถ้ามี)  
+- [ ] อนุมัติใช้รูปยูนิฟอร์ม  
+
+### สิ่งที่ยังบล็อกการเริ่ม Build
+
+- [ ] **อนุมัติแผนนี้** + สั่ง build phase อย่างชัดเจน  
+
+> Scaffold เริ่มได้หลังอนุมัติแผน — **ไม่รอ** LINE / อีเมล / โลโก้ / สื่อ / รีวิว / เคสครบ
+
+---
+
+## 16. เกตเฟสงาน
+
+### Bootstrap — เสร็จแล้ว
+- [x] `README.md` · `plan.md` · `.gitignore` · remote `main` · Cloud env
+
+### Plan — อยู่ตรงนี้
+- [x] แผนพัฒนาครบหมวด  
+- [ ] อนุมัติแผน + สั่ง build (**ข้อมูล §15 ไม่ต้องครบก่อน scaffold**)
+
+### Build — ห้ามเริ่มจนกว่าจะได้รับอนุมัติและสั่งชัดเจน
+
+ทำตาม **ลำดับการพัฒนา** ด้านล่างทีละขั้น (อย่าข้ามขั้นใหญ่) · ไม่ commit secrets · สร้าง `TECHNICAL_PLAN.md` + `.th.md` + `.en.md` ในขั้น Scaffold หรือทันทีหลัง scaffold · ใส่ของจริงจาก §15 เมื่อได้ โดยไม่ต้องรื้อโครง
+
+#### ลำดับการพัฒนา (ล็อก)
+
+| # | ขั้น | งาน |
+|---|------|-----|
+| 1 | **Scaffold** | Vite / React / TS / Tailwind 4 · Firebase (`firebase.json` · `.firebaserc` · `.env.example`) · `react-router-dom` · locale `/th`·`/en` · content helpers (`getContent` / `getMedia`) · theme tokens สีน้ำเงินใน `styles/index.css` · โครง §7.5 |
+| 2 | **Chrome** | Header · Footer · language switcher (คง path คู่) · `MobileContactBar` · CTA ร่วม (`CtaBand` / ปุ่มโทร·LINE) |
+| 3 | **หน้าแรก** | Hero (นำด้วยแบรนด์) + ฮับบริการ 3 เสา + ความน่าเชื่อถือ + ตัวอย่างผลงาน + CTA ติดต่อ |
+| 4 | **หน้าระบบบริการ** | Construction · Marketing · Consulting ตาม template §5 (Hero → ปัญหา/คุณค่า → รายการ → หลักฐาน → CTA+ฟอร์ม) |
+| 5 | **Portfolio + About** | แกลเลอรี lazy → วิดีโอ → รีวิว (filter ตามบริการ) · About: เรื่องราว → ทีม → ปรัชญา → CTA |
+| 6 | **Contact** | หลายช่องทาง + ฟอร์ม (RHF+zod) + Callable + Firestore + อีเมล (Resend) · โทร/LINE ใกล้ฟอร์ม · **ความปลอดภัยฟอร์ม §5.8** |
+| 7 | **SEO** | meta ต่อหน้า · sitemap · robots · JSON-LD · OG · hreflang · AEO who/what/who-for/why/where (§10) |
+| 8 | **Polish + launch** | **Accessibility §5.9** · Checklist ก่อนเปิดตัว §11 (375/768/1280 · โทร/LINE/ฟอร์ม · Firestore+อีเมล · .env · meta/OG/sitemap/robots · โหลดมือถือ · copy th+en · media.json) · `firebase deploy` (**เมื่อสั่งเท่านั้น**) |
+
+**กฎลำดับ:** ขั้น 1–2 ต้องผ่านก่อนเนื้อหาหน้า · ขั้น 6 (ฟอร์มจริง) ก่อนถือว่า conversion ครบ · ขั้น 7 ทำหลังหน้าหลักมีเนื้อหาพอ · ขั้น 8 หลัง acceptance §12 ผ่าน
+
+### Deploy — เมื่อสั่งเท่านั้น
+- [ ] ตามหมวด 11 + ขั้น Polish + launch ด้านบน  
+
+### เฟสถัดไป (นอก v1 — quote แยก)
+- [ ] **บทความ / บล็อก** ที่เป็นประโยชน์ (SEO + ความน่าเชื่อถือระยะยาว)  
+- [ ] หน้าเคสศึกษารายชิ้น (ถ้าต้องการลึกกว่าการ์ดใน Portfolio)  
+- [ ] CMS หรือโฟลว์อัปเดตผลงานต่อเนื่องแบบไม่ต้องแก้โค้ด  
+- [ ] จองนัด / แอดมิน / แคมเปญโฆษณา  
+
+---
 
 ## Working rules
 
-- [ ] Read this plan before large changes; check off items as they land
-- [ ] Do not invent alternate stacks (no Next.js / CRA / other CSS frameworks unless the brief requires it)
-- [ ] Keep v1 scope tight: conversion landing first; CMS/booking/ads are separate quotes
-- [ ] Prefer `/push-to-github` (or equivalent) to sync work; deploy only when asked
+- อ่านแผนนี้ก่อนงานใหญ่ · ติ๊ก acceptance เมื่อผ่าน  
+- ทำตาม **ลำดับการพัฒนา §16** — ห้ามข้าม Scaffold/Chrome ไปทำหน้าเนื้อหาก่อน  
+- ไม่เปลี่ยนสแตก (§0) — ห้าม Next.js / CRA / CSS framework อื่น / router อื่น / form lib อื่น  
+- v1 = conversion + discovery multi-page · บล็อก/CMS/booking/ads เป็นเฟสถัดไป  
+- Copy ใน language files · media ใน `media.json`  
+- Routing ด้วย `react-router-dom` ตามตาราง §0 เท่านั้น  
+- Deploy เฉพาะเมื่อถูกขอ  
