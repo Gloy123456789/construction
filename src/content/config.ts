@@ -19,6 +19,20 @@ export const siteConfig = {
   siteUrl: import.meta.env.VITE_SITE_URL || "https://black-construction.web.app",
   firebaseRegion: "asia-southeast1" as const,
   contactCallable: "submitContact" as const,
+  /**
+   * Trust stats — edit here only.
+   * Leave numeric strings empty until the client confirms figures;
+   * empty values are hidden in the UI so we never invent claims.
+   */
+  trustStats: {
+    yearsExperience: "",
+    completedProjects: "",
+    teamSize: "",
+    warrantyTh: "รับประกันตามขอบเขตงานที่ตกลงร่วมกัน",
+    warrantyEn: "Warranty per the agreed project scope",
+  },
+  /** Optional Storage path prefix for quote attachments (client upload later) */
+  storageQuotePrefix: "quote-attachments",
 };
 
 export type Locale = "th" | "en";

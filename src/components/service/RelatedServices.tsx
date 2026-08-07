@@ -20,7 +20,7 @@ export function RelatedServices({ current }: { current: ServiceSlug }) {
             <Link
               key={slug}
               to={pathFor(locale, slug)}
-              className="rounded-lg border border-brand-100 p-5 no-underline hover:border-brand-300"
+              className="border-t border-brand-100 pt-5 no-underline hover:text-brand-700"
             >
               <h3 className="font-semibold text-brand-700">
                 {getContent(`services.items.${slug}.title`, locale)}

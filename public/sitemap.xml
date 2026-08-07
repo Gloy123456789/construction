@@ -73,4 +73,14 @@
     <xhtml:link rel="alternate" hreflang="th" href="https://black-construction.web.app/th/contact"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://black-construction.web.app/en/contact"/>
   </url>
+  <url>
+    <loc>https://black-construction.web.app/th/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="th" href="https://black-construction.web.app/th/privacy"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://black-construction.web.app/en/privacy"/>
+  </url>
+  <url>
+    <loc>https://black-construction.web.app/en/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="th" href="https://black-construction.web.app/th/privacy"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://black-construction.web.app/en/privacy"/>
+  </url>
 </urlset>

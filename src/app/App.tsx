@@ -5,6 +5,7 @@ import { ContactPage } from "@/app/ContactPage";
 import { HomePage } from "@/app/HomePage";
 import { NotFound } from "@/app/NotFound";
 import { PortfolioPage } from "@/app/PortfolioPage";
+import { PrivacyPage } from "@/app/PrivacyPage";
 import { ServicePage } from "@/app/ServicePage";
 import { isLocale } from "@/lib/i18n";
 
@@ -25,6 +26,7 @@ export default function App() {
         <Route path="portfolio" element={<PortfolioPage />} />
         <Route path="about" element={<AboutPage />} />
         <Route path="contact" element={<ContactPage />} />
+        <Route path="privacy" element={<PrivacyPage />} />
         <Route path=":slug" element={<ServicePage />} />
         <Route path="*" element={<NotFound />} />
       </Route>

@@ -20,9 +20,13 @@ type ContactInput = {
   phone?: string;
   message?: string;
   serviceType?: string;
+  budget?: string;
+  projectLocation?: string;
   locale?: string;
   pagePath?: string;
+  sourcePage?: string;
   website?: string;
+  attachmentRefs?: unknown;
 };
 
 function escapeHtml(value: string): string {
@@ -43,6 +47,15 @@ function isEmail(value: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
+function cleanAttachmentRefs(value: unknown): string[] {
+  if (!Array.isArray(value)) return [];
+  return value
+    .filter((v): v is string => typeof v === "string")
+    .map((v) => v.trim().slice(0, 500))
+    .filter(Boolean)
+    .slice(0, 8);
+}
+
 export const submitContact = onCall(
   { secrets: [resendApiKey, notifyTo], cors: true },
   async (request) => {
@@ -58,16 +71,20 @@ export const submitContact = onCall(
     const phone = clean(data.phone, 40);
     const message = clean(data.message, 4000);
     const serviceType = clean(data.serviceType, 40) || "general";
+    const budget = clean(data.budget, 120);
+    const projectLocation = clean(data.projectLocation, 200);
     const locale = clean(data.locale, 8) || "th";
     const pagePath = clean(data.pagePath, 200);
+    const sourcePage = clean(data.sourcePage, 200) || pagePath;
+    const attachmentRefs = cleanAttachmentRefs(data.attachmentRefs);
 
     if (!name) {
       throw new HttpsError("invalid-argument", "กรุณากรอกชื่อ");
     }
-    if (!email) {
-      throw new HttpsError("invalid-argument", "กรุณากรอกอีเมล");
+    if (!phone || !/^[\d+\-\s()]{8,}$/.test(phone)) {
+      throw new HttpsError("invalid-argument", "กรุณากรอกเบอร์โทรให้ถูกต้อง");
     }
-    if (!isEmail(email)) {
+    if (email && !isEmail(email)) {
       throw new HttpsError("invalid-argument", "รูปแบบอีเมลไม่ถูกต้อง");
     }
     if (!message) {
@@ -92,17 +109,23 @@ export const submitContact = onCall(
       throw new HttpsError("resource-exhausted", "ส่งบ่อยเกินไป กรุณาลองใหม่ภายหลัง");
     }
 
+    const createdAt = new Date();
     const doc = {
       name,
-      email,
-      phone: phone || null,
+      telephone: phone,
+      phone,
+      email: email || null,
       message,
       serviceType,
+      budget: budget || null,
+      projectLocation: projectLocation || null,
+      attachmentRefs,
       locale,
       pagePath: pagePath || null,
+      sourcePage: sourcePage || null,
       ip,
-      createdAtMs: Date.now(),
-      createdAt: new Date().toISOString(),
+      createdAtMs: createdAt.getTime(),
+      createdAt: createdAt.toISOString(),
       source: "black-construction",
     };
 
@@ -112,15 +135,18 @@ export const submitContact = onCall(
     const key = resendApiKey.value();
     if (key) {
       const resend = new Resend(key);
-      const subject = `[Black Construction] Contact — ${serviceType} — ${name}`;
+      const subject = `[Black Construction] Quote — ${serviceType} — ${name}`;
       const html = `
-        <h2>New contact submission</h2>
+        <h2>New quotation / contact</h2>
         <p><strong>Name:</strong> ${escapeHtml(name)}</p>
-        <p><strong>Email:</strong> ${escapeHtml(email)}</p>
-        <p><strong>Phone:</strong> ${escapeHtml(phone || "-")}</p>
+        <p><strong>Phone:</strong> ${escapeHtml(phone)}</p>
+        <p><strong>Email:</strong> ${escapeHtml(email || "-")}</p>
         <p><strong>Service:</strong> ${escapeHtml(serviceType)}</p>
+        <p><strong>Budget:</strong> ${escapeHtml(budget || "-")}</p>
+        <p><strong>Location:</strong> ${escapeHtml(projectLocation || "-")}</p>
         <p><strong>Locale:</strong> ${escapeHtml(locale)}</p>
-        <p><strong>Page:</strong> ${escapeHtml(pagePath || "-")}</p>
+        <p><strong>Source page:</strong> ${escapeHtml(sourcePage || "-")}</p>
+        <p><strong>Attachments:</strong> ${escapeHtml(attachmentRefs.join(", ") || "-")}</p>
         <p><strong>Message:</strong></p>
         <p>${escapeHtml(message).replace(/\n/g, "<br/>")}</p>
         <p><small>Doc ID: ${escapeHtml(ref.id)}</small></p>
@@ -128,7 +154,7 @@ export const submitContact = onCall(
       await resend.emails.send({
         from: "Chokdee Online <info@chokdee.online>",
         to: [to],
-        replyTo: email,
+        replyTo: email || undefined,
         subject,
         html,
       });

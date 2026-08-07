@@ -8,6 +8,7 @@ export type PageKind =
   | "portfolio"
   | "about"
   | "contact"
+  | "privacy"
   | "notFound";
 
 export function pagePath(locale: Locale, kind: PageKind): string {
@@ -16,27 +17,32 @@ export function pagePath(locale: Locale, kind: PageKind): string {
   return pathFor(locale, kind);
 }
 
+function absoluteAsset(pathOrUrl: string): string {
+  if (!pathOrUrl) return siteConfig.siteUrl;
+  if (/^https?:\/\//i.test(pathOrUrl)) return pathOrUrl;
+  return `${siteConfig.siteUrl}${pathOrUrl.startsWith("/") ? "" : "/"}${pathOrUrl}`;
+}
+
 export function seoFor(kind: PageKind, locale: Locale) {
   const key = kind === "notFound" ? "home" : kind;
   const title = getContent(`seo.${key}.title`, locale);
   const description = getContent(`seo.${key}.description`, locale);
   const path = pagePath(locale, kind === "notFound" ? "home" : kind);
   const url = `${siteConfig.siteUrl}${path}`;
-  const image = `${siteConfig.siteUrl}${getMedia("media.global.og")}`;
+  const image = absoluteAsset(getMedia("media.global.og"));
   return { title, description, url, image, path };
 }
 
 export function localBusinessJsonLd(locale: Locale) {
   return {
     "@context": "https://schema.org",
-    "@type": ["Organization", "LocalBusiness", "GeneralContractor"],
-    name:
-      locale === "th" ? siteConfig.legalNameTh : siteConfig.legalNameEn,
+    "@type": ["Organization", "LocalBusiness", "GeneralContractor", "HomeAndConstructionBusiness"],
+    name: locale === "th" ? siteConfig.legalNameTh : siteConfig.legalNameEn,
     alternateName: [siteConfig.brandTh, siteConfig.brandEn],
     url: siteConfig.siteUrl,
     telephone: siteConfig.phoneTel,
     email: siteConfig.publicEmail || undefined,
-    image: `${siteConfig.siteUrl}${getMedia("media.global.logo")}`,
+    image: absoluteAsset(getMedia("media.global.logo")),
     address: {
       "@type": "PostalAddress",
       streetAddress: "3/6 Soi Kubon 44",
@@ -50,6 +56,7 @@ export function localBusinessJsonLd(locale: Locale) {
       { "@type": "AdministrativeArea", name: "Greater Bangkok" },
       { "@type": "Country", name: "Thailand" },
     ],
+    priceRange: "$$",
   };
 }
 

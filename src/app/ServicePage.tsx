@@ -86,7 +86,7 @@ export function ServicePage() {
       <section className="section-y">
         <div className="container-page grid gap-8 md:grid-cols-2">
           {(["1", "2"] as const).map((id) => (
-            <div key={id} className="rounded-lg bg-surface p-6">
+            <div key={id} className="border-l-2 border-brand-600 pl-5">
               <h2 className="text-lg font-semibold text-brand-800">
                 {getContent(`${slug}.problems.${id}.pain`, locale)}
               </h2>
@@ -108,7 +108,7 @@ export function ServicePage() {
           </p>
           <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {Object.entries(scopeItems).map(([key, item]) => (
-              <div key={key} className="rounded-lg border border-brand-100 p-5">
+              <div key={key} className="border-t border-brand-100 pt-4">
                 <h3 className="font-semibold text-ink">{item.title}</h3>
                 <p className="mt-2 text-sm text-muted">{item.body}</p>
               </div>

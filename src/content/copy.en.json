@@ -27,6 +27,10 @@
     "contact": {
       "title": "Contact | Black Construction",
       "description": "Contact BLACK CONSTRUCTION CO., LTD. at 086-886-9282 or send a message through the form — serving Bangkok, Greater Bangkok, and provinces across Thailand."
+    },
+    "privacy": {
+      "title": "Privacy Policy | Black Construction",
+      "description": "Privacy policy for contact and quotation data collected by BLACK CONSTRUCTION CO., LTD."
     }
   },
   "nav": {
@@ -36,15 +40,19 @@
     "consulting": "Consulting",
     "portfolio": "Portfolio",
     "about": "About",
-    "contact": "Contact"
+    "contact": "Contact",
+    "quote": "Request a quote"
   },
   "hero": {
     "brand": "Black Construction",
-    "headline": "Design, build, and grow your business with clear direction",
-    "sub": "Design-and-build services through specialized partners, plus digital marketing and project consulting — covering Bangkok · Greater Bangkok · provinces across Thailand",
+    "headline": "Professional design, build, renovation and built-in",
+    "sub": "Design & construction via specialist partners, plus marketing and project consulting — Bangkok, Greater Bangkok and provinces",
     "ctaCall": "Call us",
     "ctaLine": "Chat on LINE",
-    "ctaContact": "Get in touch"
+    "ctaContact": "Get in touch",
+    "ctaQuote": "Get a cost estimate",
+    "ctaPortfolio": "View portfolio",
+    "trustLine": "Professional team · Nationwide service area · Easy to reach"
   },
   "services": {
     "title": "Our services",
@@ -65,21 +73,28 @@
     }
   },
   "trust": {
-    "title": "Why businesses start the conversation with us",
-    "sub": "We focus on clear communication, understandable scope, and coordination you can follow.",
+    "title": "Trust built into how we work",
+    "sub": "Stat figures are edited in config and shown only when confirmed",
     "items": {
       "1": {
-        "title": "Construction, marketing, and consulting in one place",
-        "body": "Discuss project overview, brand communication, and business direction without coordinating multiple parties from day one."
+        "title": "Construction, marketing and consulting together",
+        "body": "Discuss the project overview, brand communication and business direction in one place"
       },
       "2": {
-        "title": "Construction through specialized partners",
-        "body": "We present design-and-build services through collaboration with specialized partners, so scope and responsibilities stay clear."
+        "title": "Build with specialist partners",
+        "body": "Design and construction delivered through collaboration with specialist partners"
       },
       "3": {
-        "title": "Broad service coverage",
-        "body": "We take on work across Bangkok · Greater Bangkok · provinces throughout Thailand, with easy contact by phone or form."
+        "title": "Clear scope, easy to track",
+        "body": "Plain communication and coordination you can follow throughout the project"
       }
+    },
+    "stats": {
+      "years": "Years of experience",
+      "projects": "Projects delivered",
+      "team": "Professional team",
+      "warranty": "Warranty",
+      "area": "Service area"
     }
   },
   "portfolio": {
@@ -149,7 +164,14 @@
     "videoTitle": "Project videos",
     "challengeLabel": "Challenge",
     "workLabel": "What we did",
-    "resultLabel": "Result"
+    "resultLabel": "Result",
+    "openProject": "View details",
+    "beforeLabel": "Before",
+    "afterLabel": "After",
+    "closeModal": "Close",
+    "modalChallenge": "Challenge",
+    "modalWork": "What we did",
+    "modalResult": "Result"
   },
   "ctaBand": {
     "title": "Ready to talk about your project",
@@ -360,8 +382,8 @@
     }
   },
   "contact": {
-    "title": "Contact us",
-    "sub": "Call, message, or use the form. We will help prioritize what to discuss next.",
+    "title": "Request a quote / Contact us",
+    "sub": "Share a short brief and we will follow up — or call / LINE now",
     "form": {
       "name": {
         "label": "Name",
@@ -372,7 +394,7 @@
         "placeholder": "name@email.com"
       },
       "phone": {
-        "label": "Phone",
+        "label": "Phone *",
         "placeholder": "08x-xxx-xxxx"
       },
       "message": {
@@ -398,8 +420,19 @@
         "nameRequired": "Please enter your name",
         "emailRequired": "Please enter your email",
         "emailInvalid": "Please enter a valid email",
-        "messageRequired": "Please enter a message"
-      }
+        "messageRequired": "Please enter a message",
+        "phoneRequired": "Please enter a phone number",
+        "phoneInvalid": "Invalid phone number format"
+      },
+      "budget": {
+        "label": "Approximate budget",
+        "placeholder": "e.g. 500,000 – 1,000,000 THB"
+      },
+      "location": {
+        "label": "Project location",
+        "placeholder": "e.g. Lat Phrao, Bangkok"
+      },
+      "attachmentNote": "Attach site photos (optional) — enabled once Storage is configured"
     },
     "channels": {
       "title": "Contact channels",
@@ -436,7 +469,9 @@
     "servicesTitle": "Services",
     "contactTitle": "Contact",
     "rights": "All rights reserved",
-    "privacyNote": "We use contact details only to respond to your inquiry"
+    "privacyNote": "We use contact details only to respond to your inquiry",
+    "privacy": "Privacy policy",
+    "quoteCta": "Request a quote"
   },
   "mobileBar": {
     "call": "Call",
@@ -456,10 +491,14 @@
     },
     "portfolio": {
       "01": {
-        "alt": "Office renovation portfolio image"
+        "alt": "Office renovation portfolio image",
+        "beforeAlt": "Space before renovation",
+        "afterAlt": "Space after renovation"
       },
       "02": {
-        "alt": "Home extension portfolio image"
+        "alt": "Home extension portfolio image",
+        "beforeAlt": "Home before extension",
+        "afterAlt": "Home after extension"
       },
       "03": {
         "alt": "Social media and brand content sample image"
@@ -486,6 +525,17 @@
       "og": {
         "alt": "Black Construction — design & build, marketing, and consulting"
       }
+    },
+    "services": {
+      "construction": {
+        "alt": "Construction and renovation work"
+      },
+      "marketing": {
+        "alt": "Marketing and brand communication"
+      },
+      "consulting": {
+        "alt": "Project consulting"
+      }
     }
   },
   "notFound": {
@@ -500,5 +550,28 @@
     "line": "LINE",
     "backHome": "Back to home",
     "relatedServices": "Related services"
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "updated": "Last updated: August 2026",
+    "intro": "BLACK CONSTRUCTION CO., LTD. respects personal data submitted through this website",
+    "sections": {
+      "1": {
+        "title": "Data we collect",
+        "body": "Name, phone, email, service type, approximate budget, project location, message, and technical data needed for spam protection"
+      },
+      "2": {
+        "title": "Purpose",
+        "body": "Used only to respond, assess scope and improve services. We do not sell data to third parties"
+      },
+      "3": {
+        "title": "Retention",
+        "body": "Data is stored in access-controlled systems for as long as needed for contact and business records"
+      },
+      "4": {
+        "title": "Contact about personal data",
+        "body": "Reach us about personal data at 086-886-9282"
+      }
+    }
   }
 }

@@ -1,20 +1,22 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-brand-50: #eef0f8;
-  --color-brand-100: #d9dcf0;
-  --color-brand-200: #b4bae0;
-  --color-brand-500: #39397a;
-  --color-brand-600: #2e2e6b;
-  --color-brand-700: #25255a;
-  --color-brand-800: #1c1c45;
-  --color-brand-900: #141433;
-  --color-ink: #1e1f2b;
-  --color-muted: #5c6070;
-  --color-surface: #f5f6fa;
+  --color-brand-50: #eef2f8;
+  --color-brand-100: #d9e2f0;
+  --color-brand-200: #b0c2de;
+  --color-brand-500: #2a3f6e;
+  --color-brand-600: #1e3260;
+  --color-brand-700: #17284d;
+  --color-brand-800: #111e3a;
+  --color-brand-900: #0b1428;
+  --color-ink: #1a1d26;
+  --color-muted: #5a6070;
+  --color-surface: #f7f8fa;
   --color-line: #06c755;
-  --font-sans: "Source Sans 3", "IBM Plex Sans Thai", ui-sans-serif, system-ui,
-    sans-serif;
+  --color-accent: #c62828;
+  --color-accent-hover: #a61f1f;
+  --font-sans: "IBM Plex Sans Thai", "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Manrope", "IBM Plex Sans Thai", ui-sans-serif, system-ui, sans-serif;
 }
 
 @layer base {
@@ -40,6 +42,14 @@
     @apply bg-white text-ink font-sans antialiased;
   }
 
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-brand-600;
   }
@@ -55,17 +65,33 @@
   }
 
   .section-y {
-    @apply py-14 sm:py-16 lg:py-20;
+    @apply py-16 sm:py-20 lg:py-24;
+  }
+
+  .btn-accent {
+    @apply inline-flex min-h-11 items-center justify-center rounded-sm bg-accent px-5 text-sm font-semibold text-white no-underline transition-colors hover:bg-accent-hover;
+  }
+
+  .btn-primary {
+    @apply inline-flex min-h-11 items-center justify-center rounded-sm bg-brand-600 px-5 text-sm font-semibold text-white no-underline transition-colors hover:bg-brand-700;
+  }
+
+  .btn-ghost {
+    @apply inline-flex min-h-11 items-center justify-center rounded-sm border border-white/70 px-5 text-sm font-semibold text-white no-underline transition-colors hover:bg-white/10;
+  }
+
+  .btn-line {
+    @apply inline-flex min-h-11 items-center justify-center rounded-sm bg-line px-5 text-sm font-semibold text-white no-underline;
   }
 
   .fade-up {
-    animation: fade-up 0.7s ease both;
+    animation: fade-up 0.55s ease both;
   }
 
   @keyframes fade-up {
     from {
       opacity: 0;
-      transform: translateY(12px);
+      transform: translateY(10px);
     }
     to {
       opacity: 1;

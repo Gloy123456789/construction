@@ -1,5 +1,6 @@
 import { initializeApp, getApps } from "firebase/app";
 import { getFunctions, httpsCallable } from "firebase/functions";
+import { getStorage } from "firebase/storage";
 import { siteConfig } from "@/content/config";
 
 const firebaseConfig = {
@@ -18,15 +19,24 @@ export function getFirebaseApp() {
   return getApps()[0]!;
 }
 
+/** Storage helper ready for quote image uploads once rules + env are set. */
+export function getFirebaseStorage() {
+  return getStorage(getFirebaseApp());
+}
+
 export type ContactPayload = {
   name: string;
-  email: string;
-  phone?: string;
+  phone: string;
+  email?: string;
   message: string;
   serviceType?: string;
+  budget?: string;
+  projectLocation?: string;
   locale: string;
   pagePath?: string;
+  sourcePage?: string;
   website?: string; // honeypot
+  attachmentRefs?: string[];
 };
 
 export type ContactResult = {
@@ -38,7 +48,6 @@ export async function submitContact(
   payload: ContactPayload,
 ): Promise<ContactResult> {
   if (!import.meta.env.VITE_FIREBASE_PROJECT_ID) {
-    // Local/demo fallback when Firebase env is not configured
     await new Promise((r) => setTimeout(r, 600));
     if (payload.website) return { ok: true };
     return { ok: true, message: "demo" };

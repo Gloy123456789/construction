@@ -4,49 +4,49 @@
 
 ## สถานะ
 
-**Build phase** — scaffold + หน้าหลัก + ฟอร์ม + SEO พร้อมแล้ว  
-แผน IA: [plan.md](./plan.md) · แผนเทคนิค: [TECHNICAL_PLAN.md](./TECHNICAL_PLAN.md)
+Production polish — Vite SPA บน Firebase Hosting  
+แผน IA: [plan.md](./plan.md) · เทคนิค: [TECHNICAL_PLAN.md](./TECHNICAL_PLAN.md) · Deploy: [DEPLOYMENT.md](./DEPLOYMENT.md)
+
+**สแตกจริง:** Vite 6 + React 18 + TypeScript + Tailwind 4 (ไม่ใช่ Next.js)
 
 ## พัฒนาท้องถิ่น
 
 ```bash
 npm install
 cd functions && npm install && cd ..
-cp .env.example .env   # ใส่ค่า Firebase เมื่อพร้อม
+cp .env.example .env.local
 npm run dev
 ```
 
-Build: `npm run build` · Deploy (เมื่อสั่ง): `firebase deploy`
+- Build: `npm run build`
+- Hosting: `npm run deploy:hosting` (ต้องมี Firebase auth)
+
+## Production
+
+- Live: https://black-construction.web.app
+- GitHub `main` → GitHub Actions → Firebase Hosting (เมื่อตั้ง secret แล้ว — ดู `DEPLOYMENT.md`)
 
 ## เส้นทาง URL
-
-ภาษาเริ่มต้น: `th` · สวิตช์ภาษาคง path คู่กัน
 
 | Route | หน้าที่ |
 |-------|---------|
 | `/th` · `/en` | ฮับ |
-| `/th/construction` · `/en/construction` | ก่อสร้าง (ถ้อยคำพันธมิตร) |
+| `/th/construction` · `/en/construction` | ก่อสร้าง |
 | `/th/marketing` · `/en/marketing` | การตลาด |
 | `/th/consulting` · `/en/consulting` | ที่ปรึกษา |
 | `/th/portfolio` · `/en/portfolio` | ผลงาน |
 | `/th/about` · `/en/about` | เกี่ยวกับเรา |
-| `/th/contact` · `/en/contact` | ติดต่อ |
-
-**Construction (ล็อก):** *นำเสนอบริการออกแบบและก่อสร้างโดยอาศัยความร่วมมือกับพันธมิตรที่มีความเชี่ยวชาญ*
-
-## สแตก (ห้ามเปลี่ยน)
-
-Vite 6 · React 18 · TypeScript · Tailwind 4 · react-router-dom · lucide-react · RHF+zod · Firebase Hosting + Callable (`asia-southeast1`) + Resend
+| `/th/contact` · `/en/contact` | ติดต่อ / ขอใบเสนอราคา |
+| `/th/privacy` · `/en/privacy` | นโยบายความเป็นส่วนตัว |
 
 ## เนื้อหา
 
 - Copy: `src/content/copy.th.json` / `copy.en.json`
-- Media URLs: `src/content/media.json`
-- Config: `src/content/config.ts`
+- Media: `src/content/media.json`
+- Config / trust stats: `src/content/config.ts`
 
 ## ติดต่อด่วน
 
 - โทร: 086-886-9282 (`+66868869282`)
 - ที่อยู่: 3/6 ซอยคู้บอน 44 แขวงบางชัน เขตคลองสามวา กรุงเทพมหานคร 10510
-- พื้นที่บริการ: กรุงเทพฯ · ปริมณฑล · ต่างจังหวัด
-- LINE URL / อีเมลสาธารณะ — รอจากลูกค้า (ซ่อน CTA จนกว่าจะใส่ใน `config.ts`)
+- LINE / อีเมลสาธารณะ — ใส่ใน `config.ts` เมื่อได้จากลูกค้า

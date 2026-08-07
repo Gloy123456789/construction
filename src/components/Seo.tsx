@@ -8,9 +8,7 @@ import {
   serviceJsonLd,
   type PageKind,
 } from "@/lib/seo";
-import { otherLocale } from "@/lib/i18n";
 import { siteConfig } from "@/content/config";
-import { getContent } from "@/lib/content";
 
 type Props = {
   kind: PageKind;
@@ -79,10 +77,6 @@ export function Seo({ kind, locale, crumbs }: Props) {
     upsertLink("alternate", thUrl, "th");
     upsertLink("alternate", enUrl, "en");
     upsertLink("alternate", thUrl, "x-default");
-
-    // Keep alternate locale path available for language switcher consumers
-    void otherLocale;
-    void getContent;
 
     const graphs: unknown[] = [localBusinessJsonLd(locale)];
     if (

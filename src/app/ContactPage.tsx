@@ -4,6 +4,7 @@ import { pathFor } from "@/lib/i18n";
 import { Seo } from "@/components/Seo";
 import { ContactForm } from "@/components/ContactForm";
 import { siteConfig } from "@/content/config";
+import { track } from "@/lib/analytics";
 
 export function ContactPage() {
   const locale = useLocale();
@@ -25,12 +26,12 @@ export function ContactPage() {
       />
 
       <section className="section-y">
-        <div className="container-page grid gap-10 lg:grid-cols-2">
+        <div className="container-page grid gap-10 lg:grid-cols-2 lg:gap-14">
           <div>
-            <h1 className="text-4xl font-semibold tracking-tight text-brand-800">
+            <h1 className="text-3xl font-semibold tracking-tight text-brand-800 sm:text-4xl">
               {getContent("contact.title", locale)}
             </h1>
-            <p className="mt-4 text-muted">
+            <p className="mt-4 max-w-xl text-muted">
               {getContent("contact.sub", locale)}
             </p>
 
@@ -44,6 +45,7 @@ export function ContactPage() {
                 </p>
                 <a
                   href={`tel:${siteConfig.phoneTel}`}
+                  onClick={() => track("click_call", { source: "contact_page" })}
                   className="text-lg font-semibold text-brand-700"
                 >
                   {siteConfig.phoneDisplay}
@@ -58,6 +60,7 @@ export function ContactPage() {
                     href={siteConfig.lineUrl}
                     target="_blank"
                     rel="noreferrer"
+                    onClick={() => track("click_line", { source: "contact_page" })}
                     className="text-lg font-semibold text-line"
                   >
                     {getContent("contact.channels.line.value", locale)}
@@ -97,7 +100,7 @@ export function ContactPage() {
               </p>
             </div>
 
-            <div className="mt-8 overflow-hidden rounded-lg border border-brand-100">
+            <div className="mt-8 overflow-hidden border border-brand-100">
               <iframe
                 title={getContent("contact.channels.address.label", locale)}
                 src={siteConfig.mapsEmbedUrl}
@@ -108,26 +111,8 @@ export function ContactPage() {
             </div>
           </div>
 
-          <div className="rounded-lg border border-brand-100 bg-white p-6 sm:p-8">
+          <div className="border border-brand-100 bg-white p-5 sm:p-8">
             <ContactForm />
-            <div className="mt-6 flex flex-wrap gap-3 border-t border-brand-100 pt-6">
-              <a
-                href={`tel:${siteConfig.phoneTel}`}
-                className="inline-flex min-h-11 items-center rounded-md bg-brand-600 px-4 font-semibold text-white no-underline"
-              >
-                {getContent("common.call", locale)}
-              </a>
-              {hasLine ? (
-                <a
-                  href={siteConfig.lineUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex min-h-11 items-center rounded-md bg-line px-4 font-semibold text-white no-underline"
-                >
-                  {getContent("common.line", locale)}
-                </a>
-              ) : null}
-            </div>
           </div>
         </div>
       </section>
