@@ -1,0 +1,499 @@
+{
+  "seo": {
+    "home": {
+      "title": "Black Construction | Design & Build · Marketing · Consulting",
+      "description": "BLACK CONSTRUCTION CO., LTD. — design-and-build services through specialized partners, digital marketing, and business consulting across Bangkok, Greater Bangkok, and provinces throughout Thailand."
+    },
+    "construction": {
+      "title": "Construction Services | Black Construction",
+      "description": "Design and build, extensions, renovation, built-in work, and property development through collaboration with specialized partners."
+    },
+    "marketing": {
+      "title": "Digital Marketing & Branding | Black Construction",
+      "description": "Digital Marketing, Branding, Social Media, Photography, Video, and Advertising for businesses that need clear communication and focused growth."
+    },
+    "consulting": {
+      "title": "Business & Project Consulting | Black Construction",
+      "description": "Advisory for business strategy, marketing, project development, sales planning, and project consulting."
+    },
+    "portfolio": {
+      "title": "Portfolio | Black Construction",
+      "description": "Selected work across construction, marketing, and consulting from the Black Construction team."
+    },
+    "about": {
+      "title": "About Us | Black Construction",
+      "description": "Learn about BLACK CONSTRUCTION CO., LTD. — our story, team, and working approach built on clarity and trust."
+    },
+    "contact": {
+      "title": "Contact | Black Construction",
+      "description": "Contact BLACK CONSTRUCTION CO., LTD. at 086-886-9282 or send a message through the form — serving Bangkok, Greater Bangkok, and provinces across Thailand."
+    }
+  },
+  "nav": {
+    "home": "Home",
+    "construction": "Construction",
+    "marketing": "Marketing",
+    "consulting": "Consulting",
+    "portfolio": "Portfolio",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "hero": {
+    "brand": "Black Construction",
+    "headline": "Design, build, and grow your business with clear direction",
+    "sub": "Design-and-build services through specialized partners, plus digital marketing and project consulting — covering Bangkok · Greater Bangkok · provinces across Thailand",
+    "ctaCall": "Call us",
+    "ctaLine": "Chat on LINE",
+    "ctaContact": "Get in touch"
+  },
+  "services": {
+    "title": "Our services",
+    "sub": "Three pillars that work together — explore the one that fits your needs",
+    "items": {
+      "construction": {
+        "title": "Construction",
+        "body": "Design and build, extensions, renovation, built-in work, and property development through collaboration with specialized partners."
+      },
+      "marketing": {
+        "title": "Marketing",
+        "body": "Digital Marketing, Branding, Social Media, Photography, Video, and Advertising to communicate clearly and reach the right customers."
+      },
+      "consulting": {
+        "title": "Consulting",
+        "body": "Business strategy, marketing, project development, sales planning, and project advisory for teams that need a clear path forward."
+      }
+    }
+  },
+  "trust": {
+    "title": "Why businesses start the conversation with us",
+    "sub": "We focus on clear communication, understandable scope, and coordination you can follow.",
+    "items": {
+      "1": {
+        "title": "Construction, marketing, and consulting in one place",
+        "body": "Discuss project overview, brand communication, and business direction without coordinating multiple parties from day one."
+      },
+      "2": {
+        "title": "Construction through specialized partners",
+        "body": "We present design-and-build services through collaboration with specialized partners, so scope and responsibilities stay clear."
+      },
+      "3": {
+        "title": "Broad service coverage",
+        "body": "We take on work across Bangkok · Greater Bangkok · provinces throughout Thailand, with easy contact by phone or form."
+      }
+    }
+  },
+  "portfolio": {
+    "teaser": {
+      "title": "Selected work",
+      "cta": "View all work"
+    },
+    "title": "Portfolio",
+    "sub": "Examples across construction, marketing, and consulting — each with a short challenge, what we did, and the outcome.",
+    "filter": {
+      "all": "All",
+      "construction": "Construction",
+      "marketing": "Marketing",
+      "consulting": "Consulting"
+    },
+    "items": {
+      "01": {
+        "title": "Office renovation built for daily use",
+        "summary": "Updated layout and materials for everyday work while keeping the organization’s character.",
+        "pillar": "construction",
+        "challenge": "The existing space felt tight, impractical, and outdated.",
+        "work": "Coordinated design and build through partners, sequencing work to minimize disruption.",
+        "result": "A more usable workspace with clearer brand presence and progress that stayed on plan."
+      },
+      "02": {
+        "title": "Home extension for practical living space",
+        "summary": "Added usable area that fits daily life while staying coherent with the existing structure.",
+        "pillar": "construction",
+        "challenge": "More space was needed, with concerns about structure, budget, and timeline.",
+        "work": "Assessed scope, presented options, and delivered the extension through specialized partners.",
+        "result": "New living space that works day to day, with clear scope and timeline."
+      },
+      "03": {
+        "title": "Social media system for consistent brand voice",
+        "summary": "Defined brand tone, content calendar, and visual direction the team can keep using.",
+        "pillar": "marketing",
+        "challenge": "Posting was inconsistent, messaging drifted, and results were hard to track.",
+        "work": "Set brand guidelines, planned content, and produced ready-to-use photos and video.",
+        "result": "The team communicates more consistently with a direction that can scale."
+      },
+      "04": {
+        "title": "Photo and video that explain services clearly",
+        "summary": "Created media that presents services and project atmosphere in a straightforward way.",
+        "pillar": "marketing",
+        "challenge": "Existing media did not reflect quality and made it hard to explain services to new clients.",
+        "work": "Shot photography and video, then packaged assets for the website and online channels.",
+        "result": "Ready-to-use media that helps customers understand services faster."
+      },
+      "05": {
+        "title": "Project development plan with shared language",
+        "summary": "Aligned goals, audience, and development steps so the team moved in one direction.",
+        "pillar": "consulting",
+        "challenge": "Information was scattered and the team did not share the same project goals.",
+        "work": "Analyzed the brief, built a development framework, and defined internal communication.",
+        "result": "The team gained a shared reference plan and clearer next decisions."
+      },
+      "06": {
+        "title": "Sales planning aligned with marketing",
+        "summary": "Connected the offer, value story, and customer channels into one coherent approach.",
+        "pillar": "consulting",
+        "challenge": "Strong services were hard to sell because value messaging and sales sequence were unclear.",
+        "work": "Built a sales-planning framework and marketing direction the teams could use together.",
+        "result": "Sales and marketing shared one direction and spoke with customers more precisely."
+      }
+    }
+  },
+  "ctaBand": {
+    "title": "Ready to talk about your project",
+    "body": "Share a short brief and we will help prioritize what to discuss next — construction, marketing, or consulting.",
+    "button": "Contact us"
+  },
+  "construction": {
+    "partnerStatement": "We present design-and-build services through collaboration with specialized partners.",
+    "hero": {
+      "brand": "Black Construction",
+      "headline": "Design and build with clear scope",
+      "sub": "Extensions, renovation, built-in work, and property development — delivered through specialized partner collaboration.",
+      "ctaCall": "Call to discuss",
+      "ctaLine": "Chat on LINE",
+      "ctaContact": "Send project details"
+    },
+    "problems": {
+      "1": {
+        "pain": "You want a coordinator who understands both the big picture and on-site detail.",
+        "help": "We help frame your requirements and present design-and-build work through specialized partners."
+      },
+      "2": {
+        "pain": "You worry that extension or renovation scope, budget, and timing will stay unclear.",
+        "help": "We start by aligning the brief, scope, and work sequence before moving to the next step."
+      }
+    },
+    "scope": {
+      "title": "Construction scope",
+      "sub": "Our core construction offerings, delivered through specialized partners as suited to each project.",
+      "items": {
+        "designBuild": {
+          "title": "Design & build",
+          "body": "From practical concept through construction, coordinated with partners matched to the project."
+        },
+        "extension": {
+          "title": "Extensions",
+          "body": "Added usable space that respects structure and real-world daily use."
+        },
+        "renovation": {
+          "title": "Renovation",
+          "body": "Upgrading existing spaces for better function and a clearer overall look."
+        },
+        "builtin": {
+          "title": "Built-in",
+          "body": "Built-in work that supports everyday use and the space as a whole."
+        },
+        "propertyDevelopment": {
+          "title": "Property development",
+          "body": "Supporting property development through collaboration with specialists in each relevant area."
+        }
+      }
+    },
+    "audience": {
+      "title": "Who this is for",
+      "body": "Homeowners, business owners, and project teams who need coordinated design-and-build support — including homes, factories, offices, or healthcare facilities — with clear scope and straightforward discussion."
+    },
+    "cta": {
+      "title": "Talk through your construction scope",
+      "body": "Share the space, type of work, and timing you have in mind. We will help prioritize what to consider next.",
+      "button": "Contact construction"
+    }
+  },
+  "marketing": {
+    "hero": {
+      "brand": "Black Construction",
+      "headline": "Marketing that helps your brand get understood faster",
+      "sub": "Digital Marketing, Branding, Social Media, Photography, Video, and Advertising — aligned in one direction.",
+      "ctaCall": "Call to discuss",
+      "ctaLine": "Chat on LINE",
+      "ctaContact": "Discuss marketing"
+    },
+    "problems": {
+      "1": {
+        "pain": "Your services are strong, but customers still miss what makes you different.",
+        "help": "We clarify brand tone, key messages, and photo/video assets so your offer is easier to understand."
+      },
+      "2": {
+        "pain": "Content is inconsistent, or channels run without a shared direction.",
+        "help": "We set a social and digital plan your team can keep running, with a simple way to track progress."
+      }
+    },
+    "scope": {
+      "title": "Marketing scope",
+      "sub": "Connected communication and marketing services you can use as a full set or by priority.",
+      "items": {
+        "digitalMarketing": {
+          "title": "Digital Marketing",
+          "body": "Online reach and messaging aligned with business goals."
+        },
+        "branding": {
+          "title": "Branding",
+          "body": "Tone, visual identity, and core messages that stay consistent."
+        },
+        "socialMedia": {
+          "title": "Social Media",
+          "body": "Content planning and posting direction your team can sustain."
+        },
+        "photography": {
+          "title": "Photography",
+          "body": "Photography that supports how you present services, products, or project atmosphere."
+        },
+        "video": {
+          "title": "Video",
+          "body": "Short or presentation video that explains value quickly."
+        },
+        "advertising": {
+          "title": "Advertising",
+          "body": "Ad-ready messaging and assets for the channels you choose."
+        }
+      }
+    },
+    "audience": {
+      "title": "Who this is for",
+      "body": "Businesses that need customers to understand services faster, ready-to-use media, and a marketing direction the internal team can continue."
+    },
+    "cta": {
+      "title": "Talk about your marketing goals",
+      "body": "Tell us whether you need awareness, brand tone, or ready assets for online channels.",
+      "button": "Contact marketing"
+    }
+  },
+  "consulting": {
+    "hero": {
+      "brand": "Black Construction",
+      "headline": "Consulting that keeps your team moving in one direction",
+      "sub": "Business strategy, marketing, project development, sales planning, and project advisory.",
+      "ctaCall": "Call to discuss",
+      "ctaLine": "Chat on LINE",
+      "ctaContact": "Discuss your project"
+    },
+    "problems": {
+      "1": {
+        "pain": "You have an idea or project, but goals and next steps are still unclear.",
+        "help": "We analyze the brief, shape a strategy frame, and sequence development so the team shares one reference."
+      },
+      "2": {
+        "pain": "Marketing and sales are disconnected, so customer conversations miss the point.",
+        "help": "We align marketing direction with sales planning so message, value, and channels fit together."
+      }
+    },
+    "scope": {
+      "title": "Consulting scope",
+      "sub": "Focused on business problems you can act on, with frameworks teams can reuse.",
+      "items": {
+        "businessStrategy": {
+          "title": "Business strategy",
+          "body": "Prioritize goals, strengths, and the direction worth focusing on."
+        },
+        "marketing": {
+          "title": "Marketing",
+          "body": "Connect the marketing overview to your audience and offer."
+        },
+        "projectDevelopment": {
+          "title": "Project development",
+          "body": "Frame development steps and decision points clearly."
+        },
+        "salesPlanning": {
+          "title": "Sales planning",
+          "body": "Shape a sales approach that matches value and customer channels."
+        },
+        "projectAdvisory": {
+          "title": "Project advisory",
+          "body": "A thinking partner during planning and cross-team alignment."
+        }
+      }
+    },
+    "audience": {
+      "title": "Who this is for",
+      "body": "Owners and project teams who want a clear planning frame before investing effort in the next stage."
+    },
+    "cta": {
+      "title": "Talk through your business or project challenge",
+      "body": "Share the context and where things feel stuck. We will help clarify what should be decided first.",
+      "button": "Contact consulting"
+    }
+  },
+  "testimonials": {
+    "1": {
+      "quote": "The scope became clear quickly. We got options that fit budget and timing, without feeling pushed to decide.",
+      "name": "Attapon",
+      "role": "Office space owner",
+      "pillar": "construction"
+    },
+    "2": {
+      "quote": "We received both a communication direction and a media set the team could keep using. Social finally had a clear path.",
+      "name": "Pimjai",
+      "role": "Marketing lead, service business",
+      "pillar": "marketing"
+    }
+  },
+  "about": {
+    "story": {
+      "title": "Our story",
+      "body": "Black Construction was built as a straightforward starting point for design-and-build work through specialized partners, as well as marketing and project consulting for businesses that need clear direction."
+    },
+    "team": {
+      "title": "Our team",
+      "body": "We focus on listening to the brief, clarifying scope, and coordinating so every side moves in the same direction — whether the work is construction, brand communication, or project planning."
+    },
+    "philosophy": {
+      "title": "How we work",
+      "body": "We believe trust comes from clarity — stating scope plainly, avoiding overclaims, and choosing an approach that fits each project. Construction is presented through collaboration with specialized partners."
+    },
+    "cta": {
+      "title": "Want to know us better",
+      "body": "We are happy to discuss your brief and recommend the most suitable service.",
+      "button": "Contact us"
+    }
+  },
+  "contact": {
+    "title": "Contact us",
+    "sub": "Call, message, or use the form. We will help prioritize what to discuss next.",
+    "form": {
+      "name": {
+        "label": "Name",
+        "placeholder": "Your name"
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "name@email.com"
+      },
+      "phone": {
+        "label": "Phone",
+        "placeholder": "08x-xxx-xxxx"
+      },
+      "message": {
+        "label": "Message",
+        "placeholder": "Share your brief or question"
+      },
+      "service": {
+        "label": "Service of interest",
+        "placeholder": "Select a service",
+        "options": {
+          "general": "General inquiry",
+          "construction": "Construction",
+          "marketing": "Marketing",
+          "consulting": "Consulting"
+        }
+      },
+      "submit": "Send message",
+      "submitting": "Sending...",
+      "success": "Message sent. We will get back to you soon.",
+      "error": "Something went wrong. Please try again or call us directly.",
+      "honeypotLabel": "Leave this field empty",
+      "errors": {
+        "nameRequired": "Please enter your name",
+        "emailRequired": "Please enter your email",
+        "emailInvalid": "Please enter a valid email",
+        "messageRequired": "Please enter a message"
+      }
+    },
+    "channels": {
+      "title": "Contact channels",
+      "phone": {
+        "label": "Phone",
+        "value": "086-886-9282"
+      },
+      "line": {
+        "label": "LINE",
+        "value": "Chat on LINE"
+      },
+      "email": {
+        "label": "Email",
+        "value": "Email us"
+      },
+      "address": {
+        "label": "Address",
+        "value": "3/6 Soi Kubon 44, Bang Chan, Khlong Sam Wa, Bangkok 10510, Thailand"
+      },
+      "serviceArea": {
+        "label": "Service area",
+        "value": "Bangkok · Greater Bangkok · Provinces across Thailand"
+      }
+    }
+  },
+  "footer": {
+    "brand": "Black Construction",
+    "legalName": "BLACK CONSTRUCTION CO., LTD.",
+    "tagline": "Design & build · Marketing · Consulting",
+    "address": "3/6 Soi Kubon 44, Bang Chan, Khlong Sam Wa, Bangkok 10510, Thailand",
+    "phone": "086-886-9282",
+    "serviceArea": "Bangkok · Greater Bangkok · Provinces across Thailand",
+    "navTitle": "Menu",
+    "servicesTitle": "Services",
+    "contactTitle": "Contact",
+    "rights": "All rights reserved",
+    "privacyNote": "We use contact details only to respond to your inquiry"
+  },
+  "mobileBar": {
+    "call": "Call",
+    "line": "LINE"
+  },
+  "a11y": {
+    "skipToContent": "Skip to main content",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "langSwitch": "Switch language"
+  },
+  "media": {
+    "home": {
+      "hero": {
+        "alt": "Atmosphere of construction work and project coordination by Black Construction"
+      }
+    },
+    "portfolio": {
+      "01": {
+        "alt": "Office renovation portfolio image"
+      },
+      "02": {
+        "alt": "Home extension portfolio image"
+      },
+      "03": {
+        "alt": "Social media and brand content sample image"
+      },
+      "04": {
+        "alt": "Service photography and video sample image"
+      },
+      "05": {
+        "alt": "Project development planning illustration"
+      },
+      "06": {
+        "alt": "Sales planning and marketing illustration"
+      }
+    },
+    "about": {
+      "team": {
+        "alt": "Black Construction team photo"
+      }
+    },
+    "global": {
+      "logo": {
+        "alt": "BLACK CONSTRUCTION CO., LTD. logo"
+      },
+      "og": {
+        "alt": "Black Construction — design & build, marketing, and consulting"
+      }
+    }
+  },
+  "notFound": {
+    "title": "Page not found",
+    "body": "This page may have moved or does not exist. Return home or choose a service from the menu.",
+    "cta": "Back to home"
+  },
+  "common": {
+    "learnMore": "Learn more",
+    "contactUs": "Contact us",
+    "call": "Call",
+    "line": "LINE",
+    "backHome": "Back to home",
+    "relatedServices": "Related services"
+  }
+}
